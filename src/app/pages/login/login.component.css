@@ -1,0 +1,36 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  
+:host {
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  .error{
+    color: crimson;
+  }

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/_model/Usuario';
+import { UsuarioDocente } from 'src/app/_model/UsuarioDocente';
+import { UsuarioAcudiente } from 'src/app/_model/UsuarioAcudiente';
 import { UsuarioService } from 'src/app/_service/usuario.service'
+import { ActivatedRoute } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.component.html',
@@ -8,18 +13,41 @@ import { UsuarioService } from 'src/app/_service/usuario.service'
 })
 export class RegistrarComponent implements OnInit {
   private datosUser = new Usuario;
-  constructor(private usuarioService: UsuarioService) { }
+ 
+  private datosAcudiente = new UsuarioAcudiente;
+  public form: FormGroup;
+  hide = true;
+  //public tipoU:number =this.rutaActiva.snapshot.params.idU;
+
+  constructor(private usuarioService: UsuarioService,
+    private formBuilder: FormBuilder,
+    private rutaActiva: ActivatedRoute) { 
+      this.formAcudiente();
+      
+    }
 
   ngOnInit(): void {
+      this.formAcudiente();
+    
+  }
 
-    this.datosUser.nombre_usuario = "Tatan";
-    this.datosUser.apellido_usuario = "Cardenas";
-    this.datosUser.numero_documento = "100356560928";
-    this.datosUser.clave_usuario = "123456789";
-    this.datosUser.tipo_usuario_id = 1;
-    this.usuarioService.registrarUser(this.datosUser).subscribe( data =>{
-      console.log(data);
-    })
+  private formAcudiente() {
+    
+    this.form = this.formBuilder.group({
+      
+      nombre: [this.datosAcudiente.nombre_acudiente, [Validators.required,Validators.maxLength(20), Validators.minLength(3),Validators.pattern(/[A-Za-z]/)]],
+      apellido: [this.datosAcudiente.apellido_acudiente, [Validators.required,Validators.minLength(4),, Validators.maxLength(20), Validators.pattern(/[A-Za-z]/)]],
+      documento: [this.datosAcudiente.cedula, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern(/[0-9]/)]],
+      clave: [this.datosAcudiente.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      correo: [this.datosAcudiente.correo, [Validators.required, Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/)]]
+    });
+  }
+
+  registrar(any):void {   
+      this.datosAcudiente = this.form.value;
+      this.usuarioService.registrarAcudiente(this.datosAcudiente).subscribe(data =>{
+        console.log(data);
+      });
   }
 
 }

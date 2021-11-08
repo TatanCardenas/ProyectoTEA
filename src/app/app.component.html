@@ -1,4 +1,56 @@
-<button mat-raised-button color="primary" [routerLink]="['/registro']">Registrarse</button>
-<div>
-  <router-outlet></router-outlet>
+<div class="example-container">
+
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
+      <mat-icon *ngIf="drawer.opened">close</mat-icon>
+    </button>
+    <h1 class="example-app-name">¡Comuniquemos!</h1>
+
+    <span class="example-spacer"></span>
+    <button mat-button >¿Quienes somos?</button>
+    <button mat-raised-button target="_blank" [matMenuTriggerFor]="menu">Registrese</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['registrarD']">Como Docente</button>
+      <button mat-menu-item [routerLink]="['registrarA']">Como Acudiente</button>
+      <button mat-menu-item [routerLink]="['registrarP']">Como Niño</button>
+    </mat-menu>
+    <div [hidden]="!flagSesion">
+      <button [disabled]="!flagSesion" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/perfil">
+        <mat-icon>account_box</mat-icon>
+        <span>Mi Perfil</span>
+      </button>
+      <button mat-menu-item (click)="cerrarSession()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-drawer-container class="example-sidenav-content" autosize>
+    <mat-drawer #drawer style="width: 200px" mode="side">
+
+      <div>
+        <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/login']">
+          <mat-icon>manage accounts</mat-icon>
+          <span>Ingresar</span>
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+    </div>
+    <p>
+
+  </mat-drawer-container>
+
 </div>
