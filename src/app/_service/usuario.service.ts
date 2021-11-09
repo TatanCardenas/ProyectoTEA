@@ -11,7 +11,7 @@ import { UsuarioPaciente } from '../_model/UsuarioPaciente';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private url : string = `${environment.HOST}/users`;
+  private url : string = `${environment.HOST}users`;
   tipoU= new Subject<boolean>();
 
   constructor(private http: HttpClient) { }

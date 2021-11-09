@@ -30,7 +30,6 @@ export class RegistrarDocenteComponent implements OnInit {
       clave: [this.datosDocente.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       correo: [this.datosDocente.correo, [Validators.required, Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/)]],
       nit: [this.datosDocente.nit, [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern(/[0-9]/)]],
-      institucion: [this.datosDocente.institucion_id, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
     });
   }
 

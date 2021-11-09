@@ -71,10 +71,10 @@
                   Se requiere este campo
                 </p>
                 <p *ngIf="form.get('nit').hasError('maxlength')">
-                  El apellido no deberia ser tan extenso
+                  El nit no debe ser tan extenso
                 </p>
                 <p *ngIf="form.get('nit').hasError('minlength')">
-                  El apellido debe contener mas letras
+                  Numero incorrecto de nit
                 </p>
     
               </mat-hint>

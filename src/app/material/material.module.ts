@@ -12,6 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSidenavModule,
     MatDividerModule,
     MatSliderModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
     
   ], exports:[
     MatButtonModule,
@@ -41,7 +44,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSidenavModule,
     MatDividerModule,
     MatSliderModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }
