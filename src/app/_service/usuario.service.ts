@@ -5,6 +5,7 @@ import { Usuario } from '../_model/Usuario';
 import { Subject } from 'rxjs';
 import { UsuarioAcudiente } from '../_model/UsuarioAcudiente';
 import { UsuarioDocente } from '../_model/UsuarioDocente';
+import { UsuarioPaciente } from '../_model/UsuarioPaciente';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class UsuarioService {
   public registrarDocente(user: UsuarioDocente){
     return this.http.post(`${this.url}/PostAgregarDocente`,user);
   }
+  public registrarPaciente(user: UsuarioPaciente){
+    return this.http.post(`${this.url}/PostAgregarPaciente`,user);
+  }
+
 
 }

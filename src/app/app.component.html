@@ -31,12 +31,10 @@
         <span>Cerrar Sesión</span>
       </button>
     </mat-menu>
-
   </mat-toolbar>
 
   <mat-drawer-container class="example-sidenav-content" autosize>
     <mat-drawer #drawer style="width: 200px" mode="side">
-
       <div>
         <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/login']">
           <mat-icon>manage accounts</mat-icon>
@@ -44,8 +42,28 @@
         </button>
         <mat-divider></mat-divider>
       </div>
+      <div>
+        <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
+          <mat-icon>manage accounts</mat-icon>
+          <span>Registrar Estudiante</span>
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
+          <mat-icon>face</mat-icon>
+          <span>Estudiantes</span>
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
+          <mat-icon>fact_check</mat-icon>
+          <span>Ver resultados</span>
+        </button>
+        <mat-divider></mat-divider>
+      </div>
     </mat-drawer>
-
     <div class="example-sidenav-content">
       <router-outlet></router-outlet>
     </div>
