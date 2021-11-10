@@ -10,18 +10,18 @@
         <div class="prueba">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label class="textC">Nombre</mat-label>
-            <input matInput placeholder="Juan David" formControlName="nombre" class="formu">
-            <mat-hint *ngIf="form.get('nombre').errors && form.get('nombre').touched">
-              <p *ngIf="form.get('nombre').hasError('required')">
+            <input matInput placeholder="Juan David" formControlName="nombre_docente" class="formu">
+            <mat-hint *ngIf="form.get('nombre_docente').errors && form.get('nombre_docente').touched">
+              <p *ngIf="form.get('nombre_docente').hasError('required')">
                 Se requiere este campo
               </p>
-              <p *ngIf="form.get('nombre').hasError('maxlength')">
+              <p *ngIf="form.get('nombre_docente').hasError('maxlength')">
                 Nombre demasiado largo
               </p>
-              <p *ngIf="form.get('nombre').hasError('minlength')">
+              <p *ngIf="form.get('nombre_docente').hasError('minlength')">
                 Nombre demasiado corto
               </p>
-              <p *ngIf="form.get('nombre').hasError('pattern')">
+              <p *ngIf="form.get('nombre_docente').hasError('pattern')">
                 El nombre no puede ocntener numeros ni signos
               </p>
             </mat-hint>
@@ -30,15 +30,15 @@
         <div class="prueba">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label>Apellido</mat-label>
-            <input matInput placeholder="Castro Lopez" formControlName="apellido" class="formu">
-            <mat-hint *ngIf="form.get('apellido').errors && form.get('apellido').touched">
-              <p *ngIf="form.get('apellido').hasError('required')">
+            <input matInput placeholder="Castro Lopez" formControlName="apellido_docente" class="formu">
+            <mat-hint *ngIf="form.get('apellido_docente').errors && form.get('apellido_docente').touched">
+              <p *ngIf="form.get('apellido_docente').hasError('required')">
                 Se requiere este campo
               </p>
-              <p *ngIf="form.get('apellido').hasError('maxlength')">
+              <p *ngIf="form.get('apellido_docente').hasError('maxlength')">
                 El apellido no deberia ser tan extenso
               </p>
-              <p *ngIf="form.get('apellido').hasError('minlength')">
+              <p *ngIf="form.get('apellido_docente').hasError('minlength')">
                 El apellido debe contener mas letras
               </p>
   
@@ -48,15 +48,15 @@
         <div class="prueba">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label class="formu">Documento</mat-label>
-            <input matInput placeholder="1010101012" formControlName="documento" class="formu">
-            <mat-hint *ngIf="form.get('documento').errors && form.get('documento').touched">
-              <p *ngIf="form.get('documento').hasError('required')">
+            <input matInput placeholder="1010101012" formControlName="cedula" class="formu">
+            <mat-hint *ngIf="form.get('cedula').errors && form.get('cedula').touched">
+              <p *ngIf="form.get('cedula').hasError('required')">
                 Se requiere este campo
               </p>
-              <p *ngIf="form.get('documento').hasError('minlength')">
+              <p *ngIf="form.get('cedula').hasError('minlength')">
                 Documento no valido, faltan numeros
               </p>
-              <p *ngIf="form.get('documento').hasError('maxlength')">
+              <p *ngIf="form.get('cedula').hasError('maxlength')">
                 Documento no valido, muy largo
               </p>
             </mat-hint>

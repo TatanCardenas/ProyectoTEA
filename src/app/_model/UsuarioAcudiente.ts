@@ -3,5 +3,5 @@ export class UsuarioAcudiente {
     apellido_acudiente :  String;
     cedula :  String;
     clave :  String;
-    correo: String;;
+    correo: String;
 }

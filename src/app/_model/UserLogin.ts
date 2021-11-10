@@ -1,5 +1,6 @@
 export class UserLogin{
-    user: string;
-    pass: string;
-    session: "activate";
+    numero_documento: string;
+    clave_usuario: string;
+    sesion: string;
+
 }

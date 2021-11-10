@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   usuario: string;
   password: string;
-  private user = new UserLogin;
+  private usser = new UserLogin;
   hide = true;
 
   formul: FormGroup;
@@ -30,19 +30,20 @@ export class LoginComponent implements OnInit {
   private buildFrom() {
     
     this.formul = this.formBuilder.group({    
-      user: [this.usuario, [Validators.required,Validators.maxLength(15), Validators.minLength(3)]],
-      pass: [this.password, [Validators.required,Validators.minLength(4), Validators.maxLength(15)]],
+      numero_documento: [this.usser.numero_documento, [Validators.required,Validators.maxLength(15), Validators.minLength(3)]],
+      clave_usuario: [this.usser.clave_usuario, [Validators.required,Validators.minLength(4), Validators.maxLength(15)]],
     });
   }
 
   ingresar(event: Event){
-    this.user = this.formul.value;
-    this.loginService.login(this.user).subscribe(data =>{
+    this.usser = this.formul.value;
+    this.usser.sesion = "Hola";
+    console.log("User: "+ this.usser.numero_documento + "Sesion: "+this.usser.sesion);
+    this.loginService.login(this.usser).subscribe(data =>{
       console.log(data);
-      this.openSnackBar("Login correcto");
-       sessionStorage.setItem(environment.TOKEN, data.access_token);
+       sessionStorage.setItem(environment.TOKEN, data.Token);
       this.loginService.paginaReactiva.next(true);
-      this.router.navigate(['']);
+      this.router.navigate(['inicio']);
     }, err => {
       this.openSnackBar(err.error.message)
       console.log("Algo salio mal :(");

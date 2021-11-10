@@ -35,9 +35,9 @@ export class RegistrarComponent implements OnInit {
     
     this.form = this.formBuilder.group({
       
-      nombre: [this.datosAcudiente.nombre_acudiente, [Validators.required,Validators.maxLength(20), Validators.minLength(3),Validators.pattern(/[A-Za-z]/)]],
-      apellido: [this.datosAcudiente.apellido_acudiente, [Validators.required,Validators.minLength(4),, Validators.maxLength(20), Validators.pattern(/[A-Za-z]/)]],
-      documento: [this.datosAcudiente.cedula, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern(/[0-9]/)]],
+      nombre_acudiente: [this.datosAcudiente.nombre_acudiente, [Validators.required,Validators.maxLength(20), Validators.minLength(3),Validators.pattern(/[A-Za-z]/)]],
+      apellido_acudiente: [this.datosAcudiente.apellido_acudiente, [Validators.required,Validators.minLength(4),, Validators.maxLength(20), Validators.pattern(/[A-Za-z]/)]],
+      cedula: [this.datosAcudiente.cedula, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern(/[0-9]/)]],
       clave: [this.datosAcudiente.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       correo: [this.datosAcudiente.correo, [Validators.required, Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/)]]
     });

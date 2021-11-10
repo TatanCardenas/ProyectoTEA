@@ -18,7 +18,7 @@ export class UsuarioService {
 
   //Registro Acudiente, Docente y Niño
   public registrarAcudiente(user: UsuarioAcudiente){
-    return this.http.post(`${this.url}/PostUserAcudiente`,user);
+    return this.http.post<any>(`${this.url}/PostAgregarAcudiente`,user);
   }
   public registrarDocente(user: UsuarioDocente){
     return this.http.post(`${this.url}/PostAgregarDocente`,user);
@@ -26,6 +26,8 @@ export class UsuarioService {
   public registrarPaciente(user: UsuarioPaciente){
     return this.http.post(`${this.url}/PostAgregarPaciente`,user);
   }
-
+  public datosDocente(documento: string){
+    return this.http.get<UsuarioDocente>(`${this.url}/GetDatosDocente?cedulaE=${documento}`);
+  }
 
 }

@@ -14,8 +14,8 @@ import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-
 import { MatInputModule } from '@angular/material/input';
 import { RegistrarDocenteComponent } from './pages/registrar-docente/registrar-docente.component';
 import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar-paciente.component';
-
-
+import { JwtModule } from '@auth0/angular-jwt';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar
     LoginComponent,
     RegistrarDocenteComponent,
     RegistrarPacienteComponent,
+    InicioComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar
     MaterialModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    JwtModule
     
   ],
   providers: [],

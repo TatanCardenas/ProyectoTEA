@@ -6,15 +6,15 @@
   
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="user" />
-              <mat-hint *ngIf="formul.get('user').errors && formul.get('user').touched">
-                <p *ngIf="formul.get('user').hasError('required')">
+              <input type="text" matInput placeholder="Username" formControlName="numero_documento" />
+              <mat-hint *ngIf="formul.get('numero_documento').errors && formul.get('numero_documento').touched">
+                <p *ngIf="formul.get('numero_documento').hasError('required')">
                   *Se requiere este campo
                 </p>
-                <p *ngIf="formul.get('user').hasError('minlength')">
+                <p *ngIf="formul.get('numero_documento').hasError('minlength')">
                   *Minimo 3 caracteres
                 </p>
-                <p *ngIf="formul.get('user').hasError('maxlength')">
+                <p *ngIf="formul.get('numero_documento').hasError('maxlength')">
                   *Maximo 15 caracteres
                 </p>
               </mat-hint>
@@ -22,19 +22,19 @@
           </p>
           <p>
             <mat-form-field>
-              <input matInput placeholder="Password" formControlName="pass" [type]="hide ? 'password' : 'text'">
+              <input matInput placeholder="Password" formControlName="clave_usuario" [type]="hide ? 'password' : 'text'">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-              <mat-hint *ngIf="formul.get('pass').errors && formul.get('pass').touched">
-                <p *ngIf="formul.get('pass').hasError('required')">
+              <mat-hint *ngIf="formul.get('clave_usuario').errors && formul.get('clave_usuario').touched">
+                <p *ngIf="formul.get('clave_usuario').hasError('required')">
                   *Se requiere este campo
                 </p>
-                <p *ngIf="formul.get('pass').hasError('minlength')">
+                <p *ngIf="formul.get('clave_usuario').hasError('minlength')">
                   *Minimo 3 caracteres
                 </p>
-                <p *ngIf="formul.get('pass').hasError('maxlength')">
+                <p *ngIf="formul.get('clave_usuario').hasError('maxlength')">
                   *Maximo 15 caracteres
                 </p>
               </mat-hint>
