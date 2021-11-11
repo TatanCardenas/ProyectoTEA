@@ -1,0 +1,120 @@
+html{
+    font-size: 15px;
+  }
+  
+  .inicio {
+    background: #f2f2f2;
+  }
+  .header {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+  .header img {
+    width: 100%;
+    opacity:0.7;
+  }
+  .header p {
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 50px;
+    color: #ffffff;
+  }
+  .txt-principal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(10%, -80%);
+  }
+  
+  .opciones-ingreso {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    text-align: center;
+  }
+  
+  .opciones-ingreso .elementos {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .opciones-ingreso h3 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #333333;
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+  }
+  
+  .opciones-ingreso a {
+    text-align: center;
+    width: 80%;
+    height: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: #3F51B5;
+    color: #ffffff;
+  }
+  
+  .opciones-ingreso #usuario {
+    float: left;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .opciones-ingreso #conductor {
+    float: left;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .opciones-ingreso #admin {
+    float: left;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  
+  .info {
+    text-align: center;
+  }
+  
+  .info h3 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 48px;
+    font-weight: bold;
+  }
+  
+  .info p {
+    padding-top: 50px;
+    padding-bottom: 80px;
+    line-height: 40px;
+    font-size: x-large;
+    font-weight: 400;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+  
+  
+  #usuario a{
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 12px;
+  }
+  
+  #conductor a{
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 12px;
+  }
+  
+  #admin a{
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 12px;
+  }
+  
