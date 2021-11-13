@@ -9,8 +9,8 @@
         </div>
         <mat-form-field appearance="fill">
             <textarea matInput style="color: black;">{{speech.text}}</textarea>
-            <mat-hint *ngIf="speech.bandera" >Correcto, bien hecho</mat-hint>
-            <mat-hint *ngIf="!speech.bandera">Repite nuevamente</mat-hint>
+            <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
+            <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
         </mat-form-field>
       </div>
     </div>

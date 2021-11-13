@@ -12,7 +12,7 @@ export class SpeechService {
   recognition = new webkitSpeechRecognition();
   isStoppedSpeechRecog = false;
   text = '';
-  bandera = false;
+  bandera = 0;
   tempWords: any;
 
   constructor(private router: Router) { }
@@ -44,11 +44,12 @@ export class SpeechService {
         if (frase.toLocaleLowerCase() == fraseAdecir.toLocaleLowerCase()) {
           this.stop();
           this.text = frase;
-          this.bandera=true;
+          this.bandera=1;
           this.error = true;
         } else {
           this.text = "El mensaje es incorrecto repitelo frase dicha";
           this.stop();
+          this.bandera=2;
           this.error = true;
         }
       }
