@@ -1,13 +1,14 @@
-<div class="container text-center mt-5">
+<link rel="StyleSheet" href="actividad.component.css" type="text/css" media="sceen">
+<div id="containerPrincipal" class="container text-center mt-5">
     <div class="card text-white bg-dark mb-3">
-      <div class="card-header text-uppercase">Repite la siguiente oración:<br>
+      <div id="texto" class="card-header text-uppercase">Repite la siguiente oración:<br>
         {{fraseADecir}}
     </div>
       <div class="card-body">
         <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
         <div class="card bg-light mt-2">
         </div>
-        <mat-form-field appearance="fill">
+        <mat-form-field id="textArea" appearance="fill">
             <textarea matInput style="color: black;">{{speech.text}}</textarea>
             <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
             <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
