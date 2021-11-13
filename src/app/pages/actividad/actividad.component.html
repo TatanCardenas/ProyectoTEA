@@ -1,0 +1,18 @@
+<div class="container text-center mt-5">
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-header text-uppercase">Repite la siguiente oración:<br>
+        {{fraseADecir}}
+    </div>
+      <div class="card-body">
+        <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
+        <div class="card bg-light mt-2">
+        </div>
+        <mat-form-field appearance="fill">
+            <textarea matInput style="color: black;">{{speech.text}}</textarea>
+            <mat-hint *ngIf="speech.bandera" >Correcto, bien hecho</mat-hint>
+            <mat-hint *ngIf="!speech.bandera">Repite nuevamente</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  

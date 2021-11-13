@@ -1,0 +1,68 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+declare const webkitSpeechRecognition: any;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SpeechService {
+
+  error = true;
+
+  recognition = new webkitSpeechRecognition();
+  isStoppedSpeechRecog = false;
+  text = '';
+  bandera = false;
+  tempWords: any;
+
+  constructor(private router: Router) { }
+
+  init(): void {
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'es-ES';
+
+    this.recognition.addEventListener('result', (e: any) => {
+      const transcript = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      this.tempWords = transcript;
+    });
+  }
+
+  start(fraseAdecir:String): void {
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    this.recognition.addEventListener('end', () => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+      } else {
+        this.wordConcat();
+        this.recognition.start();
+        var frase = this.text.trim();
+        console.log("entrada" + frase);
+        if (frase.toLocaleLowerCase() == fraseAdecir.toLocaleLowerCase()) {
+          this.stop();
+          this.text = frase;
+          this.bandera=true;
+          this.error = true;
+        } else {
+          this.text = "El mensaje es incorrecto repitelo frase dicha";
+          this.stop();
+          this.error = true;
+        }
+      }
+    });
+  }
+  stop(): void {
+    this.text = '';
+    this.recognition.stop();
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat();
+  }
+
+  wordConcat(): void {
+    this.text = this.text + this.tempWords + ' ';
+    this.tempWords = ' ';
+  }
+}
