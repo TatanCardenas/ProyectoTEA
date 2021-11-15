@@ -17,6 +17,7 @@ import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
+import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
     RegistrarPacienteComponent,
     InicioComponent,
     ActividadComponent,
+    EnlazarNinoComponent,
   ],
   imports: [
     BrowserModule,
