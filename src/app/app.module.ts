@@ -18,6 +18,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.component';
+import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enlace-con-el-paciente.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.componen
     InicioComponent,
     ActividadComponent,
     EnlazarNinoComponent,
+    EnlaceConElPacienteComponent,
   ],
   imports: [
     BrowserModule,

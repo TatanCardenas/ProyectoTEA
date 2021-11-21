@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <table mat-table [dataSource]="pacientesTabla" matSort  class="mat-elevation-z8">
+            <caption>PACIENTES A TU CARGO</caption>
+            <ng-container matColumnDef="Nombre Paciente">
+              <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_paciente}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Apellido Paciente">
+              <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido_paciente}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Grado Autismo">
+                <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
+                <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Edad">
+                <th mat-header-cell *matHeaderCellDef> Edad </th>
+                <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+    <div>
+        <form [formGroup]="formDiscoAgregar" (ngSubmit)="agregarEnlace()">
+            <mat-form-field class="ancho" appearance="fill">
+                <mat-label>Niño A Enlazar</mat-label>
+                <select matNativeControl formControlName="PacienteAEnlazar">
+                    <option label="--Seleccione un el formato--"></option>
+                    <option *ngFor="let paciente of pacientesPorEnlazar" [value]="paciente.numero_documento" >{{paciente.numero_documento}}</option>
+                </select>
+            </mat-form-field>
+            <br>
+            <button class="ancho" mat-raised-button mat-button color="primary" >Enlazar</button>
+        </form>
+    </div>
+</div>
