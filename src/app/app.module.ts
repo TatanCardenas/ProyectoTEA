@@ -19,6 +19,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.component';
 import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enlace-con-el-paciente.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enl
     ActividadComponent,
     EnlazarNinoComponent,
     EnlaceConElPacienteComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,

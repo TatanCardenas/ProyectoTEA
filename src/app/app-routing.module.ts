@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrarDocenteComponent } from './pages/registrar-docente/registrar-docente.component';
 import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar-paciente.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   {path: 'enlazarNiño/:id', component: EnlaceConElPacienteComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'registrarD', component: RegistrarDocenteComponent},
   {path: 'registrarP', component: RegistrarPacienteComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'perfil', component: PerfilComponent},
   {path: 'actividad', component: ActividadComponent},
   {path: '', component: InicioComponent}
 ];

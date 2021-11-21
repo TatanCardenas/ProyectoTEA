@@ -1,0 +1,51 @@
+<div>
+  <button mat-fab color="accent" style="float: left; margin-left: 10px;" [routerLink]="['/inicio']">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<p class="titulo">Perfil de {{this.nombre}}</p>
+<div class="header">
+  <img src="./assets/image/backgroundDocente.jpg" alt="">
+  <div>
+    <form [formGroup]="form" class="form-inline">
+      <div class="formularioI">
+
+        <div class="prueba">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label class="textC">Nombre</mat-label>
+            <input matInput placeholder="Juan David" formControlName="nombre_docente" class="formu" readonly>
+          </mat-form-field>
+        </div>
+        <div class="prueba">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>Apellido</mat-label>
+            <input matInput placeholder="Castro Lopez" formControlName="apellido_docente" class="formu" readonly>
+          </mat-form-field>
+        </div>
+        <div class="prueba">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label class="formu">Documento</mat-label>
+            <input matInput placeholder="1010101012" formControlName="cedula" class="formu" readonly>
+          </mat-form-field>
+        </div>
+        <div class="prueba">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>NIT</mat-label>
+            <input matInput placeholder="1111111" formControlName="nit" class="formu" readonly>
+          </mat-form-field>
+        </div>
+
+        <div class="prueba">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="abc@gmail.com" formControlName="correo" class="formu" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+
+</div>

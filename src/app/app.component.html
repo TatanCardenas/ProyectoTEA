@@ -53,6 +53,15 @@
       </div>
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1">
+          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/inicio']">
+            <mat-icon>manage accounts</mat-icon>
+            <span>Inicio</span>
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+      <div [hidden]="!flagSesion">
+        <div *ngIf="rol==1">
           <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
             <mat-icon>manage accounts</mat-icon>
             <span>Registrar Estudiante</span>
@@ -73,7 +82,7 @@
         <div>
           <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/1">
             <mat-icon>timeline</mat-icon>
-            <span>EnlazarEstudiante</span>
+            <span>Enlazar Estudiante</span>
           </a>
           <mat-divider></mat-divider>
         </div>
@@ -82,16 +91,25 @@
         <div>
           <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/2">
             <mat-icon>timeline</mat-icon>
-            <span>EnlazarEstudiante</span>
+            <span>Enlazar Estudiante</span>
           </a>
           <mat-divider></mat-divider>
         </div>
       </div>
       <div [hidden]="!flagSesion">
         <div>
-          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
+          <button mat-menu-item [disabled]="true" (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
             <mat-icon>fact_check</mat-icon>
             <span>Ver resultados</span>
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+      <div [hidden]="!flagSesion">
+        <div *ngIf="rol==1">
+          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/actividad']">
+            <mat-icon>keyboard_voice</mat-icon>
+            <span>Actividad Demo</span>
           </button>
           <mat-divider></mat-divider>
         </div>

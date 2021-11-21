@@ -14,6 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -33,7 +34,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSliderModule,
     MatCardModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatGridListModule
     
   ], exports:[
     MatButtonModule,
@@ -48,7 +50,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSliderModule,
     MatCardModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }
