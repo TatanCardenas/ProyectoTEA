@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UsuarioDocente } from 'src/app/_model/UsuarioDocente';
 import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente';
+import { UsuarioService } from 'src/app/_service/usuario.service';
+import { environment } from 'src/environments/environment';
 import { PacienteService } from '../../_service/paciente.service';
 
 @Component({
@@ -12,19 +16,27 @@ import { PacienteService } from '../../_service/paciente.service';
 export class EnlaceConElPacienteComponent implements OnInit {
 
   constructor(private serivcioPaciente:PacienteService,
-    private route:ActivatedRoute,) { }
-
+    private route:ActivatedRoute,
+    private usuarioService: UsuarioService) { }
+    
     pacientesTabla: UsuarioPaciente[] = [];
-  pacientesPorEnlazar: UsuarioPaciente[];
-  pacieteAux:UsuarioPaciente[]=[];
-  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad'];
-  public id: number = this.route.snapshot.params.id;
-  formDiscoAgregar = new FormGroup({
-    PacienteAEnlazar: new FormControl('',Validators.required)
-  });
+    pacientesPorEnlazar: UsuarioPaciente[];
+    pacieteAux:UsuarioPaciente[]=[];
+    estudianteAEnlazar:UsuarioPaciente;
+    public usuario: String;
+    public flagRol: boolean = false;
+    public rol: number;
+    private user: string;
+
+    displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Eliminar Enlace'];
+    public id: number = this.route.snapshot.params.id;
+    formEnlaceAgregar = new FormGroup({
+      PacienteAEnlazar: new FormControl('',Validators.required)
+    });
 
   async ngOnInit(): Promise<void> {
     await this.delay(2000);
+    this.datos();
     if(this.id==1){
       this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
         this.pacientesPorEnlazar=paciente;
@@ -32,7 +44,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
       this.serivcioPaciente.getPacientesEnlazados(this.id).subscribe((paciente: UsuarioPaciente[])=>{
         if(paciente!=null){
           for(var i=0;i<paciente.length;i++){
-            if(paciente[i].cedula_docente=="100015686"){
+            if(paciente[i].cedula_docente==this.user){
               this.pacieteAux.push(paciente[i]);
             }
             this.pacientesTabla = this.pacieteAux;
@@ -41,23 +53,26 @@ export class EnlaceConElPacienteComponent implements OnInit {
       })
     }else if(this.id==2){
       this.serivcioPaciente.getPacientesEnlazados(this.id).subscribe((paciente: UsuarioPaciente[])=>{
-        //console.log("hola "+paciente[1].nombre_paciente);
-        this.pacientesTabla=paciente;
+        if(paciente!=null){
+          for(var i=0;i<paciente.length;i++){
+            if(paciente[i].cedula_acudiente==this.user){
+              this.pacieteAux.push(paciente[i]);
+            }
+            this.pacientesTabla = this.pacieteAux;
+          }
+        }
       });
+      await this.delay(1000);
       this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
-        //if(this.pacientesTabla==null){
+        if(this.pacientesTabla[0]==undefined){
+          console.log("entro a el if");
           this.pacientesPorEnlazar=paciente;
-        //}else{
-          //this.pacientesPorEnlazar=null;
-        //}
+        }else{
+          console.log("entro a else");
+          this.pacientesPorEnlazar=null;
+        }
       });
     }
-    /*this.servicioArtista.getArtisic().subscribe((cantante :Cantante[])=>{
-      this.cantantes = cantante;
-    });
-    this.servicioDiscos.getDiscos().subscribe((disco :Discos[])=>{
-      this.discos = disco;
-    });*/
   }
 
   private delay(ms:number){
@@ -65,8 +80,26 @@ export class EnlaceConElPacienteComponent implements OnInit {
   }
 
 
-  agregarEnlace(){
-    
+  agregarEnlace(valores){
+    this.estudianteAEnlazar = new UsuarioPaciente();
+    this.estudianteAEnlazar.numero_documento = valores.PacienteAEnlazar;
+    if(this.id==1){
+      this.estudianteAEnlazar.cedula_docente="100015686";
+    }else if(this.id ==2){
+      this.estudianteAEnlazar.cedula_acudiente="1007156806";
+    }
+    this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data=>{
+      console.log(data[1]);
+      this.ngOnInit();
+    });
   }
 
+
+  datos(){
+    const helper = new JwtHelperService();
+    let token = sessionStorage.getItem(environment.TOKEN);
+    const decodedToken = helper.decodeToken(token);
+    this.rol = decodedToken.Rol;
+    this.user = decodedToken.Usuario;
+  }
 }

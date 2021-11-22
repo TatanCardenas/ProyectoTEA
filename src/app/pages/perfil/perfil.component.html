@@ -1,16 +1,15 @@
-<div>
+
+<div class="header">
+  <img src="./assets/image/BannerPrincipal.png" alt="">
+  <div class="boton">
   <button mat-fab color="accent" style="float: left; margin-left: 10px;" [routerLink]="['/inicio']">
     <mat-icon>arrow_back</mat-icon>
   </button>
 </div>
-
-<p class="titulo">Perfil de {{this.nombre}}</p>
-<div class="header">
-  <img src="./assets/image/backgroundDocente.jpg" alt="">
-  <div>
+  <p class="titulo" >Perfil de {{this.nombre}}</p>
+  <div class="formu">
     <form [formGroup]="form" class="form-inline">
       <div class="formularioI">
-
         <div class="prueba">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label class="textC">Nombre</mat-label>
@@ -44,8 +43,5 @@
         </div>
       </div>
     </form>
-
   </div>
-
-
 </div>

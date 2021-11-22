@@ -20,4 +20,7 @@ export class PacienteService {
     public getPacientesEnlazados(id:number){
       return this.http.get<UsuarioPaciente[]>(`${this.url}/obtenerPacientesEnlazados/`+id);
     }
+    public enlazarPaciente(pacienteAEnlazar:UsuarioPaciente){
+      return this.http.put<any>(`${this.url}/enlazarConEstudiante`,pacienteAEnlazar);
+    }
 }

@@ -5,7 +5,7 @@ export class UsuarioPaciente {
     grado_autismo: number;
     edad: number;
     cedula_docente: string;
-    cedular_acudiente: string;
+    cedula_acudiente: string;
     institucion_id: number;
     clave : string;
 }
