@@ -64,7 +64,7 @@
         </div>
         <div class="prueba">
             <mat-form-field appearance="outline" class="tamano">
-              <mat-label>NIT</mat-label>
+              <mat-label>N. Profesional</mat-label>
               <input matInput placeholder="1111111" formControlName="nit" class="formu">
               <mat-hint *ngIf="form.get('nit').errors && form.get('nit').touched">
                 <p *ngIf="form.get('nit').hasError('required')">
@@ -74,7 +74,7 @@
                   El nit no debe ser tan extenso
                 </p>
                 <p *ngIf="form.get('nit').hasError('minlength')">
-                  Numero incorrecto de nit
+                  Numero profesional incorrecto
                 </p>
     
               </mat-hint>

@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       console.log(data);
        sessionStorage.setItem(environment.TOKEN, data.Token);
       this.loginService.paginaReactiva.next(true);
+      this.openSnackBar("Ingreso correctamente");
       this.router.navigate(['inicio']);
     }, err => {
       this.openSnackBar(err.error.message)
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit {
   }
 
   private openSnackBar(mensaje: string) {
-    this.snackBar.open(mensaje, 'Información', {
+    this.snackBar.open(mensaje, 'Aceptar', {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
