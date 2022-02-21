@@ -78,7 +78,8 @@
           <mat-divider></mat-divider>
         </div>
       </div>
-      <div [hidden]="!(rol==1)">
+      <div [hidden]="!flagSesion">
+        <div *ngIf="rol==1">
         <div>
           <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/1">
             <mat-icon>timeline</mat-icon>
@@ -87,7 +88,7 @@
           <mat-divider></mat-divider>
         </div>
       </div>
-      <div [hidden]="!(rol==2)">
+      <div *ngIf="rol==2">
         <div>
           <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/2">
             <mat-icon>timeline</mat-icon>
@@ -96,6 +97,7 @@
           <mat-divider></mat-divider>
         </div>
       </div>
+    </div>
       <div [hidden]="!flagSesion">
         <div>
           <button mat-menu-item [disabled]="true" (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">

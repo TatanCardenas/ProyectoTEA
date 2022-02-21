@@ -80,6 +80,6 @@ datos(){
   cerrarSession(){
     this.user.usuario = this.idUser;
     this.loginService.cerrarSesion(this.user);
-  
+    this.ngOnInit();
   }
 }
