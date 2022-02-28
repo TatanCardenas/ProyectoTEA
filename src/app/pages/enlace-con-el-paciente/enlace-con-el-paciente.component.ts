@@ -8,6 +8,7 @@ import { UsuarioService } from 'src/app/_service/usuario.service';
 import { environment } from 'src/environments/environment';
 import { PacienteService } from '../../_service/paciente.service';
 
+
 @Component({
   selector: 'app-enlace-con-el-paciente',
   templateUrl: './enlace-con-el-paciente.component.html',
@@ -62,7 +63,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
           }
         }
       });
-      await this.delay(1000);
+      await this.delay(2000);
       this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
         if(this.pacientesTabla[0]==undefined){
           console.log("entro a el if");
@@ -84,14 +85,14 @@ export class EnlaceConElPacienteComponent implements OnInit {
     this.estudianteAEnlazar = new UsuarioPaciente();
     this.estudianteAEnlazar.numero_documento = valores.PacienteAEnlazar;
     if(this.id==1){
-      this.estudianteAEnlazar.cedula_docente="100015686";
+      this.estudianteAEnlazar.cedula_docente=this.user;
     }else if(this.id ==2){
-      this.estudianteAEnlazar.cedula_acudiente="1007156806";
+      this.estudianteAEnlazar.cedula_acudiente=this.user;
     }
     this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data=>{
       console.log(data[1]);
-      this.ngOnInit();
     });
+    this.ngOnInit();
   }
 
 

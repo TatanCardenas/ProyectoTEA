@@ -46,14 +46,14 @@ export class LoginComponent implements OnInit {
       this.openSnackBar("Ingreso correctamente");
       this.router.navigate(['inicio']);
     }, err => {
-      this.openSnackBar(err.error.message)
+      this.openSnackBar("Usuario o contraseña Incorrecta\nIntente nuevamente");
       console.log("Algo salio mal :(");
     });
   }
 
   private openSnackBar(mensaje: string) {
     this.snackBar.open(mensaje, 'Aceptar', {
-      duration: 2000,
+      duration: 7000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

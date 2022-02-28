@@ -20,6 +20,7 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
 import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.component';
 import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enlace-con-el-paciente.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { Not404Component } from './pages/not404/not404.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
     EnlazarNinoComponent,
     EnlaceConElPacienteComponent,
     PerfilComponent,
+    Not404Component,
   ],
   imports: [
     BrowserModule,

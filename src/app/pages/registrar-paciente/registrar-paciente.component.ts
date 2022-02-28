@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente'
 import { UsuarioService } from 'src/app/_service/usuario.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-paciente',
@@ -13,7 +17,8 @@ export class RegistrarPacienteComponent implements OnInit {
   private datosPaciente = new UsuarioPaciente;
   hide = true;
   
-  constructor(private usuarioService: UsuarioService,private formBuilder: FormBuilder,) { }
+  constructor(private usuarioService: UsuarioService,private formBuilder: FormBuilder,private snackBar: MatSnackBar,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.formPaciente();
@@ -33,14 +38,27 @@ export class RegistrarPacienteComponent implements OnInit {
   }
 
   registrar(any):void {   
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(sessionStorage.getItem(environment.TOKEN));
+    const documetoDeLaRegistradora = decodedToken.Usuario;
+    const rol = decodedToken.Rol;
     this.datosPaciente = this.form.value;
     this.datosPaciente.institucion_id = 1;
-    this.datosPaciente.cedula_docente = "100015686";
-    console.log("Nombre "+this.datosPaciente.nombre_paciente);
-    console.log("id "+this.datosPaciente.clave); 
+    this.datosPaciente.cedula_docente = documetoDeLaRegistradora;
     this.usuarioService.registrarPaciente(this.datosPaciente).subscribe(data =>{
-      console.log(data);
+      this.openSnackBar(""+data);
+      this.router.navigate(['enlazarNino/'+rol]);
+    }, err => {
+      this.openSnackBar("Este usuario ya existe");
     });
   }
 
+
+  private openSnackBar(mensaje: string) {
+    this.snackBar.open(mensaje, 'Aceptar', {
+      duration: 7000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  } 
 }

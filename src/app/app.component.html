@@ -5,7 +5,8 @@
       <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
       <mat-icon *ngIf="drawer.opened">close</mat-icon>
     </button>
-    <h1 class="example-app-name">¡Bienvenido! {{usuario}}</h1>
+    <!--<h1 class="example-app-name" [routerLink]="['registrarD']">¡Bienvenido! {{usuario}}</h1>-->
+    <button class="welcome" mat-button [routerLink]="['/inicio']">¡Bienvenido! {{usuario}}</button>
 
     <span class="example-spacer"></span>
     <button mat-button>¿Quienes somos?</button>
@@ -32,11 +33,11 @@
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/perfil">
-        <mat-icon>account_box</mat-icon>
+        <mat-icon>face</mat-icon>
         <span>Mi Perfil</span>
       </button>
       <button mat-menu-item (click)="cerrarSession()">
-        <mat-icon>exit_to_app</mat-icon>
+        <mat-icon>logout</mat-icon>
         <span>Cerrar Sesión</span>
       </button>
     </mat-menu>
@@ -44,26 +45,22 @@
 
   <mat-drawer-container class="example-sidenav-content" autosize>
     <mat-drawer #drawer style="width: 200px" mode="side">
+      <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/inicio']">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+      </button>
+      <mat-divider></mat-divider>
       <div *ngIf="!flagSesion">
         <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/login']">
-          <mat-icon>manage accounts</mat-icon>
+          <mat-icon>login</mat-icon>
           <span>Ingresar</span>
         </button>
         <mat-divider></mat-divider>
       </div>
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1">
-          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/inicio']">
-            <mat-icon>manage accounts</mat-icon>
-            <span>Inicio</span>
-          </button>
-          <mat-divider></mat-divider>
-        </div>
-      </div>
-      <div [hidden]="!flagSesion">
-        <div *ngIf="rol==1">
           <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/registrarP']">
-            <mat-icon>manage accounts</mat-icon>
+            <mat-icon>person_add</mat-icon>
             <span>Registrar Estudiante</span>
           </button>
           <mat-divider></mat-divider>
@@ -81,8 +78,8 @@
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1">
         <div>
-          <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/1">
-            <mat-icon>timeline</mat-icon>
+          <a mat-menu-item  style="cursor: pointer" href="/enlazarNino/1">
+            <mat-icon>supervisor_account</mat-icon>
             <span>Enlazar Estudiante</span>
           </a>
           <mat-divider></mat-divider>
@@ -90,8 +87,8 @@
       </div>
       <div *ngIf="rol==2">
         <div>
-          <a mat-menu-item  style="cursor: pointer" href="/enlazarNiño/2">
-            <mat-icon>timeline</mat-icon>
+          <a mat-menu-item  style="cursor: pointer" href="/enlazarNino/2">
+            <mat-icon>supervisor_account</mat-icon>
             <span>Enlazar Estudiante</span>
           </a>
           <mat-divider></mat-divider>
