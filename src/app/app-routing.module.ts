@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
   {path: 'registrarA', component: RegistrarComponent},
   {path: 'inicio', component: InicioComponent},
-  {path: 'registrarD', component: RegistrarDocenteComponent},
+  {path: 'registro/:registroID', component: RegistrarDocenteComponent},
   {path: 'registrarP', component: RegistrarPacienteComponent, canActivate: [GuardianService]},
   {path: 'login', component: LoginComponent},
   {path: 'perfil', component: PerfilComponent,canActivate: [GuardianService]},
