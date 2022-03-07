@@ -1,5 +1,8 @@
 <div class="container_titulo">
-  <p class="titulo">DOCENTE REGISTRATE AQUÍ</p>
+  
+  <p *ngIf="tipoDeRegistro_ID==1" class="titulo">DOCENTE REGISTRATE AQUÍ</p>
+  <p *ngIf="tipoDeRegistro_ID==2" class="titulo">ACUDIENTE REGISTRATE AQUÍ</p>
+  <p *ngIf="tipoDeRegistro_ID==3" class="titulo">ESTUDIANTE REGISTRATE AQUÍ</p>
 </div>
 
 <div class="registro">
