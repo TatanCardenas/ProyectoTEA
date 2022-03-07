@@ -17,10 +17,13 @@ export class PacienteService {
     public getPacientesPorEnlazar(id:number){
       return this.http.get<UsuarioPaciente[]>(`${this.url}/obtenerEstudiantesPorEnlazar/`+id);
     }
-    public getPacientesEnlazados(id:number){
-      return this.http.get<UsuarioPaciente[]>(`${this.url}/obtenerPacientesEnlazados/`+id);
+    public getPacientesEnlazados(id:number, tipoDePaciente:UsuarioPaciente){
+      return this.http.post<UsuarioPaciente[]>(`${this.url}/obtenerPacientesEnlazados/`+id, tipoDePaciente);
     }
     public enlazarPaciente(pacienteAEnlazar:UsuarioPaciente){
       return this.http.put<any>(`${this.url}/enlazarConEstudiante`,pacienteAEnlazar);
+    }
+    public eliminarEnlacePaciente(pacienteADesEnlazar:UsuarioPaciente){
+      return this.http.put<any>(`${this.url}/eliminarEnlace`,pacienteADesEnlazar);
     }
 }

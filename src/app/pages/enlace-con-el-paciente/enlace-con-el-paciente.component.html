@@ -20,8 +20,8 @@
               </ng-container>
               <ng-container matColumnDef="Eliminar Enlace">
                 <th mat-header-cell *matHeaderCellDef> Eliminar Enlace </th>
-                <td mat-cell *matCellDef="let element"><button class="ancho" color="primary">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" color="primay">delete</mat-icon>
+                <td mat-cell *matCellDef="let element"><button mat-button (click)="eliminarEnlace(element.numero_documento)">
+                  <mat-icon color="warn">delete</mat-icon>
                 </button> </td>
               </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

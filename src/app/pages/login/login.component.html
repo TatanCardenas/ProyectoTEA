@@ -17,6 +17,9 @@
                 <p *ngIf="formul.get('numero_documento').hasError('maxlength')">
                   *Maximo 15 caracteres
                 </p>
+                <p *ngIf="formul.get('numero_documento').hasError('pattern')">
+                  El username solo debe contener numero
+                </p>
               </mat-hint>
             </mat-form-field>
           </p>

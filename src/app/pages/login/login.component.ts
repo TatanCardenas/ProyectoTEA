@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   private buildFrom() {
     
     this.formul = this.formBuilder.group({    
-      numero_documento: [this.usser.numero_documento, [Validators.required,Validators.maxLength(15), Validators.minLength(3)]],
+      numero_documento: [this.usser.numero_documento, [Validators.required,Validators.maxLength(15), Validators.minLength(3),Validators.pattern('[0-9]*')]],
       clave_usuario: [this.usser.clave_usuario, [Validators.required,Validators.minLength(4), Validators.maxLength(15)]],
     });
   }
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['inicio']);
     }, err => {
       this.openSnackBar("Usuario o contraseña Incorrecta\nIntente nuevamente");
-      console.log("Algo salio mal :(");
     });
   }
 

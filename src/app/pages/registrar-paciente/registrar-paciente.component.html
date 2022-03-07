@@ -58,6 +58,9 @@
               <p *ngIf="form.get('numero_documento').hasError('maxlength')">
                 Documento no valido, muy largo
               </p>
+              <p *ngIf="form.get('numero_documento').hasError('pattern')">
+                El documento solo debe tener numeros
+              </p>
             </mat-hint>
           </mat-form-field>
         </div>
@@ -73,8 +76,11 @@
                   La edad no debe ser mayor 10
                 </p>
                 <p *ngIf="form.get('edad').hasError('min')">
-                  El edad no puede ser menor a 2
+                  La edad no puede ser menor a 2
                 </p> 
+                <p *ngIf="form.get('edad').hasError('pattern')">
+                  La edad solo debe tener numeros
+                </p>
               </mat-hint>
             </mat-form-field>
         </div>
