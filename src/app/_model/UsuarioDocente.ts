@@ -1,7 +1,7 @@
 export class UsuarioDocente{
-    nombre_docente : String;
-    apellido_docente : String;
-    cedula : String;
+    nombre : String;
+    apellido : String;
+    documento : String;
     clave : String;
     correo:String;
     nit: String;

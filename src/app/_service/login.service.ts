@@ -26,7 +26,7 @@ export class LoginService {
 
   public cerrarSesion(user: User) {
     const tk = sessionStorage.getItem(environment.TOKEN);
-    console.log(user);
+    console.log("aca esta el usuariio", user);
     sessionStorage.removeItem(environment.TOKEN);
     this.http.post<any>(`${this.url}/PostCerrarSesion`,user).subscribe(data => {
       sessionStorage.clear();

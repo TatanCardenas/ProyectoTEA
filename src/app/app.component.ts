@@ -64,9 +64,9 @@ datos(){
     if(this.rol == 1){
       this.usuarioService.datosDocente(user).subscribe(data =>{
         this.usuarioDocente = data;
-        this.usuario = this.usuarioDocente.nombre_docente;
-        this.idUser = this.usuarioDocente.cedula;
-        console.log("Hola: "+ this.usuarioDocente.nombre_docente);
+        this.usuario = this.usuarioDocente.nombre;
+        this.idUser = this.usuarioDocente.documento;
+        console.log("Hola: "+ this.usuarioDocente.nombre);
         this.flagRol = true;
       });
     }else{
@@ -78,7 +78,8 @@ datos(){
 }
 
   cerrarSession(){
-    this.user.usuario = this.idUser;
+    this.user.usuario = this.idUser
+    console.log("cedula desde componen", this.user.usuario);
     this.loginService.cerrarSesion(this.user);
     this.ngOnInit();
   }

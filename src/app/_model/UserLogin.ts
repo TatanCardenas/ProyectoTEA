@@ -1,6 +1,6 @@
 export class UserLogin{
-    numero_documento: string;
-    clave_usuario: string;
+    documento: string;
+    clave: string;
     sesion: string;
 
 }
