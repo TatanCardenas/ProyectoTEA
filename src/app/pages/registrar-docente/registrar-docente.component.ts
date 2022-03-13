@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuarioDocente } from 'src/app/_model/UsuarioDocente';
 import { UsuarioAcudiente } from 'src/app/_model/UsuarioAcudiente';
@@ -15,11 +20,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./registrar-docente.component.css'],
 })
 export class RegistrarDocenteComponent implements OnInit {
-  public form: FormGroup;
   private datosDocente = new UsuarioDocente();
   private datosAcudiente = new UsuarioAcudiente();
   private datosEstudiante = new UsuarioPaciente();
+  private rol;
   hide = true;
+  public variable = 0;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -29,188 +35,48 @@ export class RegistrarDocenteComponent implements OnInit {
     private route: Router
   ) {}
 
-  public tipoDeRegistro_ID: number = this.route_ID.snapshot.params.registroID;
+  public tipoDeRegistro_ID: number = Number(
+    this.route_ID.snapshot.params.registroID
+  );
+
   ngOnInit(): void {
-    this.formDocente();
+    //this.formulario();
   }
 
-  private formDocente() {
-    switch (this.tipoDeRegistro_ID) {
-      case 1:
-        this.form = this.formBuilder.group({
-          //docente
-          nombre_docente: [
-            this.datosDocente.nombre_docente,
-            [
-              Validators.required,
-              Validators.maxLength(20),
-              Validators.minLength(3),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          apellido_docente: [
-            this.datosDocente.apellido_docente,
-            [
-              Validators.required,
-              Validators.minLength(4),
-              ,
-              Validators.maxLength(20),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          cedula: [
-            this.datosDocente.cedula,
-            [
-              Validators.required,
-              Validators.minLength(6),
-              Validators.maxLength(11),
-              Validators.pattern(/[0-9]/),
-            ],
-          ],
-          clave: [
-            this.datosDocente.clave,
-            [
-              Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(20),
-            ],
-          ],
-          correo: [
-            this.datosDocente.correo,
-            [
-              Validators.required,
-              Validators.pattern(
-                /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/
-              ),
-            ],
-          ],
-          nit: [
-            this.datosDocente.nit,
-            [
-              Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(20),
-              Validators.pattern(/[0-9]/),
-            ],
-          ],
-        });
-
-        break;
-      case 2:
-        this.form = this.formBuilder.group({
-          //acudiente
-          nombre_acudiente: [
-            this.datosAcudiente.nombre_acudiente,
-            [
-              Validators.required,
-              Validators.maxLength(20),
-              Validators.minLength(3),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          apellido_acudiente: [
-            this.datosAcudiente.apellido_acudiente,
-            [
-              Validators.required,
-              Validators.minLength(4),
-              ,
-              Validators.maxLength(20),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          cedula: [
-            this.datosAcudiente.cedula,
-            [
-              Validators.required,
-              Validators.minLength(6),
-              Validators.maxLength(11),
-              Validators.pattern(/[0-9]/),
-            ],
-          ],
-          clave: [
-            this.datosAcudiente.clave,
-            [
-              Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(20),
-            ],
-          ],
-          correo: [
-            this.datosAcudiente.correo,
-            [
-              Validators.required,
-              Validators.pattern(
-                /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/
-              ),
-            ],
-          ],
-        });
-
-        break;
-      case 3:
-        this.form = this.formBuilder.group({
-          //estudiante
-          nombre_paciente: [
-            this.datosEstudiante.nombre_paciente,
-            [
-              Validators.required,
-              Validators.maxLength(20),
-              Validators.minLength(3),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          apellido_paciente: [
-            this.datosEstudiante.apellido_paciente,
-            [
-              Validators.required,
-              Validators.minLength(4),
-              ,
-              Validators.maxLength(20),
-              Validators.pattern(/[A-Za-z]/),
-            ],
-          ],
-          numero_documento: [
-            this.datosEstudiante.numero_documento,
-            [
-              Validators.required,
-              Validators.minLength(6),
-              Validators.maxLength(11),
-              Validators.pattern(/[0-9]/),
-            ],
-          ],
-          clave: [
-            this.datosEstudiante.clave,
-            [
-              Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(20),
-            ],
-          ],
-          grado_autismo: [
-            this.datosEstudiante.grado_autismo,
-            [Validators.required, Validators.min(1), Validators.max(3)],
-          ],
-          edad: [
-            this.datosEstudiante.edad,
-            [
-              Validators.required,
-              Validators.min(2),
-              Validators.max(10),
-              Validators.pattern(/[0-9]/),
-            ],
-          ],
-        });
-
-        break;
-    }
-  }
+  public formR = new FormGroup({
+    nombre: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    apellido: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    documento: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    clave: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    correo: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+  });
 
   //accion del boton (any son los datos que recibe del form)
   registrar(any): void {
     switch (this.tipoDeRegistro_ID) {
       case 1:
         //docente
-        this.datosDocente = this.form.value;
+        this.datosDocente = this.formR.value;
         this.datosDocente.institucion_id = 1;
         this.usuarioService
           .registrarDocente(this.datosDocente)
@@ -220,6 +86,15 @@ export class RegistrarDocenteComponent implements OnInit {
           });
         break;
       case 2:
+        //acudiente
+        this.datosAcudiente = this.formR.value;
+        this.usuarioService
+          .registrarAcudiente(this.datosAcudiente)
+          .subscribe((data) => {
+            console.log(data);
+          });
+        break;
+      case 3:
         //estudiante
         const helper = new JwtHelperService();
         const decodedToken = helper.decodeToken(
@@ -227,9 +102,9 @@ export class RegistrarDocenteComponent implements OnInit {
         );
         const documetoDeLaRegistradora = decodedToken.Usuario;
         const rol = decodedToken.Rol;
-        this.datosEstudiante = this.form.value;
+        this.datosEstudiante = this.formR.value;
         this.datosEstudiante.institucion_id = 1;
-        this.datosEstudiante.cedula_docente = documetoDeLaRegistradora;
+        this.datosEstudiante.documento_docente = documetoDeLaRegistradora;
         this.usuarioService.registrarPaciente(this.datosEstudiante).subscribe(
           (data) => {
             this.openSnackBar('' + data);
@@ -240,15 +115,6 @@ export class RegistrarDocenteComponent implements OnInit {
           }
         );
         break;
-      case 3:
-        //acudiente
-        this.datosAcudiente = this.form.value;
-        this.usuarioService
-          .registrarAcudiente(this.datosAcudiente)
-          .subscribe((data) => {
-            console.log(data);
-          });
-        break;
     }
   }
   private openSnackBar(mensaje: string) {
@@ -257,5 +123,11 @@ export class RegistrarDocenteComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+  datos() {
+    const helper = new JwtHelperService();
+    let token = sessionStorage.getItem(environment.TOKEN);
+    const decodedToken = helper.decodeToken(token);
+    this.rol = decodedToken.Rol;
   }
 }

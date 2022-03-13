@@ -1,11 +1,11 @@
 export class UsuarioPaciente {
-    nombre_paciente : string;
-    apellido_paciente : string;
-    numero_documento : string;
+    nombre : string;
+    apellido : string;
+    documento : string;
     grado_autismo: number;
     edad: number;
-    cedula_docente: string;
-    cedula_acudiente: string;
+    documento_docente: string;
+    documento_acudiente: string;
     institucion_id: number;
     clave : string;
 }

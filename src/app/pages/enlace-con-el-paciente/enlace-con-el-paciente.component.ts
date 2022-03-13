@@ -44,7 +44,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
     this.pacientesDelAcudiente();
     this.datos();
     if(this.id==1){
-      this.tipoDeUsuario.cedula_docente = this.user;
+      this.tipoDeUsuario.documento_docente = this.user;
       this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
         this.pacientesPorEnlazar=paciente;
       });
@@ -54,7 +54,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
     }else if(this.id==2){
       await this.delay(1000);
       this.pacientesPorEnlazar = null;
-      this.tipoDeUsuario.cedula_acudiente=this.user;
+      this.tipoDeUsuario.documento_acudiente=this.user;
       this.serivcioPaciente.getPacientesEnlazados(this.id, this.tipoDeUsuario).subscribe((pacientes: UsuarioPaciente[])=>{
         this.pacientesTabla = new MatTableDataSource(pacientes);
       });
@@ -84,11 +84,11 @@ export class EnlaceConElPacienteComponent implements OnInit {
   agregarEnlace(valores){
     this.pacientesPorEnlazar = null;
     this.estudianteAEnlazar = new UsuarioPaciente();
-    this.estudianteAEnlazar.numero_documento = valores.PacienteAEnlazar;
+    this.estudianteAEnlazar.documento = valores.PacienteAEnlazar;
     if(this.id==1){
-      this.estudianteAEnlazar.cedula_docente=this.user;
+      this.estudianteAEnlazar.documento_docente=this.user;
     }else if(this.id ==2){
-      this.estudianteAEnlazar.cedula_acudiente=this.user;
+      this.estudianteAEnlazar.documento_acudiente=this.user;
     }
     this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data=>{
       this.pacientesDelAcudiente();
@@ -99,11 +99,11 @@ export class EnlaceConElPacienteComponent implements OnInit {
   }
   eliminarEnlace(documentoPaciente){
     if(this.id==1){
-      this.enlaceAEliminar.cedula_docente= this.user;
+      this.enlaceAEliminar.documento_docente= this.user;
     }else if(this.id==2){
-      this.enlaceAEliminar.cedula_acudiente= this.user;
+      this.enlaceAEliminar.documento_acudiente= this.user;
     }
-    this.enlaceAEliminar.numero_documento= documentoPaciente;
+    this.enlaceAEliminar.documento= documentoPaciente;
     this.serivcioPaciente.eliminarEnlacePaciente(this.enlaceAEliminar).subscribe(data=>{
       console.log("respuesta "+ data)
       this.openSnackBar(""+data);
