@@ -1,0 +1,76 @@
+<div class="container_titulo">
+  <p class="titulo"> Registro Actividad</p>
+  </div>
+  <div class="registro">
+    <div class="imagen">
+      <img src="./assets/image/administrador.png" alt="">
+    </div>
+    <div class="formularioGeneral">
+      <form [formGroup]="crearActividad" #frmActividad="ngForm" class="form-inline">
+  
+        <div class="campo_texto">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label class="textC">NOMBRE ACTIVIDAD</mat-label>
+            <input matInput placeholder="Actividad 1" formControlName="nombre_actividad" class="formu">
+            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('required')">
+              Ingrese el nombre de la actividad
+            </mat-error>
+            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('minlength')">
+              El nombre de la actividad es muy pequeño
+            </mat-error>
+            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('maxlength')">
+              El nombre de la actividad es muy grande
+              </mat-error>
+            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('pattern')">
+              Debe ingresar solo numero y letras
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="campo_texto">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>Tipo de Actividad</mat-label>
+                <select matNativeControl formControlName="tipo_actividad" (change)="onSelect($event.target.value)">
+                    <option style="color: black;" label="--Seleccione un el tipo de actividad--"></option>
+                    <option style="color: black;" *ngFor="let actividad of actividad_tipo" value="{{actividad.value}}">{{actividad.actividad_tp}}</option>
+                </select>
+                <mat-error *ngIf="crearActividad.get('tipo_actividad').hasError('required')">
+                  Debe seleccionar un tipo de actividad
+                </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="campo_texto">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>DESCRIPCIÓN DE LA ACTIVIDAD </mat-label>
+            <input matInput placeholder="La actividad será" formControlName="descri">
+            <mat-error *ngIf="crearActividad.get('descri').hasError('required')">
+              Ingrese una descripción para la actividad
+            </mat-error>
+            <mat-error *ngIf="crearActividad.get('descri').hasError('minlength')">
+              La descripción de la actividad es muy pequeña
+            </mat-error>
+            <mat-error *ngIf="crearActividad.get('descri').hasError('maxlength')">
+              La descripción de la actividad es muy grande
+              </mat-error>
+            <mat-error *ngIf="crearActividad.get('descri').hasError('pattern')">
+              Debe ingresar solo numero y letras
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div [hidden]="!(id_tipo_actividad==1)" class="campo_texto">
+          <input type="file" formControlName="imagen" class="formu">
+        </div>
+        <div [hidden]="!(id_tipo_actividad==2)" class="campo_texto">
+            <mat-form-field appearance="outline" class="tamano">
+              <mat-label>TEXTO DE LA ACTIVIDAD DE IMITACIÓN </mat-label>
+              <input matInput placeholder="abc@gmail.com" formControlName="texto" class="formu">
+            </mat-form-field>
+          </div>
+        <div class="campo_texto">
+          <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
+            (click)="agregarActividad($event)">Agregar Actividad
+            <mat-icon>bookmark_add</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -10,16 +10,18 @@ import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { Not404Component } from './pages/not404/not404.component';
+import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad.component';
 
 const routes: Routes = [
-  {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
-  {path: 'registrarA', component: RegistrarComponent},
-  {path: 'inicio', component: InicioComponent},
-  {path: 'registro/:registroID', component: RegistrarDocenteComponent},
-  {path: 'registrarP', component: RegistrarPacienteComponent, canActivate: [GuardianService]},
-  {path: 'login', component: LoginComponent},
-  {path: 'perfil', component: PerfilComponent,canActivate: [GuardianService]},
   {path: 'actividad', component: ActividadComponent},
+  {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
+  {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
+  {path: 'registrarP', component: RegistrarPacienteComponent, canActivate: [GuardianService]},
+  {path: 'registrarA', component: RegistrarComponent},
+  {path: 'registro/:registroID', component: RegistrarDocenteComponent},
+  {path: 'perfil', component: PerfilComponent,canActivate: [GuardianService]},
+  {path: 'login', component: LoginComponent},
+  {path: 'inicio', component: InicioComponent},
   {path: '', component: InicioComponent},
   {path: '**', component: Not404Component}
 ];

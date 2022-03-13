@@ -32,8 +32,11 @@ export class GuardianService implements CanActivate {
       return true
     }
     else if((url.includes('/registro/3')) && (rol == 3)){
-      return true
-    }else{
+      return true;
+    }else if((url.includes('/crearActividad')) && (rol == 1)){
+      return true;
+    }
+    else{
       this.router.navigate(['/login']);
     }
     }catch(e){

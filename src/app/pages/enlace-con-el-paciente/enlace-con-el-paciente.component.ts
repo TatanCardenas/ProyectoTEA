@@ -21,7 +21,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
     private snackBar: MatSnackBar,) { }
     
     pacientesTabla = new MatTableDataSource<UsuarioPaciente>();
-    pacientesPorEnlazar: UsuarioPaciente[];
+    pacientesPorEnlazar= new MatTableDataSource<UsuarioPaciente>();
 
     tipoDeUsuario = new UsuarioPaciente;
     estudianteAEnlazar:UsuarioPaciente;
@@ -33,20 +33,19 @@ export class EnlaceConElPacienteComponent implements OnInit {
     private user: string;
 
     displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Eliminar Enlace'];
+    columnasAgregarPaciente: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Numero_documento','Agregar enlace'];
     public id: number = this.route.snapshot.params.id;
     formEnlaceAgregar = new FormGroup({
       PacienteAEnlazar: new FormControl('',Validators.required)
     });
 
   async ngOnInit(): Promise<void> {
-    this.pacientesPorEnlazar=null;
     await this.delay(2000);
-    this.pacientesDelAcudiente();
     this.datos();
     if(this.id==1){
       this.tipoDeUsuario.cedula_docente = this.user;
       this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
-        this.pacientesPorEnlazar=paciente;
+        this.pacientesPorEnlazar=new MatTableDataSource(paciente);
       });
       this.serivcioPaciente.getPacientesEnlazados(this.id,this.tipoDeUsuario).subscribe((pacientes)=>{
         this.pacientesTabla = new MatTableDataSource(pacientes);
@@ -59,7 +58,6 @@ export class EnlaceConElPacienteComponent implements OnInit {
         this.pacientesTabla = new MatTableDataSource(pacientes);
       });
       await this.delay(1000);
-      this.pacientesPorEnlazar=null;
       this.pacientesDelAcudiente();
     }
   }
@@ -68,30 +66,35 @@ export class EnlaceConElPacienteComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async pacientesDelAcudiente(){
+  pacientesDelAcudiente(){
     this.pacientesPorEnlazar=null;
-    await this.delay(1000);
-    this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
+    this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe(paciente=>{
       if(this.pacientesTabla.data[0]==undefined){
-        this.pacientesPorEnlazar=paciente;
+        this.pacientesPorEnlazar=new MatTableDataSource(paciente);
       }else{
+        console.log("entro aca")
         this.pacientesPorEnlazar=null;
       }
     });
   }
 
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.pacientesPorEnlazar.filter = filterValue.trim().toLowerCase();
+    
+  }   
+
   agregarEnlace(valores){
-    this.pacientesPorEnlazar = null;
+    this.pacientesPorEnlazar=null;
     this.estudianteAEnlazar = new UsuarioPaciente();
-    this.estudianteAEnlazar.numero_documento = valores.PacienteAEnlazar;
+    this.estudianteAEnlazar.numero_documento = valores;
     if(this.id==1){
       this.estudianteAEnlazar.cedula_docente=this.user;
     }else if(this.id ==2){
       this.estudianteAEnlazar.cedula_acudiente=this.user;
     }
     this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data=>{
-      this.pacientesDelAcudiente();
       this.ngOnInit();
       this.openSnackBar(""+ data);
     });
