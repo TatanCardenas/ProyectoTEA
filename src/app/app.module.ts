@@ -12,8 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RegistrarDocenteComponent } from './pages/registrar-docente/registrar-docente.component';
-import { RegistrarPacienteComponent } from './pages/registrar-paciente/registrar-paciente.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
@@ -28,8 +26,6 @@ import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad
     AppComponent,
     RegistrarComponent,
     LoginComponent,
-    RegistrarDocenteComponent,
-    RegistrarPacienteComponent,
     InicioComponent,
     ActividadComponent,
     EnlazarNinoComponent,
