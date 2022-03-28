@@ -1,97 +1,133 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
   FormControl,
+  FormGroup,
   Validators,
 } from '@angular/forms';
-import { Usuario } from 'src/app/_model/Usuario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuarioDocente } from 'src/app/_model/UsuarioDocente';
 import { UsuarioAcudiente } from 'src/app/_model/UsuarioAcudiente';
+import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente';
 import { UsuarioService } from 'src/app/_service/usuario.service';
-import { ActivatedRoute } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.component.html',
   styleUrls: ['./registrar.component.css'],
 })
 export class RegistrarComponent implements OnInit {
-  private datosUser = new Usuario();
-
+  private datosDocente = new UsuarioDocente();
   private datosAcudiente = new UsuarioAcudiente();
-  public form: FormGroup;
+  private datosEstudiante = new UsuarioPaciente();
+  private rol;
   hide = true;
-  //public tipoU:number =this.rutaActiva.snapshot.params.idU;
+  public variable = 0;
 
   constructor(
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
-    private rutaActiva: ActivatedRoute
-  ) {
-    this.formAcudiente();
-  }
+    private snackBar: MatSnackBar,
+    private route_ID: ActivatedRoute,
+    private route: Router
+  ) {}
+
+  public tipoDeRegistro_ID: number = Number(
+    this.route_ID.snapshot.params.registroID
+  );
 
   ngOnInit(): void {
-    this.formAcudiente();
+    //this.formulario();
   }
 
-  private formAcudiente() {
-    this.form = this.formBuilder.group({
-      nombre_acudiente: [
-        this.datosAcudiente.nombre,
-        [
-          Validators.required,
-          Validators.maxLength(20),
-          Validators.minLength(3),
-          Validators.pattern(/[A-Za-z]/),
-        ],
-      ],
-      apellido_acudiente: [
-        this.datosAcudiente.apellido,
-        [
-          Validators.required,
-          Validators.minLength(4),
-          ,
-          Validators.maxLength(20),
-          Validators.pattern(/[A-Za-z]/),
-        ],
-      ],
-      cedula: [
-        this.datosAcudiente.documento,
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(11),
-          Validators.pattern(/[0-9]/),
-        ],
-      ],
-      clave: [
-        this.datosAcudiente.clave,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(20),
-        ],
-      ],
-      correo: [
-        this.datosAcudiente.correo,
-        [
-          Validators.required,
-          Validators.pattern(
-            /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/
-          ),
-        ],
-      ],
+  public formR = new FormGroup({
+    nombre: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    apellido: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    documento: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    clave: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+    correo: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+  });
+
+  //accion del boton (any son los datos que recibe del form)
+  registrar(any): void {
+    switch (this.tipoDeRegistro_ID) {
+      case 1:
+        //docente
+        this.datosDocente = this.formR.value;
+        this.datosDocente.institucion_id = 1;
+        this.usuarioService
+          .registrarDocente(this.datosDocente)
+          .subscribe((data) => {
+            console.log(data);
+            this.openSnackBar('Registro Exitoso');
+          });
+        break;
+      case 2:
+        //acudiente
+        this.datosAcudiente = this.formR.value;
+        this.usuarioService
+          .registrarAcudiente(this.datosAcudiente)
+          .subscribe((data) => {
+            console.log(data);
+          });
+        break;
+      case 3:
+        //estudiante
+        const helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(
+          sessionStorage.getItem(environment.TOKEN)
+        );
+        const documetoDeLaRegistradora = decodedToken.Usuario;
+        const rol = decodedToken.Rol;
+        this.datosEstudiante = this.formR.value;
+        this.datosEstudiante.institucion_id = 1;
+        this.datosEstudiante.documento_docente = documetoDeLaRegistradora;
+        this.usuarioService.registrarPaciente(this.datosEstudiante).subscribe(
+          (data) => {
+            this.openSnackBar('' + data);
+            this.route.navigate(['enlazarNino/' + rol]);
+          },
+          (err) => {
+            this.openSnackBar('Este usuario ya existe');
+          }
+        );
+        break;
+    }
+  }
+  private openSnackBar(mensaje: string) {
+    this.snackBar.open(mensaje, 'Aceptar', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
-
-  registrar(any): void {
-    this.datosAcudiente = this.form.value;
-    this.usuarioService
-      .registrarAcudiente(this.datosAcudiente)
-      .subscribe((data) => {
-        console.log(data);
-      });
+  datos() {
+    const helper = new JwtHelperService();
+    let token = sessionStorage.getItem(environment.TOKEN);
+    const decodedToken = helper.decodeToken(token);
+    this.rol = decodedToken.Rol;
   }
 }
