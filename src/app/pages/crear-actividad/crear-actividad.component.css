@@ -86,3 +86,8 @@
     color: #ffffff;
     font: italic bold Georgia, Serif;
 }
+table {
+    width: 80%;
+    position: static;
+    margin: auto;
+}

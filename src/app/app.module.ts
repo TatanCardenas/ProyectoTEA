@@ -22,6 +22,8 @@ import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enl
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { Not404Component } from './pages/not404/not404.component';
 import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad.component';
+import { PanelActividadesComponent } from './pages/panel-actividades/panel-actividades.component';
+import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad
     PerfilComponent,
     Not404Component,
     CrearActividadComponent,
+    PanelActividadesComponent,
+    ActividadDemoComponent,
   ],
   imports: [
     BrowserModule,

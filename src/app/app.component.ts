@@ -78,7 +78,8 @@ datos(){
 }
 
   cerrarSession(){
-    this.user.usuario = this.idUser
+    this.user.usuario = this.idUser;
+    this.usuario="";
     console.log("cedula desde componen", this.user.usuario);
     this.loginService.cerrarSesion(this.user);
     this.ngOnInit();

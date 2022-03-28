@@ -4,11 +4,11 @@
             <caption>PACIENTES A TU CARGO</caption>
             <ng-container matColumnDef="Nombre Paciente">
               <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre_paciente}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
             </ng-container>
             <ng-container matColumnDef="Apellido Paciente">
               <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido_paciente}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
             </ng-container>
             <ng-container matColumnDef="Grado Autismo">
                 <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
@@ -39,11 +39,11 @@
         <caption>PACIENTES POR ENLACE</caption>
         <ng-container matColumnDef="Nombre Paciente">
           <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre_paciente}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
         </ng-container>
         <ng-container matColumnDef="Apellido Paciente">
           <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellido_paciente}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
         </ng-container>
         <ng-container matColumnDef="Grado Autismo">
             <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
@@ -51,7 +51,7 @@
         </ng-container>
         <ng-container matColumnDef="Numero_documento">
             <th mat-header-cell *matHeaderCellDef> Numero de Documento </th>
-            <td mat-cell *matCellDef="let element"> {{element.numero_documento}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
           </ng-container>
           <ng-container matColumnDef="Agregar enlace">
             <th mat-header-cell *matHeaderCellDef> Agregar Enlace </th>

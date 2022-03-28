@@ -88,11 +88,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
   agregarEnlace(valores){
     this.pacientesPorEnlazar=null;
     this.estudianteAEnlazar = new UsuarioPaciente();
-<<<<<<< HEAD
-    this.estudianteAEnlazar.numero_documento = valores;
-=======
-    this.estudianteAEnlazar.documento = valores.PacienteAEnlazar;
->>>>>>> 55de4ada5f53c2bebfabd2ad8728238bf5e2fe42
+    this.estudianteAEnlazar.documento = valores;
     if(this.id==1){
       this.estudianteAEnlazar.documento_docente=this.user;
     }else if(this.id ==2){

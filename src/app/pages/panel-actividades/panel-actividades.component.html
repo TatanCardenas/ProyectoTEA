@@ -1,0 +1,9 @@
+<mat-list-item *ngFor="let actividad of actividadesLista" class="list-horizontal">
+    <mat-card class="example-card" (click)="actividadSeleccionada(actividad.Id_actividad)">
+        <mat-card-title-group>
+          <mat-card-title>{{actividad.NombreActividad}}</mat-card-title>
+          <mat-card-subtitle>{{actividad.Tipo_actividad_texto}}</mat-card-subtitle>
+          <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        </mat-card-title-group>
+      </mat-card>
+  </mat-list-item>

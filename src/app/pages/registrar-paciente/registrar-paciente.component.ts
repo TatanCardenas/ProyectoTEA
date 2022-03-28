@@ -28,9 +28,9 @@ export class RegistrarPacienteComponent implements OnInit {
     
     this.form = this.formBuilder.group({
       
-      nombre_paciente: [this.datosPaciente.nombre, [Validators.required,Validators.maxLength(20), Validators.minLength(3),Validators.pattern('[a-zA-Z ]*')]],
-      apellido_paciente: [this.datosPaciente.apellido, [Validators.required,Validators.minLength(4),, Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]],
-      numero_documento: [this.datosPaciente.documento, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern('[0-9]*')]],
+      nombre: [this.datosPaciente.nombre, [Validators.required,Validators.maxLength(20), Validators.minLength(3),Validators.pattern('[a-zA-Z ]*')]],
+      apellido: [this.datosPaciente.apellido, [Validators.required,Validators.minLength(4),, Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]],
+      documento: [this.datosPaciente.documento, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern('[0-9]*')]],
       clave: [this.datosPaciente.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       grado_autismo: [this.datosPaciente.grado_autismo, [Validators.required, Validators.min(1), Validators.max(3), Validators.pattern('[0-9]*')]],
       edad: [this.datosPaciente.edad, [Validators.required, Validators.min(2), Validators.max(10), Validators.pattern('[0-9]*')]],

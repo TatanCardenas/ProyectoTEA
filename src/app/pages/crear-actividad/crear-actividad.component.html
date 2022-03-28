@@ -1,3 +1,34 @@
+<div>
+  <div>
+      <table mat-table [dataSource]="listaActividades" matSort  class="mat-elevation-z8">
+          <caption>TUS ACTIVIDADES</caption>
+          <ng-container matColumnDef="Nombre Actividad">
+            <th mat-header-cell *matHeaderCellDef> Nombre actividad </th>
+            <td mat-cell *matCellDef="let element"> {{element.NombreActividad}} </td>
+          </ng-container>
+          <<ng-container matColumnDef="Descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Tipo Actividad">
+              <th mat-header-cell *matHeaderCellDef> Tipo actividad</th>
+              <td mat-cell *matCellDef="let element"> {{element.Tipo_actividad_texto}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Contenido">
+              <th mat-header-cell *matHeaderCellDef> Contenido </th>
+              <td mat-cell *matCellDef="let element"> {{element.Contenido_actividad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Eliminar Actividad">
+              <th mat-header-cell *matHeaderCellDef> Eliminar Actividad </th>
+              <td mat-cell *matCellDef="let element"><button mat-button (click)="eliminarActividad(element.Id_actividad)">
+                <mat-icon color="warn">delete</mat-icon>
+              </button> </td>
+            </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  </div>
+  <div>
 <div class="container_titulo">
   <p class="titulo"> Registro Actividad</p>
   </div>
@@ -11,17 +42,17 @@
         <div class="campo_texto">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label class="textC">NOMBRE ACTIVIDAD</mat-label>
-            <input matInput placeholder="Actividad 1" formControlName="nombre_actividad" class="formu">
-            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('required')">
+            <input matInput placeholder="Actividad 1" formControlName="nombreActividad" class="formu">
+            <mat-error *ngIf="crearActividad.get('nombreActividad').hasError('required')">
               Ingrese el nombre de la actividad
             </mat-error>
-            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('minlength')">
+            <mat-error *ngIf="crearActividad.get('nombreActividad').hasError('minlength')">
               El nombre de la actividad es muy pequeño
             </mat-error>
-            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('maxlength')">
+            <mat-error *ngIf="crearActividad.get('nombreActividad').hasError('maxlength')">
               El nombre de la actividad es muy grande
               </mat-error>
-            <mat-error *ngIf="crearActividad.get('nombre_actividad').hasError('pattern')">
+            <mat-error *ngIf="crearActividad.get('nombreActividad').hasError('pattern')">
               Debe ingresar solo numero y letras
             </mat-error>
           </mat-form-field>
@@ -41,32 +72,39 @@
         <div class="campo_texto">
           <mat-form-field appearance="outline" class="tamano">
             <mat-label>DESCRIPCIÓN DE LA ACTIVIDAD </mat-label>
-            <input matInput placeholder="La actividad será" formControlName="descri">
-            <mat-error *ngIf="crearActividad.get('descri').hasError('required')">
+            <input matInput placeholder="La actividad será" formControlName="descripcion">
+            <mat-error *ngIf="crearActividad.get('descripcion').hasError('required')">
               Ingrese una descripción para la actividad
             </mat-error>
-            <mat-error *ngIf="crearActividad.get('descri').hasError('minlength')">
+            <mat-error *ngIf="crearActividad.get('descripcion').hasError('minlength')">
               La descripción de la actividad es muy pequeña
             </mat-error>
-            <mat-error *ngIf="crearActividad.get('descri').hasError('maxlength')">
+            <mat-error *ngIf="crearActividad.get('descripcion').hasError('maxlength')">
               La descripción de la actividad es muy grande
               </mat-error>
-            <mat-error *ngIf="crearActividad.get('descri').hasError('pattern')">
+            <mat-error *ngIf="crearActividad.get('descripcion').hasError('pattern')">
               Debe ingresar solo numero y letras
             </mat-error>
           </mat-form-field>
         </div>
-        <div [hidden]="!(id_tipo_actividad==1)" class="campo_texto">
-          <input type="file" formControlName="imagen" class="formu">
+        <form  [hidden]="!(id_tipo_actividad==2)"[formGroup]="actividadImagen" #frmImagen="ngForm" class="form-inline">
+        <div  class="campo_texto">
+          <input type="file" formControlName="contenido_actividad" class="formu">
+          <mat-error *ngIf="actividadImagen.get('contenido_actividad').hasError('required')">
+            Selecciona una imagen
+          </mat-error>
         </div>
-        <div [hidden]="!(id_tipo_actividad==2)" class="campo_texto">
+      </form>
+      <form [hidden]="!(id_tipo_actividad==1)" [formGroup]="actividadTexto" #frmTexto="ngForm" class="form-inline">
+        <div class="campo_texto">
             <mat-form-field appearance="outline" class="tamano">
               <mat-label>TEXTO DE LA ACTIVIDAD DE IMITACIÓN </mat-label>
-              <input matInput placeholder="abc@gmail.com" formControlName="texto" class="formu">
+              <input matInput placeholder="El arbol es verde" formControlName="contenido_actividad" class="formu">
             </mat-form-field>
           </div>
+        </form>
         <div class="campo_texto">
-          <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
+          <button mat-raised-button [disabled]="frmActividad.invalid||(id_tipo_actividad==1 && frmTexto.invalid||id_tipo_actividad==2&&frmImagen.invalid)" color="primary"
             (click)="agregarActividad($event)">Agregar Actividad
             <mat-icon>bookmark_add</mat-icon>
           </button>

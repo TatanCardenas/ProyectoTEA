@@ -97,7 +97,7 @@
         </div>
       </div>
       <div [hidden]="!flagSesion">
-        <div>
+        <div *ngIf="rol==1||rol==2">
           <button mat-menu-item [disabled]="true" (click)="drawer.toggle()" style="cursor: pointer"
             [routerLink]="['/registrarP']">
             <mat-icon>fact_check</mat-icon>
@@ -107,8 +107,18 @@
         </div>
       </div>
       <div [hidden]="!flagSesion">
+        <div *ngIf="rol==1||rol==3">
+          <button mat-menu-item  (click)="drawer.toggle()" style="cursor: pointer"
+            [routerLink]="['/panelActividades']">
+            <mat-icon>fact_check</mat-icon>
+            <span>Panel de Actividades</span>
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+      <div [hidden]="!flagSesion">
         <div *ngIf="rol==1">
-          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/actividad']">
+          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/actividadDemo']">
             <mat-icon>keyboard_voice</mat-icon>
             <span>Actividad Demo</span>
           </button>
