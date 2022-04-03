@@ -8,6 +8,8 @@ import { UsuarioService } from './_service/usuario.service';
 import { UsuarioDocente } from './_model/UsuarioDocente';
 import { User } from './_model/User';
 import { UsuarioAcudiente } from './_model/UsuarioAcudiente';
+import { UsuarioPaciente } from './_model/UsuarioPaciente';
+import { Router } from '@angular/router';
 
 interface Registro {
   value: string;
@@ -30,6 +32,7 @@ export class AppComponent {
   public flagRol: boolean = false;
   private usuarioDocente = new UsuarioDocente();
   private usuarioAcudiente = new UsuarioAcudiente();
+  private usuarioPaciente = new UsuarioPaciente();
 
   registros: Registro[] = [
     { value: '1', viewValue: 'Como Docente' },
@@ -39,7 +42,8 @@ export class AppComponent {
 
   constructor(
     private loginService: LoginService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -61,32 +65,44 @@ export class AppComponent {
       const user: string = decodedToken.Usuario;
       //this.flagRol = true;
 
-      if (this.rol == 1) {
-        this.usuarioService.datosDocente(user).subscribe((data) => {
-          this.usuarioDocente = data;
-          this.usuario = this.usuarioDocente.nombre;
-          this.idUser = this.usuarioDocente.documento;
-          console.log('Hola: ' + this.usuarioDocente.nombre);
-          this.flagRol = true;
-        });
-      } else {
-        if (this.rol == 2) {
+      switch (this.rol.toString()){
+        case "1":
+          this.usuarioService.datosDocente(user).subscribe((data) => {
+            this.usuarioDocente = data;
+            this.ingresoUsuario(this.usuarioDocente);
+          })
+          break;
+        case "2":
           this.usuarioService.datosAcudiente(user).subscribe((data) => {
             this.usuarioAcudiente = data;
-            this.usuario = this.usuarioAcudiente.nombre;
-            this.idUser = this.usuarioAcudiente.documento;
-            console.log('Hola: ' + this.usuarioAcudiente.nombre);
-            this.flagRol = true;
+            this.ingresoUsuario(this.usuarioAcudiente);
           });
-        }
+          break;
+        case "3":
+          this.usuarioService.datosPaciente(user).subscribe((data) => {
+            this.usuarioPaciente = data;
+            this.ingresoUsuario(this.usuarioPaciente);
+          });
+          break;
       }
     }
   }
 
+  ingresoUsuario(usuarioIngreso:any){
+    this.usuario = usuarioIngreso.nombre;
+    this.idUser = usuarioIngreso.documento;
+    this.flagRol = true;
+  }
+
   cerrarSession() {
     this.user.usuario = this.idUser;
-    console.log('cedula desde componen', this.rol);
+    this.usuario=null;
     this.loginService.cerrarSesion(this.user);
     this.ngOnInit();
   }
+
+  enviarRegistro(tipoDeRegistro){
+    window.location.href = 'registro/'+tipoDeRegistro;
+  }
+
 }

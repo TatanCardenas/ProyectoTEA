@@ -37,10 +37,7 @@ export class LoginComponent implements OnInit {
 
   ingresar(event: Event){
     this.usser = this.formul.value;
-    this.usser.sesion = "Hola";
-    console.log("User: "+ this.usser.documento + "Sesion: "+this.usser.sesion);
     this.loginService.login(this.usser).subscribe(data =>{
-      console.log(data);
       sessionStorage.setItem(environment.TOKEN, data.Token);
       this.loginService.paginaReactiva.next(true);
       this.openSnackBar("Ingreso correctamente");

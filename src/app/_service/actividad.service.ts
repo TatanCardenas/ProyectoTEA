@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Actividad } from '../_model/Actividad';
+import { TypeActivity } from '../_model/TypeActivity';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,14 @@ export class ActividadService {
       return this.http.delete<any>(`${this.url}/DeleteActividad/`+id_actividad);
     }
 
+    getActivityId(activity_Id:number){
+      return this.http.get<any>(`${this.url}/GetActivityPerId/`+activity_Id);
+    }
+
+    getTypeActivity(){
+      return this.http.get<TypeActivity[]>(`${this.url}/GetTypeActivity`);
+    }
+    putActividadRealizada(actividadActualizar:Actividad){
+      return this.http.put<TypeActivity[]>(`${this.url}/PutActividadEstudiante`,actividadActualizar);
+    }
 }

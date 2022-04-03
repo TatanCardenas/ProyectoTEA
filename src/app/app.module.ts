@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { MaterialModule } from './material/material.module'
@@ -22,6 +23,9 @@ import { Not404Component } from './pages/not404/not404.component';
 import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad.component';
 import { PanelActividadesComponent } from './pages/panel-actividades/panel-actividades.component';
 import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.co
     CrearActividadComponent,
     PanelActividadesComponent,
     ActividadDemoComponent,
+    PanelResultadosComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +52,10 @@ import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.co
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    JwtModule
-    
+    JwtModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

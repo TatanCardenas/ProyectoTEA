@@ -11,21 +11,18 @@ import { Not404Component } from './pages/not404/not404.component';
 import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad.component';
 import { PanelActividadesComponent } from './pages/panel-actividades/panel-actividades.component';
 import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.component';
+import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
 
 const routes: Routes = [
-  {path: 'actividad', component: ActividadComponent},
+  {path: 'actividad/:idActividad', component: ActividadComponent},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
-<<<<<<< HEAD
-  {path: 'registrarP', component: RegistrarPacienteComponent, canActivate: [GuardianService]},
-  {path: 'panelActividades', component: PanelActividadesComponent},
+  {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
+  {path: 'registrarP', component: RegistrarComponent, canActivate: [GuardianService]},
+  {path: 'panelResultados', component: PanelResultadosComponent},
   {path: 'actividadDemo', component: ActividadDemoComponent},
   {path: 'registrarA', component: RegistrarComponent},
-  {path: 'registro/:registroID', component: RegistrarDocenteComponent},
-=======
-  {path: 'registrarP', component: RegistrarComponent, canActivate: [GuardianService]},
   {path: 'registro/:registroID', component: RegistrarComponent},
->>>>>>> c6d9923e5241d7bb99116db86117e9d2af1671cf
   {path: 'perfil', component: PerfilComponent,canActivate: [GuardianService]},
   {path: 'login', component: LoginComponent},
   {path: 'inicio', component: InicioComponent},

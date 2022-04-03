@@ -62,7 +62,7 @@
             <mat-label>Tipo de Actividad</mat-label>
                 <select matNativeControl formControlName="tipo_actividad" (change)="onSelect($event.target.value)">
                     <option style="color: black;" label="--Seleccione un el tipo de actividad--"></option>
-                    <option style="color: black;" *ngFor="let actividad of actividad_tipo" value="{{actividad.value}}">{{actividad.actividad_tp}}</option>
+                    <option style="color: black;" *ngFor="let actividad of actividad_tipo" value="{{actividad.Id_tp_actividad}}">{{actividad.ActividadNombre}}</option>
                 </select>
                 <mat-error *ngIf="crearActividad.get('tipo_actividad').hasError('required')">
                   Debe seleccionar un tipo de actividad
@@ -89,7 +89,7 @@
         </div>
         <form  [hidden]="!(id_tipo_actividad==2)"[formGroup]="actividadImagen" #frmImagen="ngForm" class="form-inline">
         <div  class="campo_texto">
-          <input type="file" formControlName="contenido_actividad" class="formu">
+          <input type="file" (change)="upload($event)" formControlName="contenido_actividad" class="formu" accept="*.png.jpg">
           <mat-error *ngIf="actividadImagen.get('contenido_actividad').hasError('required')">
             Selecciona una imagen
           </mat-error>

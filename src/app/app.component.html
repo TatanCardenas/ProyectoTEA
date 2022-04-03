@@ -13,8 +13,8 @@
     <div *ngIf="!flagSesion">
       <button mat-raised-button target="_blank" [matMenuTriggerFor]="menuR">Registrese</button>
       <mat-menu #menuR="matMenu">
-        <button mat-menu-item [routerLink]="['registro/1']">Como Docente</button>
-        <button mat-menu-item [routerLink]="['registro/2']">Como Acudiente</button>
+        <button mat-menu-item (click)="enviarRegistro(1)">Como Docente</button>
+        <button mat-menu-item (click)="enviarRegistro(2)">Como Acudiente</button>
       </mat-menu>
     </div>
 
@@ -98,8 +98,8 @@
       </div>
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1||rol==2">
-          <button mat-menu-item [disabled]="true" (click)="drawer.toggle()" style="cursor: pointer"
-            [routerLink]="['/registrarP']">
+          <button mat-menu-item  (click)="drawer.toggle()" style="cursor: pointer"
+            [routerLink]="['/panelResultados']">
             <mat-icon>fact_check</mat-icon>
             <span>Ver resultados</span>
           </button>

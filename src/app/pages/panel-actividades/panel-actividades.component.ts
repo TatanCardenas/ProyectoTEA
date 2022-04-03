@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actividad } from 'src/app/_model/Actividad';
 import { Usuario } from 'src/app/_model/Usuario';
+import CryptoJS from "crypto-js";
 import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente';
 import { ActividadService } from 'src/app/_service/actividad.service';
-import { PacienteService } from 'src/app/_service/paciente.service';
+import { UsuarioService } from 'src/app/_service/usuario.service';
 import { environment } from 'src/environments/environment';
 
 interface listaActividades {
@@ -22,32 +23,35 @@ export class PanelActividadesComponent implements OnInit {
 
   
   public actividadesLista:Actividad[];
-
+  private idencrypted;
   public pacienteDatos= new UsuarioPaciente();
   public usuario= new Usuario();
 
 
   constructor(private router: Router,
     private serviceActividad:ActividadService,
-    private servicePaciente:PacienteService) { }
+    private serviceUsuario:UsuarioService) { }
 
   async ngOnInit(): Promise<void> {
-    await this.delay(2000);
+    await this.delay(1000);
     this.datos();
     if(this.usuario.tipo_usuario_id==1){
       this.listDeActividades(this.usuario.numero_documento.toString())
     }else{
-      this.servicePaciente.getDatosPaciente(this.usuario.numero_documento.toString()).subscribe(data=>{
+      this.serviceUsuario.datosPaciente(this.usuario.numero_documento.toString()).subscribe(data=>{
         this.pacienteDatos = data;
       })
-      await this.delay(2000);
+      await this.delay(1000);
       this.listDeActividades(this.pacienteDatos.documento_docente)
     }
   }
 
   actividadSeleccionada(Id_actividad){
     console.log("redireccion"+Id_actividad)
-
+    do{
+      this.idencrypted = CryptoJS.AES.encrypt(JSON.stringify(Id_actividad), 'secret key').toString();
+    }while(this.idencrypted.includes('/'))
+    this.router.navigate(['actividad/'+this.idencrypted])
   }
 
   listDeActividades(documentoDocente:string){

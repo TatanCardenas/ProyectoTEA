@@ -1,9 +1,12 @@
+import { PacienteScoreJSon } from 'src/app/_model/PacienteScoreJSon';
 export class Actividad {
-    id_actividad:number;
-    nombreActividad:String;
-    descripcion:String;
-    docente_creador:string;
-    contenido_actividad:String;
-    tipo_actividad:number; 
-    tipo_actividad_texto:String;
+    Id_actividad:number;
+    NombreActividad:String;
+    Descripcion:String;
+    Docente_creador:string;
+    Contenido_actividad:String;
+    Tipo_actividad:number; 
+    Tipo_actividad_texto:String;
+    NuevoEstudiante:PacienteScoreJSon;
+	EstudiantesHicieronActividad:String;
 }

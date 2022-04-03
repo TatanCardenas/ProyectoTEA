@@ -13,6 +13,7 @@ export class SpeechService {
   isStoppedSpeechRecog = false;
   text = '';
   bandera = 0;
+  score = 1.0;
   tempWords: any;
 
   constructor(private router: Router) { }
@@ -30,7 +31,7 @@ export class SpeechService {
     });
   }
 
-  start(fraseAdecir:String): void {
+  start(fraseAdecir:String) {
     this.isStoppedSpeechRecog = false;
     this.recognition.start();
     this.recognition.addEventListener('end', () => {
@@ -51,8 +52,9 @@ export class SpeechService {
         console.log("frase a decir " + fraseADecir_sin_espacio);
         cantidadMinima = frase_sin_espacio.length<=fraseADecir_sin_espacio.length?frase_sin_espacio.length:fraseADecir_sin_espacio.length;
         console.log("porcentaje de acertividad "+this.porcentrajeDeAcertividad(frase_sin_espacio,fraseADecir_sin_espacio,cantidadMinima)+"%");
+        this.score = this.porcentrajeDeAcertividad(frase_sin_espacio,fraseADecir_sin_espacio,cantidadMinima);
         //entrada de condicional
-        if (frase.toLocaleLowerCase() == fraseAdecir.toLocaleLowerCase()) {
+        if (this.score == 100) {
           this.stop();
           this.text = frase;
           this.bandera=1;

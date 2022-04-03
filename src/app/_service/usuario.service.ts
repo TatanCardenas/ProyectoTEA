@@ -34,4 +34,8 @@ export class UsuarioService {
     return this.http.get<UsuarioDocente>(`${this.url}/GetDatosAcudiente?cedulaE=${documento}`);
   }
 
+  public datosPaciente(documento: string){
+    return this.http.get<UsuarioPaciente>(`${this.url}/datosPaciente/${documento}`);
+  }
+
 }

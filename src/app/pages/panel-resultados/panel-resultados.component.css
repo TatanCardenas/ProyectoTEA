@@ -1,0 +1,245 @@
+.containerClientSol{
+   
+    background: white;
+    display: flex;
+    height: auto;
+    padding: 50px;
+    flex-flow: column;
+       
+
+}
+.fijodiv{
+height: 300px;
+overflow:auto;
+text-align: center;
+font-size: 20px;
+
+}
+
+.fijodiv::-webkit-scrollbar{
+background-color: transparent !important;
+width: 8px;
+
+}
+.fijodiv::-webkit-scrollbar-thumb{
+background-color: black;
+border-radius: 8px;
+
+}
+@media (min-width: 983px) {
+.containerClientSol{
+    margin-left: 7%;
+    width: 80%;
+}
+}
+.tablaSuperior{
+width: 100%;
+height: 100px;
+
+}
+.formularios{
+width: 100%;
+height: 400px;
+margin-top: 50px;
+display: flex;
+flex-flow: row;
+justify-content:space-evenly;
+align-items: center;
+}
+.formulario{
+height: 350px;
+width: 40%;
+}
+
+.titulo{
+font-size: 25px;
+font-weight: bold;
+margin-right:7%;
+}
+.contenedorComponete{
+margin-bottom: 30px;
+width: 60%;
+display: flex;
+flex-flow:inherit;
+
+}
+.forms{
+display: flex;
+flex-flow: column;
+align-items:center;
+justify-content: center;
+width: 100%;
+}
+.buttons{
+width: 40%;
+height: 50px;
+color: white;
+border-radius: 50px;
+background-color: rgba(169, 3, 42);
+text-align: center;
+font-weight: bold;
+font-size: 20px;
+cursor: pointer;
+border: none;
+
+}
+.mostrarKMtar{
+width: 100%;
+margin-top: 15px;
+font-size: 20px;
+border-bottom: 1px solid rgb(92, 87, 87) ;
+letter-spacing: 5px;
+}
+.buttons2{
+width: 90%;
+height: 50px;
+color: white;
+border-radius: 50px;
+background-color: rgba(169, 3, 42);
+text-align: center;
+font-weight: bold;
+font-size: 23px;
+cursor: pointer;
+border: none;
+}
+.buttonsonly{
+align-items: center;
+}
+.columnaAbajo{
+text-align: center;
+margin-top: 150px;
+}
+/* css para el menu despegable*/
+
+.info-despegable{
+margin-bottom: 50px;
+margin-top: 50px;
+}
+
+.mat-expansion-panel {
+width: 71%;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+border-radius: 50px !important;
+background-color: #6D1F20;
+color: white;
+}
+
+.mat-expansion-panel:hover{
+background-color: #6D1F20
+}
+
+.mat-expansion-panel-header {
+width: 96%;
+height: 80px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+border-radius: 50px;
+background-color: #6D1F20;
+opacity: .9;
+color: white;
+padding-right: 400px;
+}
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
+margin-right: 80px;
+}
+
+.mat-expansion-panel-header:hover {
+background-color: #6D1F20;
+}
+
+.mat-expansion-panel-header-title {
+display: flex;
+color: white;
+margin-left: 46px;
+font-family: Xscale;
+font-size: 40px;
+height: 60px;
+margin-top: 35px;
+}
+
+.mat-expansion-panel-header-description {
+color: white;
+margin-top: 30px;
+}
+
+.mat-icon {
+display: flex;
+position: relative;
+font-size: 45px;
+left: 95%;
+margin-bottom: 50px;
+color: white;
+}
+
+/* fin css para el menu despegable*/
+
+@media (max-width: 983px) {
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description{
+    font-size: 27px;  
+}
+.fijodiv p{
+    font-size: 15px;
+}
+.buttons{
+    width: 80%;
+    font-size: 15px;
+}
+.buttons2{
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+    padding-left: -5px;
+}
+contenedorComponete{
+   
+    width: 100%;
+    
+    
+   }
+   .titulo{
+    font-size: 18px;
+   
+}
+
+.containerClientSol{
+    margin-left: auto !important;
+
+}
+
+}
+@media (max-width: 620px) {
+.formularios{
+   
+    flex-flow: column;
+  
+}
+.contenedorComponete{
+    width: 100%;
+   }
+   .formulario{
+       width: 100%;
+       margin-top: 100px;
+   }
+   .columnaAbajo{
+    text-align: center;
+     margin-top: 400px;
+ }
+ .tablaSuperior{
+    width: 100%;
+    height: 200px;
+  
+}
+.containerClientSol{
+    margin-left: auto !important;
+
+}
+
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline{bottom:1.25em}.mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper{margin-top:.5416666667em;top:calc(100% - 1.6666666667em)}@media print{.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28122em) scale(0.75)}.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28121em) scale(0.75)}.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server[label]:not(:label-shown)+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.2812em) scale(0.75)}}.mat-form-field-appearance-fill .mat-form-field-infix{padding:.25em 0 .75em 0}.mat-form-field-appearance-fill .mat-form-field-label{top:1.09375em;margin-top:-0.5em}.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-appearance-fill.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-0.59375em) scale(0.75);width:133.3333333333%}.mat-form-field-appearance-fill.mat-form-field-can-float .mat-input-server[label]:not(:label-shown)+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-0.59374em) scale(0.75);width:133.3333433333%}.mat-form-field-appearance-outline .mat-form-field-infix{padding:1em 0 1em 0}.mat-form-field-appearance-outline .mat-form-field-label{top:1.84375em;margin-top:-0.25em}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.59375em) scale(0.75);width:133.3333333333%} 
+.borde{
+border-bottom: solid 1px ;
+}

@@ -35,12 +35,14 @@ export class GuardianService implements CanActivate {
       return true;
     }else if((url.includes('/crearActividad')) && (rol == 1)){
       return true;
+    }else if((url.includes('/panelActividades')) && (rol == 1|| rol == 3)){
+      return true;
     }
     else{
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
     }
     }catch(e){
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
     }
   }
 

@@ -26,7 +26,4 @@ export class PacienteService {
     public eliminarEnlacePaciente(pacienteADesEnlazar:UsuarioPaciente){
       return this.http.put<any>(`${this.url}/eliminarEnlace`,pacienteADesEnlazar);
     }
-    public getDatosPaciente(pacienteDocumento:string){
-      return this.http.get<UsuarioPaciente>(`${this.url}/datosPaciente/`+pacienteDocumento)
-    }
 }
