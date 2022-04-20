@@ -1,0 +1,120 @@
+<div class="contenedor-evaluacion">
+    <div class="musica">
+        <div class="panelMusica">
+            <div class="opcion">
+                <div class="btn-play" (click)='repruducirAudio(1)'>
+                    <div class="play">
+                        <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                            music_note</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="opcion">
+                <div class="btn-play" (click)='repruducirAudio(2)'>
+                    <div class="play">
+                        <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                            music_note</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="opcion">
+                <div class="btn-play" (click)='repruducirAudio(3)'>
+                    <div class="play">
+                        <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                            music_note</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="materia" [id]="this.dynamicIdMateria" #materia>
+        <div class="titulo-evaluacion">
+            <h2>{{tituloEvaluacion}}</h2>
+            <div class="btn" (click)='scroll(actividad)' *ngIf="avanceActividadBandera == false">
+                <div class="btn-txt">CONTINUAR</div>
+            </div>
+        </div>
+    </div>
+    <div class="actividad" [id]="this.dynamicIdActividad" #actividad>
+        <div class="body">
+            <div class="subtitulo-modulo">
+                <div class="subtitulo">
+                    <div class="subtitulo-txt">
+                        <h2>{{modulo}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="multimedia">
+                <div class="panelImagen">
+                    <div class="imagen" *ngIf="mensajeInicial == false">
+                        <!--<img src="./assets/image/backgroundDocente.jpg" alt="">-->
+                        <img [src]="imagen" alt="">
+                    </div>
+                    <div class="info-txt" *ngIf="mensajeInicial == true">
+                        <p>DONDENTE XXX DE XXX A CONTINUACIÓN ENCONTRARÁ UNA ACTIVIDAD EVALUATIVA QUE BUSCA SABER LOS
+                            CONOCIMIENTOS BASICOS DEL ESTUDIANTE Y CON BASE A ELLOS SE IMPLEMENTARÁN LAS ACTIVIDADES QUE
+                            MÁS SE ACOPLEN A EL O ELLA.</p>
+                    </div>
+                </div>
+                <div class="panelVideo">
+                    <div class="video">
+                        <div id="player"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="audios" *ngIf="mensajeInicial == false">
+                <div class="pronunciacion">
+                    <div class="opcion">
+                        <div class="btn-play" (click)='pronuntiation(pronunciacionTxt1)'>
+                            <div class="play">
+                                <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                                    play_arrow</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opcion">
+                        <div class="btn-play" (click)='pronuntiation(pronunciacionTxt2)'>
+                            <div class="play">
+                                <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                                    play_arrow</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opcion">
+                        <div class="btn-play" (click)='pronuntiation(pronunciacionTxt3)'>
+                            <div class="play">
+                                <mat-icon class="icon-play" aria-hidden="false" aria-label="Example home icon">
+                                    play_arrow</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="opciones">
+                    <div class="opcion">
+                        <div class="opcion-txt">{{pronunciacionTxt1}}</div>
+                    </div>
+                    <div class="opcion">
+                        <div class="opcion-txt">{{pronunciacionTxt2}}</div>
+                    </div>
+                    <div class="opcion">
+                        <div class="opcion-txt">{{pronunciacionTxt3}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="food">
+            <div class="elements-food">
+                <div class="progress-bar">
+                    <div class="bar">
+                        <mat-progress-bar mode="buffer" value={{progreso}}></mat-progress-bar>
+                    </div>
+                </div>
+                <div class="continuar-btn">
+                    <div class="btn" (click)='scrollSecondary(materia)'>
+                        <div class="btn-txt">CONTINUAR</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,289 @@
+.contenedor-evaluacion .materia, .contenedor-evaluacion .actividad{
+    width: 95%;
+    height: 100vh;
+}
+
+.actividad .body{
+    width: 100%;
+    height: 80%;
+}
+
+.actividad .body .subtitulo-modulo{
+    width: 100%;
+    height: 10%;
+}
+.subtitulo-modulo .subtitulo{
+    background-color: #3f51b5;
+    border-bottom-left-radius: 55px;
+    border-bottom-right-radius: 55px;
+    color: #ffff;
+    font-weight: 100;
+    width: 50%;
+    height: 8vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.subtitulo-modulo .subtitulo .subtitulo-txt{
+    width: 100%;
+    text-align: center;
+}
+.subtitulo-modulo .subtitulo .subtitulo-txt h2{
+    font-size: 4vh;
+}
+
+
+.actividad .multimedia{
+    width: 100%;
+    height: 60%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.actividad .panelImagen{
+    width: 49%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    border-right: 4px solid #fdfffc;
+}
+
+.actividad .panelImagen .imagen, .actividad .panelImagen .info-txt{
+    width: 80%;
+    height: 90%;
+    margin: auto;
+    color: #ffff;
+    font-size: 3vh;
+    font-weight: 700;
+    line-height: 5vh; 
+}
+
+.actividad .panelImagen .imagen img{
+    width: 100%;
+    height: 100%;
+}
+
+.actividad .panelVideo{
+    width: 49%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.actividad .panelVideo .video{
+    width: 80%;
+    height: 90%;
+    margin: auto;
+}
+
+.actividad .audios{
+    width: 100%;
+    height: 20%;
+}
+
+.actividad .audios .pronunciacion{
+    width: 60%;
+    height: 65%;
+    background-color: #3f51b5;
+    border-top-left-radius: 40px ;
+    border-top-right-radius: 40px ;
+    margin: auto;
+}
+
+.actividad .audios .pronunciacion .opcion{
+    width: 33%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.actividad .audios .pronunciacion .btn-play{
+    background-color: #ffff;
+    width: 25%;
+    height: 90%;
+    border-radius: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.actividad .audios .pronunciacion .play{
+    width: 100%;
+    text-align: center;
+}
+
+.actividad .audios .pronunciacion .play .icon-play{
+    color: #3f51b5;
+    font-size: 8vh;
+    width: 100%;
+    height: 100%;
+}
+
+.actividad .opciones{
+    width: 60%;
+    height: 35%;
+    background-color: #ffff;
+    border-bottom-left-radius: 40px ;
+    border-bottom-right-radius: 40px ;
+    margin: auto;
+}
+
+.actividad .opciones .opcion{
+    width: 33%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.actividad .opciones .opcion .opcion-txt{
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    font-size: 3vh;
+    font-weight: 900;
+    color: #3f51b5;
+}
+
+.musica{
+    z-index: 2;
+    position: fixed;
+    margin-left: 90%;
+    height: 100vh;
+    width: 10%;
+    background-color:#232636;
+    display: flex;
+    align-items: center;
+}
+
+.musica .panelMusica{
+    height: 80vh;
+    width: 100%;
+}
+
+.musica .panelMusica .opcion{
+    height: 33%;
+    width: 100%;
+}
+
+.musica .panelMusica .btn-play{
+    background-color: #ffff;
+    width: 60%;
+    height: 50%;
+    border-radius: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.musica .panelMusica .play{
+    width: 100%;
+    text-align: center;
+}
+
+.musica .panelMusica .play .icon-play{
+    color: #232636;
+    font-size: 8vh;
+    width: 100%;
+    height: 100%;
+}
+
+#inicial{
+    background-color: #b1a4ff;
+}
+
+#ciencia{
+    background-color: #95b8f6;
+}
+
+#matematicas{
+    background-color: #add5fa;
+}
+
+#comunicativas{
+    background-color: #a0d2f3;
+}
+
+#ciudadanas{
+    background-color: #f9a59a;
+}
+
+#sentimientos{
+    background-color: #fa5f49;
+}
+
+.titulo-evaluacion{
+    width: 100%;
+    text-align: center;
+    padding-top: 40vh;
+    color: #ffff;
+}
+
+.titulo-evaluacion h2{
+    font-size: 10vh;
+    text-shadow: -3px 5px #393a3c;
+}
+
+.btn{
+    width: 25vh;
+    height: 5vh;
+    background-color: #3f51b5;
+    border-radius: 55px;
+    margin-top: 30vh;
+    margin-left: 70%;   
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn .btn-txt{
+    width: 100%;
+    text-align: center;
+    font-size: 2vh;
+    color: #ffff;
+}
+
+
+.food{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.food .elements-food{
+    width: 100%;
+    height: 50%;
+}
+
+.progress-bar{
+    width: 60%;
+    float: left;
+}
+
+.progress-bar .bar{
+    width: 80%;
+    margin: auto;
+}
+
+.food .continuar-btn{
+    width: 30%;
+    float: left;
+}
+
+.continuar-btn .btn{
+    text-align: center;
+    width: 30%;
+    background-color: #3f51b5;
+    border-radius: 55px;
+    margin: auto;
+    color: #ffff;
+    cursor: pointer;
+}

@@ -12,10 +12,12 @@ import { CrearActividadComponent } from './pages/crear-actividad/crear-actividad
 import { PanelActividadesComponent } from './pages/panel-actividades/panel-actividades.component';
 import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.component';
 import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
+import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacion-inicial.component';
 
 const routes: Routes = [
   {path: 'actividad/:idActividad', component: ActividadComponent},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
+  {path: 'evaluacionInicial', component: EvaluacionInicialComponent},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
   {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
   {path: 'registrarP', component: RegistrarComponent, canActivate: [GuardianService]},
@@ -27,7 +29,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'inicio', component: InicioComponent},
   {path: '', component: InicioComponent},
-  {path: '**', component: Not404Component}
+  {path: '**', component: Not404Component},
 ];
 
 @NgModule({

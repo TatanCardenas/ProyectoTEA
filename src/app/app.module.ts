@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { MaterialModule } from './material/material.module'
@@ -26,6 +27,7 @@ import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.co
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
+import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacion-inicial.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { PanelResultadosComponent } from './pages/panel-resultados/panel-resulta
     PanelActividadesComponent,
     ActividadDemoComponent,
     PanelResultadosComponent,
+    EvaluacionInicialComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { PanelResultadosComponent } from './pages/panel-resultados/panel-resulta
     JwtModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    MatProgressBarModule,
 
   ],
   providers: [],
