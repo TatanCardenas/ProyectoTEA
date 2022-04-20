@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Actividad } from '../_model/Actividad';
+import { PacienteScoreJSon } from '../_model/PacienteScoreJSon';
 import { TypeActivity } from '../_model/TypeActivity';
+import { UsuarioPaciente } from '../_model/UsuarioPaciente';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,8 @@ export class ActividadService {
   constructor(private http: HttpClient,
     private router: Router) { }
 
-    getListaActividades(id_docente:string){
-      return this.http.get<Actividad[]>(`${this.url}/GetListaActividades/`+id_docente);
+    getListaActividades(id_rol:number,id_card:string){
+      return this.http.get<Actividad[]>(`${this.url}/GetListaActividades/${id_rol}/${id_card}`);
     }
 
     postAgregarActividad(actividadNueva:Actividad){
@@ -40,5 +42,12 @@ export class ActividadService {
     }
     putActividadRealizada(actividadActualizar:Actividad){
       return this.http.put<TypeActivity[]>(`${this.url}/PutActividadEstudiante`,actividadActualizar);
+    }
+
+    getGetAcivitysMakedByPatientForTeacher(id_activity,id_card_teacher){
+      return this.http.get<UsuarioPaciente[]>(`${this.url}/GetAcivitysMakedByPatientForTeacher/${id_activity}/${id_card_teacher}`);
+    }
+    getGetAcivitysMakedByPatientForAttendant(id_activity,id_card_attendant){
+      return this.http.get<UsuarioPaciente[]>(`${this.url}/GetAcivitysMakedByPatientForAttendant/${id_activity}/${id_card_attendant}`);
     }
 }

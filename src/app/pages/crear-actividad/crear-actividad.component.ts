@@ -43,7 +43,7 @@ export class CrearActividadComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.delay(1000);
     this.datos();
-    this.servicioActividad.getListaActividades(this.user).subscribe(data=>{
+    this.servicioActividad.getListaActividades(1,this.user).subscribe(data=>{
       this.listaActividades= new MatTableDataSource(data);
     });
     this.servicioActividad.getTypeActivity().subscribe(data=>{

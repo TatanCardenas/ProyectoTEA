@@ -40,7 +40,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
     });
 
   async ngOnInit(): Promise<void> {
-    await this.delay(2000);
+    await this.delay(1000);
     this.datos();
     if(this.id==1){
       this.tipoDeUsuario.documento_docente = this.user;
@@ -72,7 +72,6 @@ export class EnlaceConElPacienteComponent implements OnInit {
       if(this.pacientesTabla.data[0]==undefined){
         this.pacientesPorEnlazar=new MatTableDataSource(paciente);
       }else{
-        console.log("entro aca")
         this.pacientesPorEnlazar=null;
       }
     });
@@ -108,7 +107,6 @@ export class EnlaceConElPacienteComponent implements OnInit {
     }
     this.enlaceAEliminar.documento= documentoPaciente;
     this.serivcioPaciente.eliminarEnlacePaciente(this.enlaceAEliminar).subscribe(data=>{
-      console.log("respuesta "+ data)
       this.openSnackBar(""+data);
       this.ngOnInit();
     });

@@ -55,7 +55,7 @@ export class PanelActividadesComponent implements OnInit {
   }
 
   listDeActividades(documentoDocente:string){
-    this.serviceActividad.getListaActividades(documentoDocente).subscribe(data=>{
+    this.serviceActividad.getListaActividades(1,documentoDocente).subscribe(data=>{
       this.actividadesLista= data;
     })
   }

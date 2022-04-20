@@ -14,12 +14,12 @@ import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.co
 import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
 
 const routes: Routes = [
-  {path: 'actividad/:idActividad', component: ActividadComponent},
+  {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
   {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
   {path: 'registrarP', component: RegistrarComponent, canActivate: [GuardianService]},
-  {path: 'panelResultados', component: PanelResultadosComponent},
+  {path: 'panelResultados', component: PanelResultadosComponent,canActivate: [GuardianService]},
   {path: 'actividadDemo', component: ActividadDemoComponent},
   {path: 'registrarA', component: RegistrarComponent},
   {path: 'registro/:registroID', component: RegistrarComponent},
