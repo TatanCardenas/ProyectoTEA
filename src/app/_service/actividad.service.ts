@@ -35,9 +35,9 @@ export class ActividadService {
   }
 
   //ejemplo lista
-  /*getEvaluacionInicialComunicacion() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEvaluacionInicialMatematicas/`);
-  }*/
+  getEvaluacionInicialComunicacion() {
+    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEvaluacionInicialComunicacion/`);
+  }
 
   //ejemplo lista
   /*getEvaluacionInicialHabilidadesCiudadanas() {

@@ -204,7 +204,7 @@ export class EvaluacionInicialComponent implements OnInit {
     this.primerBoton = true;
     this.segundoboton = false;
   }
-  
+
   //CONFIGURACION DE VIDEO
   //Inicializacion del metodo para YT Iframe consumiendo la API
   initVideo() {
@@ -343,17 +343,19 @@ export class EvaluacionInicialComponent implements OnInit {
         break;
       case 3:
         //COMUNICACION
-        /*this.actividadService.getEvaluacionInicialComunicacion().subscribe((data) => {
-          this.actividadEvaluacionInicial = data;
-        });*/
+        this.actividadService
+          .getEvaluacionInicialComunicacion()
+          .subscribe((data) => {
+            this.actividadEvaluacionInicial = data;
+          });
         break;
-      case 3:
+      case 4:
         //HABILIDADES CIUDADANAS
         /*this.actividadService.getEvaluacionInicialComunicacion().subscribe((data) => {
             this.actividadEvaluacionInicial = data;
           });*/
         break;
-      case 3:
+      case 5:
         //HABILIDADES SOCIALES
         /*this.actividadService.getEvaluacionInicialComunicacion().subscribe((data) => {
               this.actividadEvaluacionInicial = data;
