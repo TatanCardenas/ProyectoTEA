@@ -1,0 +1,6 @@
+projectKey=proyecto-grado-front
+serverUrl=http://localhost:9000
+serverVersion=9.4.0.54424
+dashboardUrl=http://localhost:9000/dashboard?id=proyecto-grado-front
+ceTaskId=AYBJ4UKQvmIub9gf-nWY
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYBJ4UKQvmIub9gf-nWY
