@@ -21,8 +21,8 @@ export class EvaluacionInicialComponent implements OnInit {
   modulo;
   //conteo que se actualiza al avanzar de actividad
   avanceActividad = 1;
-  //define si se encuentra en un avance de actividad o en un avance de modulo
-  avanceActividadBandera = false;
+  //define si se encuentra en un avance de actividad o en un avance de modulo (true-Actividad, false-Modulo)
+  avanceActividad_ModuloBandera = false;
   //---------------------------------------------------
 
   //IDENTIFICADORES
@@ -31,8 +31,8 @@ export class EvaluacionInicialComponent implements OnInit {
   dynamicIdActividad;
   //define el titulo de cada modulo
   tituloEvaluacion;
-  //define en el div se el mensaje inicial se visualiza o no se vusualiza
-  mensajeInicial = true;
+  //define en el div si el mensaje inicial y la seccion de audios se visualizan o no se vusualizan
+  mensajeInicial_Audios = true;
   //---------------------------------------------------
 
   //CONTENIDO ACTIVIDAD
@@ -56,6 +56,9 @@ export class EvaluacionInicialComponent implements OnInit {
   //define el div
   public player: any;
   public reframed: Boolean = false;
+  //control de botones
+  primerBoton = true;
+  segundoboton = false;
   //---------------------------------------------------
   //define el progreso total de la evaluacion, se actualiza dependiendo de la cantidad de actividades y modulos
   progreso = 0;
@@ -76,72 +79,66 @@ export class EvaluacionInicialComponent implements OnInit {
     this.activityLoad(this.avanceModulo + 1);
   }
   private buildFrom() {
-    //carga el modulo actual
+    //carga el modulo actual actividad {0}
     this.modulo = 'HOLA DOCENTE! Nos da gusto tenerte aquí';
     //carga variables de la actividad {0}
     this.cargaDeIdentificadores(this.avanceModulo);
-    //carga del video
+    //carga del video actividad {0}
     this.video = '9f862GMvJf8';
   }
 
   scroll(el: HTMLElement) {
     el.scrollIntoView({ behavior: 'smooth' });
-    if (this.avanceModulo > 0) {
-      this.mensajeInicial = false;
-      this.avanceActividadBandera = true;
-    } else {
-      this.avanceActividadBandera = false;
+    if (this.avanceModulo == 0) {
+      this.avanceActividad_ModuloBandera = false;
+      //ajuste botones
+      this.primerBoton = false;
+      this.segundoboton = true;
+    } else if (this.avanceModulo > 0) {
+      //se deshabilita el mensaje inicial y se habilita la seccion de audios
+      this.mensajeInicial_Audios = false;
+      this.avanceActividad_ModuloBandera = true;
+      //ajuste botones
+      this.primerBoton = false;
+      this.segundoboton = true;
     }
   }
 
   scrollSecondary(el: HTMLElement): void {
     this.progreso = this.progreso + 7.14;
-    if (this.avanceActividadBandera == false) {
+    //Modulo
+    if (this.avanceActividad_ModuloBandera == false) {
       this.avanceModulo = this.avanceModulo + 1;
       this.modulo = 'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
       switch (this.avanceModulo) {
         case 1: {
           //ciencia
-          this.cargaContenidoActividad();
           //carga variables de la actividad {1}
-          this.cargaDeIdentificadores(this.avanceModulo);
-          this.progreso = 0;
-          el.scrollIntoView({ behavior: 'smooth' });
+          this.avanzarModulo(this.avanceModulo, el);
           break;
         }
         case 2: {
           //matematicas
-          this.cargaContenidoActividad();
           //carga variables de la actividad {2}
-          this.cargaDeIdentificadores(this.avanceModulo);
-          el.scrollIntoView({ behavior: 'smooth' });
+          this.avanzarModulo(this.avanceModulo, el);
           break;
         }
         case 3: {
-          //
-          this.cargaContenidoActividad();
+          //comunicacion
           //carga variables de la actividad {3}
-          this.cargaDeIdentificadores(this.avanceModulo);
-
-          el.scrollIntoView({ behavior: 'smooth' });
+          this.avanzarModulo(this.avanceModulo, el);
           break;
         }
         case 4: {
-          //
-          this.cargaContenidoActividad();
+          //habili ciudadanas
           //carga variables de la actividad {4}
-          this.cargaDeIdentificadores(this.avanceModulo);
-
-          el.scrollIntoView({ behavior: 'smooth' });
+          this.avanzarModulo(this.avanceModulo, el);
           break;
         }
         case 5: {
-          //
-          this.cargaContenidoActividad();
-          //carga variables de la actividad {4}
-          this.cargaDeIdentificadores(this.avanceModulo);
-
-          el.scrollIntoView({ behavior: 'smooth' });
+          //habilid sociales
+          //carga variables de la actividad {5}
+          this.avanzarModulo(this.avanceModulo, el);
           break;
         }
         default: {
@@ -150,68 +147,34 @@ export class EvaluacionInicialComponent implements OnInit {
           break;
         }
       }
-    } else if (this.avanceActividadBandera == true) {
+      //Actividad
+    } else if (this.avanceActividad_ModuloBandera == true) {
       this.avanceActividad = this.avanceActividad + 1;
       this.modulo = 'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
       switch (this.avanceModulo) {
         case 1: {
           //ciencias
-          this.cargaContenidoActividad();
-
-          if (this.avanceActividad >= 3) {
-            this.avanceActividadBandera = false;
-            this.avanceActividad = 1;
-            //pre carga los servicios de la siguiente actividad
-            this.activityLoad(this.avanceModulo + 1);
-          }
+          this.avanzarActividad(this.avanceModulo);
           break;
         }
         case 2: {
           //matematicas;
-          this.cargaContenidoActividad();
-
-          if (this.avanceActividad >= 3) {
-            this.avanceActividadBandera = false;
-            this.avanceActividad = 1;
-            //pre carga los servicios de la siguiente actividad
-            this.activityLoad(this.avanceModulo + 1);
-          }
+          this.avanzarActividad(this.avanceModulo);
           break;
         }
         case 3: {
           //comunicativas;
-          this.cargaContenidoActividad();
-
-          if (this.avanceActividad >= 3) {
-            this.avanceActividadBandera = false;
-            this.avanceActividad = 1;
-            //pre carga los servicios de la siguiente actividad
-            this.activityLoad(this.avanceModulo + 1);
-          }
+          this.avanzarActividad(this.avanceModulo);
           break;
         }
         case 4: {
           //ciudadanas;
-          this.cargaContenidoActividad();
-
-          if (this.avanceActividad >= 3) {
-            this.avanceActividadBandera = false;
-            this.avanceActividad = 1;
-            //pre carga los servicios de la siguiente actividad
-            this.activityLoad(this.avanceModulo + 1);
-          }
+          this.avanzarActividad(this.avanceModulo);
           break;
         }
         case 5: {
           //habilid sociales;
-          this.cargaContenidoActividad();
-
-          if (this.avanceActividad >= 3) {
-            this.avanceActividadBandera = false;
-            this.avanceActividad = 1;
-            //pre carga los servicios de la siguiente actividad
-            this.activityLoad(this.avanceModulo + 1);
-          }
+          this.avanzarActividad(this.avanceModulo);
           break;
         }
         default: {
@@ -221,6 +184,27 @@ export class EvaluacionInicialComponent implements OnInit {
     }
   }
 
+  //AVANZAR ACTIVIDAD
+  avanzarActividad(avanceModulo) {
+    this.cargaContenidoActividad();
+    if (this.avanceActividad >= 3) {
+      this.avanceActividad_ModuloBandera = false;
+      this.avanceActividad = 1;
+      //pre carga los servicios de la siguiente actividad
+      this.activityLoad(avanceModulo + 1);
+    }
+  }
+  //AVANZAR MODULO
+  avanzarModulo(avanceModulo, el) {
+    this.cargaContenidoActividad();
+    //carga variables de la actividad {1}
+    this.cargaDeIdentificadores(avanceModulo);
+    el.scrollIntoView({ behavior: 'smooth' });
+    //ajuste botones
+    this.primerBoton = true;
+    this.segundoboton = false;
+  }
+  
   //CONFIGURACION DE VIDEO
   //Inicializacion del metodo para YT Iframe consumiendo la API
   initVideo() {
