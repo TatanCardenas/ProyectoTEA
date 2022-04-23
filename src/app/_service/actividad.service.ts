@@ -20,34 +20,39 @@ export class ActividadService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-    getListaActividades(id_rol:number,id_card:string){
-      return this.http.get<Actividad[]>(`${this.url}/GetListaActividades/${id_rol}/${id_card}`);
-    }
+  getListaActividades(id_rol: number, id_card: string) {
+    return this.http.get<Actividad[]>(
+      `${this.url}/GetListaActividades/${id_rol}/${id_card}`
+    );
+  }
 
   //ejemplo lista
   getEvaluacionInicialCiencias() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEvaluacionInicialCiencias/`);
+    return this.http.get<EvaluacionInicial[]>(
+      `${this.url}/GetEvaluacionInicialCiencias/`
+    );
   }
 
   //ejemplo lista
   getEvaluacionInicialMatematicas() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEvaluacionInicialMatematicas/`);
+    return this.http.get<EvaluacionInicial[]>(
+      `${this.url}/GetEvaluacionInicialMatematicas/`
+    );
   }
 
   //ejemplo lista
   getEvaluacionInicialComunicacion() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEvaluacionInicialComunicacion/`);
+    return this.http.get<EvaluacionInicial[]>(
+      `${this.url}/GetEvaluacionInicialComunicacion/`
+    );
   }
 
   //ejemplo lista
-  /*getEvaluacionInicialHabilidadesCiudadanas() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEjemploLista/`);
-  }*/
-
-  //ejemplo lista
-  /*getEvaluacionInicialHabilidadesSociales() {
-    return this.http.get<EvaluacionInicial[]>(`${this.url}/GetEjemploLista/`);
-  }*/
+  getEvaluacionInicialHabilidadesSociales() {
+    return this.http.get<EvaluacionInicial[]>(
+      `${this.url}/GetEvaluacionInicialHabilidadesSociales/`
+    );
+  }
 
   postAgregarActividad(actividadNueva: Actividad) {
     return this.http.post<any>(
@@ -74,10 +79,14 @@ export class ActividadService {
       actividadActualizar
     );
   }
-  getGetAcivitysMakedByPatientForTeacher(id_activity,id_card_teacher){
-    return this.http.get<UsuarioPaciente[]>(`${this.url}/GetAcivitysMakedByPatientForTeacher/${id_activity}/${id_card_teacher}`);
+  getGetAcivitysMakedByPatientForTeacher(id_activity, id_card_teacher) {
+    return this.http.get<UsuarioPaciente[]>(
+      `${this.url}/GetAcivitysMakedByPatientForTeacher/${id_activity}/${id_card_teacher}`
+    );
   }
-  getGetAcivitysMakedByPatientForAttendant(id_activity,id_card_attendant){
-    return this.http.get<UsuarioPaciente[]>(`${this.url}/GetAcivitysMakedByPatientForAttendant/${id_activity}/${id_card_attendant}`);
+  getGetAcivitysMakedByPatientForAttendant(id_activity, id_card_attendant) {
+    return this.http.get<UsuarioPaciente[]>(
+      `${this.url}/GetAcivitysMakedByPatientForAttendant/${id_activity}/${id_card_attendant}`
+    );
   }
 }

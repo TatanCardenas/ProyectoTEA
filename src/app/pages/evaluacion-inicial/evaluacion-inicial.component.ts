@@ -105,7 +105,7 @@ export class EvaluacionInicialComponent implements OnInit {
   }
 
   scrollSecondary(el: HTMLElement): void {
-    this.progreso = this.progreso + 7.14;
+    this.progreso = this.progreso + 7.8;
     //Modulo
     if (this.avanceActividad_ModuloBandera == false) {
       this.avanceModulo = this.avanceModulo + 1;
@@ -132,12 +132,6 @@ export class EvaluacionInicialComponent implements OnInit {
         case 4: {
           //habili ciudadanas
           //carga variables de la actividad {4}
-          this.avanzarModulo(this.avanceModulo, el);
-          break;
-        }
-        case 5: {
-          //habilid sociales
-          //carga variables de la actividad {5}
           this.avanzarModulo(this.avanceModulo, el);
           break;
         }
@@ -169,11 +163,6 @@ export class EvaluacionInicialComponent implements OnInit {
         }
         case 4: {
           //ciudadanas;
-          this.avanzarActividad(this.avanceModulo);
-          break;
-        }
-        case 5: {
-          //habilid sociales;
           this.avanzarActividad(this.avanceModulo);
           break;
         }
@@ -321,6 +310,7 @@ export class EvaluacionInicialComponent implements OnInit {
         break;
     }
   }
+  //------------------------------------------------------------------------------------
 
   //Consumo de servicios, recibe el modulo actual y solicita el servicio dependiendo de este
   activityLoad(idModulo) {
@@ -345,21 +335,19 @@ export class EvaluacionInicialComponent implements OnInit {
         //COMUNICACION
         this.actividadService
           .getEvaluacionInicialComunicacion()
-          .subscribe((data) => {
-            this.actividadEvaluacionInicial = data;
+          .subscribe((data_comunicacion) => {
+            this.actividadEvaluacionInicial = data_comunicacion;
           });
         break;
       case 4:
-        //HABILIDADES CIUDADANAS
-        /*this.actividadService.getEvaluacionInicialComunicacion().subscribe((data) => {
-            this.actividadEvaluacionInicial = data;
-          });*/
+        //HABILIDADES SOCIALES
+        this.actividadService
+          .getEvaluacionInicialHabilidadesSociales()
+          .subscribe((data_habilSociales) => {
+            this.actividadEvaluacionInicial = data_habilSociales;
+          });
         break;
       case 5:
-        //HABILIDADES SOCIALES
-        /*this.actividadService.getEvaluacionInicialComunicacion().subscribe((data) => {
-              this.actividadEvaluacionInicial = data;
-            });*/
         break;
     }
   }
@@ -387,11 +375,6 @@ export class EvaluacionInicialComponent implements OnInit {
         this.tituloEvaluacion = 'COMUNICACIÓN';
         break;
       case 4:
-        this.dynamicIdActividad = 'ciudadanas';
-        this.dynamicIdMateria = 'ciudadanas';
-        this.tituloEvaluacion = 'HABILIDADES CIUDADANAS';
-        break;
-      case 5:
         this.dynamicIdActividad = 'sentimientos';
         this.dynamicIdMateria = 'sentimientos';
         this.tituloEvaluacion = 'HABILIDADES SOCIALES';
@@ -423,5 +406,6 @@ export class EvaluacionInicialComponent implements OnInit {
     this.player.loadVideoById({
       videoId: this.video,
     });
+    
   }
 }
