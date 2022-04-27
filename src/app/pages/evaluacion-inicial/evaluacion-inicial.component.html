@@ -91,13 +91,22 @@
                 </div>
                 <div class="opciones">
                     <div class="opcion">
-                        <div class="opcion-txt">{{pronunciacionTxt1}}</div>
+                        <div class="opcion-txt">
+                            <input type="radio" name="opc" id="1">
+                            <label for="txt">{{pronunciacionTxt1}}</label>
+                        </div>
                     </div>
                     <div class="opcion">
-                        <div class="opcion-txt">{{pronunciacionTxt2}}</div>
+                        <div class="opcion-txt">
+                            <input type="radio" name="opc" id="1">
+                            <label for="txt">{{pronunciacionTxt2}}</label>
+                        </div>
                     </div>
                     <div class="opcion">
-                        <div class="opcion-txt">{{pronunciacionTxt3}}</div>
+                        <div class="opcion-txt">
+                            <input type="radio" name="opc" id="1">
+                            <label for="txt">{{pronunciacionTxt3}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,7 +119,7 @@
                     </div>
                 </div>
                 <div class="continuar-btn">
-                    <div class="btn" (click)='scrollSecondary(materia)'  *ngIf="segundoboton == true">
+                    <div class="btn" (click)='scrollSecondary(materia)' *ngIf="segundoboton == true">
                         <div class="btn-txt">CONTINUAR</div>
                     </div>
                 </div>
