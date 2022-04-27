@@ -5,20 +5,20 @@
         <div id="texto" class="card-header text-uppercase">Repite la siguiente oración:<br>
             {{fraseADecir}}
         </div>
+        <div>
+            <div class="card bg-light mt-2">
+            </div>
+            <mat-form-field id="textArea" appearance="fill">
+                <textarea matInput [disabled]="true" style="color: black;">{{speech.text}}</textarea>
+                <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
+                <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
+            </mat-form-field>
+            <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
+            <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="enviarDatos()">Enviar Datos</button>
+        </div>
     </div>
     <div *ngIf="actividad.Tipo_actividad==2">
-        <p>Acá va una una actividad tipo 2</p>
+        <p>Acá va una una actividad de PECS</p>
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    </div>
-    <div>
-        <div class="card bg-light mt-2">
-        </div>
-        <mat-form-field id="textArea" appearance="fill">
-            <textarea matInput [disabled]="true" style="color: black;">{{speech.text}}</textarea>
-            <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
-            <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
-        </mat-form-field>
-        <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
-        <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="enviarDatos()">Enviar Datos</button>
     </div>
 </div>

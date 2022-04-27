@@ -1,53 +1,50 @@
-<table mat-table [dataSource]="pacientesTabla" matSort  class="mat-elevation-z8">
-  <caption>PACIENTES QUE REALIZARON LA ACTIVIDAD</caption>
-  <ng-container matColumnDef="Nombre Paciente">
-    <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-  </ng-container>
-  <ng-container matColumnDef="Apellido Paciente">
-    <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
-    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-  </ng-container>
-  <ng-container matColumnDef="Grado Autismo">
-      <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
-      <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
-  </ng-container>
-  <ng-container matColumnDef="Edad">
-      <th mat-header-cell *matHeaderCellDef> Edad </th>
-      <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
-    </ng-container>
-    <ng-container matColumnDef="Reporte">
-      <th mat-header-cell *matHeaderCellDef> Reporte </th>
-      <td mat-cell *matCellDef="let element"><button mat-button>
-        <mat-icon color="warn">description</mat-icon>
-      </button> </td>
-    </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-<div class="info-despegable">
-  </div>
+<div class="titulo">
+  <p>
+    SELECCIONA LA ACTIVIDAD PARA
+    VER QUIEN DE TUS ESTUDIANTES LA HA REALIZADO
+  </p>
+</div>
+<div class="resultados">
   <div class="containerClientSol">
-    <div class="info-despegable">
-    </div>
-    <div class="formularios">
-      <div class="formulario">
-        <mat-list-item *ngFor="let actividad of actividadesLista" class="list-horizontal">
-            <mat-card class="example-card" (click)="actividadSeleccionada(actividad.Id_actividad)">
-                <mat-card-title-group>
-                  <mat-card-title>{{actividad.NombreActividad}}</mat-card-title>
-                  <mat-card-subtitle>{{actividad.Tipo_actividad_texto}}</mat-card-subtitle>
-                  <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-                </mat-card-title-group>
-              </mat-card>
-          </mat-list-item>
-      </div>
-      <div style="background-color: black; height: 370px; width: 1px;"></div>
-      <div class="formulario">
-        
-      </div>
-  
+    <div class="formulario">
+      <mat-list-item *ngFor="let actividad of actividadesLista" class="list-horizontal">
+        <mat-card class="example-card" (click)="actividadSeleccionada(actividad.Id_actividad)">
+          <mat-card-title-group>
+            <mat-card-title>{{actividad.NombreActividad}}</mat-card-title>
+            <mat-card-subtitle>{{actividad.Tipo_actividad_texto}}</mat-card-subtitle>
+            <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+          </mat-card-title-group>
+        </mat-card>
+      </mat-list-item>
     </div>
   </div>
-  
-  
+  <div>
+    <table mat-table [dataSource]="pacientesTabla" matSort class="mat-elevation-z8">
+      <caption>PACIENTES QUE REALIZARON LA ACTIVIDAD</caption>
+      <ng-container matColumnDef="Nombre Paciente">
+        <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Apellido Paciente">
+        <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Grado Autismo">
+        <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
+        <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Edad">
+        <th mat-header-cell *matHeaderCellDef> Edad </th>
+        <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Reporte">
+        <th mat-header-cell *matHeaderCellDef> Reporte </th>
+        <td mat-cell *matCellDef="let element"><button mat-button (click)="obtenerEstudiante(element.documento)">
+            <mat-icon color="warn">description</mat-icon>
+          </button> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

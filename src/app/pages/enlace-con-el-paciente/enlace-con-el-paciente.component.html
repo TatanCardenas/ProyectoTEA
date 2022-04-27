@@ -1,66 +1,68 @@
 <div>
-    <div>
-        <table mat-table [dataSource]="pacientesTabla" matSort  class="mat-elevation-z8">
-            <caption>PACIENTES A TU CARGO</caption>
-            <ng-container matColumnDef="Nombre Paciente">
-              <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Apellido Paciente">
-              <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Grado Autismo">
-                <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
-                <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Edad">
-                <th mat-header-cell *matHeaderCellDef> Edad </th>
-                <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
-              </ng-container>
-              <ng-container matColumnDef="Eliminar Enlace">
-                <th mat-header-cell *matHeaderCellDef> Eliminar Enlace </th>
-                <td mat-cell *matCellDef="let element"><button mat-button (click)="eliminarEnlace(element.numero_documento)">
-                  <mat-icon color="warn">delete</mat-icon>
-                </button> </td>
-              </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-    </div>
-    <div>
-      <div>
+  <div>
+    <table mat-table [dataSource]="pacientesTabla" matSort class="mat-elevation-z8">
+      <caption>PACIENTES A TU CARGO</caption>
+      <ng-container matColumnDef="Nombre Paciente">
+        <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Apellido Paciente">
+        <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Grado Autismo">
+        <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
+        <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Edad">
+        <th mat-header-cell *matHeaderCellDef> Edad </th>
+        <td mat-cell *matCellDef="let element"> {{element.edad}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Eliminar Enlace">
+        <th mat-header-cell *matHeaderCellDef> Eliminar Enlace </th>
+        <td mat-cell *matCellDef="let element"><button mat-button (click)="eliminarEnlace(element.numero_documento)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div>
+    <div style="width: 80%;
+    position: static;
+    margin: auto;">
       <mat-form-field appearance="fill">
         <mat-label>Filtro</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="David" #input>
       </mat-form-field>
     </div>
-      <table mat-table [dataSource]="pacientesPorEnlazar" matSort  class="mat-elevation-z8">
-        <caption>PACIENTES POR ENLACE</caption>
-        <ng-container matColumnDef="Nombre Paciente">
-          <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Apellido Paciente">
-          <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Grado Autismo">
-            <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
-            <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
-        </ng-container>
-        <ng-container matColumnDef="Numero_documento">
-            <th mat-header-cell *matHeaderCellDef> Numero de Documento </th>
-            <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
-          </ng-container>
-          <ng-container matColumnDef="Agregar enlace">
-            <th mat-header-cell *matHeaderCellDef> Agregar Enlace </th>
-            <td mat-cell *matCellDef="let element"><button mat-button (click)="agregarEnlace(element.numero_documento)">
-              <mat-icon color="warn">person_add</mat-icon>
-            </button> </td>
-          </ng-container>
-        <tr mat-header-row *matHeaderRowDef="columnasAgregarPaciente"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasAgregarPaciente;"></tr>
-      </table>
-    </div>
+    <table mat-table [dataSource]="pacientesPorEnlazar" matSort class="mat-elevation-z8">
+      <caption>PACIENTES POR ENLACE</caption>
+      <ng-container matColumnDef="Nombre Paciente">
+        <th mat-header-cell *matHeaderCellDef> Nombre Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Apellido Paciente">
+        <th mat-header-cell *matHeaderCellDef> Apellido Paciente </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Grado Autismo">
+        <th mat-header-cell *matHeaderCellDef> Grado Autismo </th>
+        <td mat-cell *matCellDef="let element"> {{element.grado_autismo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Numero_documento">
+        <th mat-header-cell *matHeaderCellDef> Numero de Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Agregar enlace">
+        <th mat-header-cell *matHeaderCellDef> Agregar Enlace </th>
+        <td mat-cell *matCellDef="let element"><button mat-button (click)="agregarEnlace(element.numero_documento)">
+            <mat-icon color="warn">person_add</mat-icon>
+          </button> </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnasAgregarPaciente"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasAgregarPaciente;"></tr>
+    </table>
+  </div>
 </div>

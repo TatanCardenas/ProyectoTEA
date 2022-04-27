@@ -80,4 +80,8 @@ export class ActividadService {
   getGetAcivitysMakedByPatientForAttendant(id_activity,id_card_attendant){
     return this.http.get<UsuarioPaciente[]>(`${this.url}/GetAcivitysMakedByPatientForAttendant/${id_activity}/${id_card_attendant}`);
   }
+
+  getResulActivity(id_activity,id_card_patient){
+    return this.http.get<Array<PacienteScoreJSon>>(`${this.url}/GetResulActivity/${id_activity}/${id_card_patient}`);
+  }
 }

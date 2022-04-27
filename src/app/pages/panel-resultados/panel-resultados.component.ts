@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actividad } from 'src/app/_model/Actividad';
 import { PacienteScoreJSon } from 'src/app/_model/PacienteScoreJSon';
@@ -8,7 +9,7 @@ import { Usuario } from 'src/app/_model/Usuario';
 import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente';
 import { ActividadService } from 'src/app/_service/actividad.service';
 import { environment } from 'src/environments/environment';
-
+import CryptoJS from "crypto-js";
 @Component({
   selector: 'app-panel-resultados',
   templateUrl: './panel-resultados.component.html',
@@ -18,10 +19,14 @@ export class PanelResultadosComponent implements OnInit {
 
   public actividadesLista:Actividad[];
   public usuario= new Usuario();
+  public id_actividad;
+  private id_actividad_crypted;
+  private id_estudiante_crypted;
   pacientesTabla = new MatTableDataSource<UsuarioPaciente>();
   displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Reporte'];//['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Reporte'];
 
-  constructor(private serviceActividad:ActividadService,private snackBar: MatSnackBar,) { }
+  constructor(private serviceActividad:ActividadService,private snackBar: MatSnackBar,
+    private router:Router) { }
 
   async ngOnInit(): Promise<void> {
     this.datos();
@@ -37,8 +42,9 @@ export class PanelResultadosComponent implements OnInit {
     });
   }
   actividadSeleccionada(Id_actividad){
+    this.id_actividad=Id_actividad
     if(this.usuario.tipo_usuario_id==1){
-      this.serviceActividad.getGetAcivitysMakedByPatientForTeacher(Id_actividad,this.usuario.numero_documento)
+      this.serviceActividad.getGetAcivitysMakedByPatientForTeacher(this.id_actividad,this.usuario.numero_documento)
       .subscribe(data=>{
         this.pacientesTabla = new MatTableDataSource(data);
       }, err => {
@@ -46,7 +52,7 @@ export class PanelResultadosComponent implements OnInit {
         this.openSnackBar(err.error.Message);
       })
     }else{
-      this.serviceActividad.getGetAcivitysMakedByPatientForAttendant(Id_actividad,this.usuario.numero_documento)
+      this.serviceActividad.getGetAcivitysMakedByPatientForAttendant(this.id_actividad,this.usuario.numero_documento)
       .subscribe(data=>{
         this.pacientesTabla = new MatTableDataSource(data);
         console.log("elegir",data)
@@ -55,6 +61,17 @@ export class PanelResultadosComponent implements OnInit {
         this.openSnackBar(err.error.Message);
       });
     }
+  }
+  obtenerEstudiante(documento_estudiante){
+    do{
+      this.id_actividad_crypted = CryptoJS.AES.encrypt(JSON.stringify(this.id_actividad), 'secret_id_actividad').toString();
+    }while(this.id_actividad_crypted.includes('/'))
+    do{
+      this.id_estudiante_crypted = CryptoJS.AES.encrypt(JSON.stringify(documento_estudiante), 'secret_id_estudiante').toString();
+    }while(this.id_estudiante_crypted.includes('/'))
+    
+    this.router.navigate(['graficas/'+this.id_actividad_crypted+"/"+this.id_estudiante_crypted]);
+    console.log(documento_estudiante,this.id_actividad)
   }
 
   datos(){

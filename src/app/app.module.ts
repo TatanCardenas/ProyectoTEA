@@ -28,6 +28,15 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
 import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacion-inicial.component';
+import { HighchartsChartModule } from "highcharts-angular";
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { LayoutModule } from '@angular/cdk/layout';
+import { PanelGraficasResultadosComponent } from './pages/panel-graficas-resultados/panel-graficas-resultados.component';
+import { PanelActividadesImitacionComponent } from './pages/panel-actividades-imitacion/panel-actividades-imitacion.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +54,8 @@ import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacio
     ActividadDemoComponent,
     PanelResultadosComponent,
     EvaluacionInicialComponent,
+    PanelGraficasResultadosComponent,
+    PanelActividadesImitacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +70,13 @@ import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacio
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatProgressBarModule,
+    HighchartsChartModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
 
   ],
   providers: [],

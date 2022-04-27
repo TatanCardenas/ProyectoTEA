@@ -1,9 +1,18 @@
-<mat-list-item *ngFor="let actividad of actividadesLista" class="list-horizontal">
-    <mat-card class="example-card" (click)="actividadSeleccionada(actividad.Id_actividad)">
-        <mat-card-title-group>
-          <mat-card-title>{{actividad.NombreActividad}}</mat-card-title>
-          <mat-card-subtitle>{{actividad.Tipo_actividad_texto}}</mat-card-subtitle>
-          <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-        </mat-card-title-group>
-      </mat-card>
-  </mat-list-item>
+<div class="activityCards">
+  <mat-card class="example-card" (click)="actividadSeleccionada(1)">
+    <mat-card-title-group>
+      <mat-card-title>Actividades de texto</mat-card-title>
+      <mat-card-subtitle>Imitacion verbal</mat-card-subtitle>
+      <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
+      alt="">
+    </mat-card-title-group>
+  </mat-card>
+    <mat-card class="example-card" (click)="actividadSeleccionada(2)">
+      <mat-card-title-group>
+        <mat-card-title>Actividades de imagenes</mat-card-title>
+        <mat-card-subtitle>Descripción imagen</mat-card-subtitle>
+        <img mat-card-xl-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" 
+        alt="">
+      </mat-card-title-group>
+    </mat-card>
+</div>

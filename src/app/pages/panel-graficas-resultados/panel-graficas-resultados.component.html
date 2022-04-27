@@ -1,0 +1,47 @@
+<!--<div class="container">
+  <highcharts-chart class="grafico1" *ngIf="chartOptions"
+  [Highcharts]="Highcharts"
+  [options]="chartOptions"
+  >
+</highcharts-chart></div>-->
+<div>
+  <h1 class="mat-h1">Dashboard</h1>
+  <mat-grid-list cols="1" rowHeight="350px">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            RESULTADOS ACTIVIDAD 
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="container"><!--aca va el codigo para las actividades-->
+            <highcharts-chart class="grafico1" *ngIf="chartOptions"
+            [Highcharts]="Highcharts"
+            [options]="chartOptions"
+            >
+          </highcharts-chart></div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="1" fils="2" rowHeight="350px">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Primeras graficas
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div class="container"><!--aca va el codigo para las actividades-->
+            <highcharts-chart class="grafico1" *ngIf="chartOptions"
+            [Highcharts]="Highcharts"
+            [options]="chartOptions"
+            >
+          </highcharts-chart></div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

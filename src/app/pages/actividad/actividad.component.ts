@@ -39,11 +39,17 @@ export class ActividadComponent implements OnInit {
     this.id_decrypted=CryptoJS.AES.decrypt(this.id_activityencrypt,'secret key');
     this.id_decrypted=JSON.parse(this.id_decrypted.toString(CryptoJS.enc.Utf8));
     console.log("Este es el id de la actividad "+this.id_decrypted);
-    this.serviceActivity.getActivityId(this.id_decrypted).subscribe(data=>{
-      this.actividad = data;
-      this.fraseADecir = this.actividad.Contenido_actividad;
-      this.id_tp_activity = this.actividad.Tipo_actividad; 
-    });
+    if(this.id_decrypted!=0){
+      this.serviceActivity.getActivityId(this.id_decrypted).subscribe(data=>{
+        this.actividad = data;
+        this.fraseADecir = this.actividad.Contenido_actividad;
+        this.id_tp_activity = this.actividad.Tipo_actividad; 
+      });
+    }else{
+      console.log("entro aca")
+      this.actividad= new Actividad();
+      this.actividad.Tipo_actividad=2;
+    }
     await this.delay(1500);
     console.log("actividad ",this.actividad.Tipo_actividad)
   }
@@ -55,7 +61,7 @@ export class ActividadComponent implements OnInit {
     this.actividadRelizada.Id_actividad=this.actividad.Id_actividad;
     this.estudianteRealizador.DocumentoPaciente=this.usuario.numero_documento;
     this.estudianteRealizador.Score=this.speech.score.toString();
-    this.estudianteRealizador.fechaRealizacion = new Date();
+    this.estudianteRealizador.FechaRealizacion = new Date();
     this.actividadRelizada.NuevoEstudiante = this.estudianteRealizador;
     console.log(this.actividadRelizada);
     this.serviceActivity.putActividadRealizada(this.actividadRelizada).subscribe(data=>{

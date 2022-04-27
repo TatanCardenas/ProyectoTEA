@@ -13,11 +13,15 @@ import { PanelActividadesComponent } from './pages/panel-actividades/panel-activ
 import { ActividadDemoComponent } from './pages/actividad-demo/actividad-demo.component';
 import { PanelResultadosComponent } from './pages/panel-resultados/panel-resultados.component';
 import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacion-inicial.component';
+import { PanelGraficasResultadosComponent } from './pages/panel-graficas-resultados/panel-graficas-resultados.component';
+import { PanelActividadesImitacionComponent } from './pages/panel-actividades-imitacion/panel-actividades-imitacion.component';
 
 const routes: Routes = [
   {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
   {path: 'evaluacionInicial', component: EvaluacionInicialComponent},
+  {path: 'panelActividadesDeImitacion', component: PanelActividadesImitacionComponent},
+  {path: 'graficas/:idActividad/:idEstudiante', component: PanelGraficasResultadosComponent},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
   {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
   {path: 'registrarP', component: RegistrarComponent, canActivate: [GuardianService]},
