@@ -6,4 +6,6 @@ export class EvaluacionInicial {
     Audio1:String;
     Audio2:String;
     Audio3:String;
+    //not mapped
+    respuesta:Boolean;
 }

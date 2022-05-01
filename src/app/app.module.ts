@@ -37,6 +37,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { PanelGraficasResultadosComponent } from './pages/panel-graficas-resultados/panel-graficas-resultados.component';
 import { PanelActividadesImitacionComponent } from './pages/panel-actividades-imitacion/panel-actividades-imitacion.component';
+import { PopupComponent } from './pages/popup/popup.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import {MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,7 @@ import { PanelActividadesImitacionComponent } from './pages/panel-actividades-im
     EvaluacionInicialComponent,
     PanelGraficasResultadosComponent,
     PanelActividadesImitacionComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,10 +80,14 @@ import { PanelActividadesImitacionComponent } from './pages/panel-actividades-im
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,
+    MatDialogModule,
 
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
+  entryComponents:[MatDialogModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

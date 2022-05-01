@@ -71,6 +71,10 @@
 .actividad .panelImagen .imagen img{
     width: 100%;
     height: 100%;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 0px 26px 15px rgba(235,235,235,1);
+    -moz-box-shadow: 0px 0px 26px 15px rgba(235,235,235,1);
+    box-shadow: 0px 0px 26px 15px rgba(235,235,235,1);
 }
 
 .actividad .panelVideo{
@@ -145,24 +149,79 @@
     border-bottom-left-radius: 40px ;
     border-bottom-right-radius: 40px ;
     margin: auto;
+    cursor: pointer;
+}
 
+.actividad .opciones #opcion-txt-activate-left:hover{
+    border-bottom-left-radius: 40px ;
+    background-color: #3f51b551;
+}
+
+.actividad .opciones #opcion-txt-activate-left-clic{
+    border-bottom-left-radius: 40px ;
+    background-color: #3f51b5;
+}
+
+.actividad .opciones #opcion-txt-activate-left{
+    transition: background-color 0.8s linear 0s;
+    border-bottom-left-radius: 40px ;
+}
+
+.actividad .opciones #opcion-txt-activate-center:hover{
+    background-color: #3f51b551;
+}
+
+.actividad .opciones #opcion-txt-activate-center-clic{
+    background-color: #3f51b5;
+}
+
+.actividad .opciones #opcion-txt-activate-center{
+    transition: background-color 0.8s linear 0s;
+}
+
+.actividad .opciones #opcion-txt-activate-right:hover{
+    border-bottom-right-radius: 40px ;
+    background-color: #3f51b551;
+}
+
+.actividad .opciones #opcion-txt-activate-right-clic{
+    border-bottom-right-radius: 40px ;
+    background-color: #3f51b5;
+}
+
+.actividad .opciones #opcion-txt-activate-right{
+    transition: background-color 0.8s linear 0s;
+    border-bottom-right-radius: 40px ;
 }
 
 .actividad .opciones .opcion{
-    width: 33%;
+    width: 33.33%;
     height: 100%;
     float: left;
     display: flex;
     align-items: center;
 }
 
+.actividad .opciones .opcion #opcion-txt-activate-color-font-right, 
+.actividad .opciones .opcion #opcion-txt-activate-color-font-left,
+.actividad .opciones .opcion #opcion-txt-activate-color-font-center
+{
+    color: #ffffff;
+}
+
+.actividad .opciones .opcion #opcion-txt-inactivate-color-font-right, 
+.actividad .opciones .opcion #opcion-txt-inactivate-color-font-left,
+.actividad .opciones .opcion #opcion-txt-inactivate-color-font-center
+{
+    color: #3f51b5;
+}
+
 .actividad .opciones .opcion .opcion-txt{
     width: 100%;
     height: 50%;
     text-align: center;
-    font-size: 3vh;
+    font-size: 3.5vh;
     font-weight: 900;
-    color: #3f51b5;
 }
 
 .musica{
@@ -202,6 +261,7 @@
     text-align: center;
 }
 
+
 .musica .panelMusica .play .icon-play{
     color: #232636;
     font-size: 8vh;
@@ -218,7 +278,7 @@
 }
 
 #matematicas{
-    background-color: #add5fa;
+    background-color: #5bb0ff;
 }
 
 #comunicativas{

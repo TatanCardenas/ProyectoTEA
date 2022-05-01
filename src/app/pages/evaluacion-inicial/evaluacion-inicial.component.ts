@@ -2,15 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EvaluacionInicial } from 'src/app/_model/EvaluacionInicial';
 import { ActividadService } from 'src/app/_service/actividad.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from 'src/app/pages/popup/popup.component';
 
 @Component({
   selector: 'app-evaluacion-inicial',
   templateUrl: './evaluacion-inicial.component.html',
   styleUrls: ['./evaluacion-inicial.component.css'],
 })
-export class EvaluacionInicialComponent implements OnInit {
+export class EvaluacionInicialComponent implements OnInit, PopupComponent {
+  //RESULTADOS
   //almacenamiento de los datos de los servicios (dinamico, cambia dependiendo el servicio solicitado)
   public actividadEvaluacionInicial: EvaluacionInicial[];
+  //almacenamiento de resultados
+  public resultados: EvaluacionInicial[];
+  //Se da una Respuesta a cada actividad
+  public respuestaActividad = new EvaluacionInicial();
+  //verifica se hay respuesta
+  respuestaBandera = true;
   //---------------------------------------------------
 
   //MODULO Y ACTIVIDAD
@@ -43,6 +52,15 @@ export class EvaluacionInicialComponent implements OnInit {
   pronunciacionTxt1;
   pronunciacionTxt2;
   pronunciacionTxt3;
+  //identificador del div pronunciacion
+  idOpcionTxtActivateRight = 'opcion-txt-activate-right';
+  idOpcionTxtActivateLeft = 'opcion-txt-activate-left';
+  idOpcionTxtActivateCenter = 'opcion-txt-activate-center';
+  //identificador del div cambio color de fuente
+  idOpcionTxtActivateColorFontRight = 'opcion-txt-inactivate-color-font-right';
+  idOpcionTxtActivateColorFontLeft = 'opcion-txt-inactivate-color-font-left';
+  idOpcionTxtActivateColorFontCenter =
+    'opcion-txt-inactivate-color-font-center';
   //audios de la actividad
   audio1;
   audio2;
@@ -67,7 +85,9 @@ export class EvaluacionInicialComponent implements OnInit {
   constructor(
     private actividadService: ActividadService,
     //permite limpiar las imagenes que llegan en base64 para poder mostrarlas
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    //permite generar ventana emergente
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +98,7 @@ export class EvaluacionInicialComponent implements OnInit {
     //pre carga los servicios de la siguiente actividad
     this.activityLoad(this.avanceModulo + 1);
   }
+
   private buildFrom() {
     //carga el modulo actual actividad {0}
     this.modulo = 'HOLA DOCENTE! Nos da gusto tenerte aquí';
@@ -105,69 +126,76 @@ export class EvaluacionInicialComponent implements OnInit {
   }
 
   scrollSecondary(el: HTMLElement): void {
-    this.progreso = this.progreso + 7.8;
-    //Modulo
-    if (this.avanceActividad_ModuloBandera == false) {
-      this.avanceModulo = this.avanceModulo + 1;
-      this.modulo = 'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
-      switch (this.avanceModulo) {
-        case 1: {
-          //ciencia
-          //carga variables de la actividad {1}
-          this.avanzarModulo(this.avanceModulo, el);
-          break;
-        }
-        case 2: {
-          //matematicas
-          //carga variables de la actividad {2}
-          this.avanzarModulo(this.avanceModulo, el);
-          break;
-        }
-        case 3: {
-          //comunicacion
-          //carga variables de la actividad {3}
-          this.avanzarModulo(this.avanceModulo, el);
-          break;
-        }
-        case 4: {
-          //habili ciudadanas
-          //carga variables de la actividad {4}
-          this.avanzarModulo(this.avanceModulo, el);
-          break;
-        }
-        default: {
-          //statements
+    //verifica si respondio la pregunta
+    if (this.respuestaBandera == false) {
+      this.popupDialog();
+    } else if (this.respuestaBandera == true) {
+      this.progreso = this.progreso + 7.8;
+      //Modulo
+      if (this.avanceActividad_ModuloBandera == false) {
+        this.avanceModulo = this.avanceModulo + 1;
+        this.modulo =
+          'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
+        switch (this.avanceModulo) {
+          case 1: {
+            //ciencia
+            //carga variables de la actividad {1}
+            this.avanzarModulo(this.avanceModulo, el);
+            break;
+          }
+          case 2: {
+            //matematicas
+            //carga variables de la actividad {2}
+            this.avanzarModulo(this.avanceModulo, el);
+            break;
+          }
+          case 3: {
+            //comunicacion
+            //carga variables de la actividad {3}
+            this.avanzarModulo(this.avanceModulo, el);
+            break;
+          }
+          case 4: {
+            //habili ciudadanas
+            //carga variables de la actividad {4}
+            this.avanzarModulo(this.avanceModulo, el);
+            break;
+          }
+          default: {
+            //statements
 
-          break;
+            break;
+          }
         }
-      }
-      //Actividad
-    } else if (this.avanceActividad_ModuloBandera == true) {
-      this.avanceActividad = this.avanceActividad + 1;
-      this.modulo = 'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
-      switch (this.avanceModulo) {
-        case 1: {
-          //ciencias
-          this.avanzarActividad(this.avanceModulo);
-          break;
-        }
-        case 2: {
-          //matematicas;
-          this.avanzarActividad(this.avanceModulo);
-          break;
-        }
-        case 3: {
-          //comunicativas;
-          this.avanzarActividad(this.avanceModulo);
-          break;
-        }
-        case 4: {
-          //ciudadanas;
-          this.avanzarActividad(this.avanceModulo);
-          break;
-        }
-        default: {
-          break;
+        //Actividad
+      } else if (this.avanceActividad_ModuloBandera == true) {
+        this.avanceActividad = this.avanceActividad + 1;
+        this.modulo =
+          'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
+        switch (this.avanceModulo) {
+          case 1: {
+            //ciencias
+            this.avanzarActividad(this.avanceModulo);
+            break;
+          }
+          case 2: {
+            //matematicas;
+            this.avanzarActividad(this.avanceModulo);
+            break;
+          }
+          case 3: {
+            //comunicativas;
+            this.avanzarActividad(this.avanceModulo);
+            break;
+          }
+          case 4: {
+            //ciudadanas;
+            this.avanzarActividad(this.avanceModulo);
+            break;
+          }
+          default: {
+            break;
+          }
         }
       }
     }
@@ -175,9 +203,15 @@ export class EvaluacionInicialComponent implements OnInit {
 
   //AVANZAR ACTIVIDAD
   avanzarActividad(avanceModulo) {
+    //almacenar la respuesta
+    console.log(this.respuestaActividad);
+    //this.resultados.push(this.respuestaActividad);
+    //carga el contenido de la actividad
     this.cargaContenidoActividad();
     if (this.avanceActividad >= 3) {
+      //cambio a modulo
       this.avanceActividad_ModuloBandera = false;
+      //reinicia actividad
       this.avanceActividad = 1;
       //pre carga los servicios de la siguiente actividad
       this.activityLoad(avanceModulo + 1);
@@ -185,7 +219,12 @@ export class EvaluacionInicialComponent implements OnInit {
   }
   //AVANZAR MODULO
   avanzarModulo(avanceModulo, el) {
+    //almacenar la respuesta
+    console.log(this.respuestaActividad);
+    //carga el contenido de la actividad
     this.cargaContenidoActividad();
+    //guardar respuesta por modulo
+
     //carga variables de la actividad {1}
     this.cargaDeIdentificadores(avanceModulo);
     el.scrollIntoView({ behavior: 'smooth' });
@@ -312,7 +351,8 @@ export class EvaluacionInicialComponent implements OnInit {
   }
   //------------------------------------------------------------------------------------
 
-  //Consumo de servicios, recibe el modulo actual y solicita el servicio dependiendo de este
+  //CONSUMO DE SERVICIOS
+  //Recibe el modulo actual y solicita el servicio dependiendo de este
   activityLoad(idModulo) {
     switch (idModulo) {
       case 1:
@@ -351,7 +391,9 @@ export class EvaluacionInicialComponent implements OnInit {
         break;
     }
   }
+  //------------------------------------------------------------------------------------
 
+  //CARGA DE CONTENIDO ACTIVIDAD
   cargaDeIdentificadores(idModulo) {
     switch (idModulo) {
       case 0:
@@ -385,9 +427,23 @@ export class EvaluacionInicialComponent implements OnInit {
   }
 
   cargaContenidoActividad() {
-    this.pronunciacionTxt1 = this.actividadEvaluacionInicial[0].Lectura;
-    this.pronunciacionTxt2 = this.actividadEvaluacionInicial[1].Lectura;
-    this.pronunciacionTxt3 = this.actividadEvaluacionInicial[2].Lectura;
+    //despintar botones
+    this.cambioColorFuenteYboton(
+      'opcion-txt-activate-right',
+      'opcion-txt-activate-left',
+      'opcion-txt-activate-center',
+      'opcion-txt-inactivate-color-font-right',
+      'opcion-txt-inactivate-color-font-left',
+      'opcion-txt-inactivate-color-font-center'
+    );
+    //desordena la lista de 3 numeros aleatoriamente
+    var lista = [0, 1, 2];
+    lista = lista.sort(function () {
+      return Math.random() - 0.5;
+    });
+    this.pronunciacionTxt1 = this.actividadEvaluacionInicial[lista[0]].Lectura;
+    this.pronunciacionTxt2 = this.actividadEvaluacionInicial[lista[1]].Lectura;
+    this.pronunciacionTxt3 = this.actividadEvaluacionInicial[lista[2]].Lectura;
     this.imagen = this._sanitizer.bypassSecurityTrustResourceUrl(
       'data:image/jpg;base64,' +
         this.actividadEvaluacionInicial[this.avanceActividad - 1].Imagen
@@ -406,6 +462,103 @@ export class EvaluacionInicialComponent implements OnInit {
     this.player.loadVideoById({
       videoId: this.video,
     });
-    
+    //Desactivar bandera de respuesta
+    this.respuestaBandera = false;
   }
+  //------------------------------------------------------------------------------------
+
+  /* ALMACENAMIENTO DE RESPUESTAS */
+
+  cargarRespuesta(respuesta, idRespuesta) {
+    //Activar bandera si hay respuesta
+    this.respuestaBandera = true;
+    switch (idRespuesta) {
+      case 1:
+        //cambio estilos
+        this.cambioColorFuenteYboton(
+          'opcion-txt-activate-right',
+          'opcion-txt-activate-left-clic',
+          'opcion-txt-activate-center',
+          'opcion-txt-inactivate-color-font-right',
+          'opcion-txt-activate-color-font-left',
+          'opcion-txt-inactivate-color-font-center'
+        );
+        //verifica respuesta
+        this.respuestaActividad = this.verificarRespuesta(respuesta);
+        break;
+      case 2:
+        //cambio estilos
+        this.cambioColorFuenteYboton(
+          'opcion-txt-activate-right',
+          'opcion-txt-activate-left',
+          'opcion-txt-activate-center-clic',
+          'opcion-txt-inactivate-color-font-right',
+          'opcion-txt-inactivate-color-font-left',
+          'opcion-txt-activate-color-font-center'
+        );
+        //verifica respuesta
+        this.respuestaActividad = this.verificarRespuesta(respuesta);
+
+        break;
+      case 3:
+        //cambio estilos
+        this.cambioColorFuenteYboton(
+          'opcion-txt-activate-right-clic',
+          'opcion-txt-activate-left',
+          'opcion-txt-activate-center',
+          'opcion-txt-activate-color-font-right',
+          'opcion-txt-inactivate-color-font-left',
+          'opcion-txt-inactivate-color-font-center'
+        );
+        //verifica respuesta
+        this.respuestaActividad = this.verificarRespuesta(respuesta);
+
+      default:
+        break;
+    }
+  }
+
+  cambioColorFuenteYboton(
+    opcionRight,
+    opcionLeft,
+    opcionCenter,
+    fuenteRight,
+    fuenteLeft,
+    fuenteCenter
+  ) {
+    //Cambio estilos (color) opciones
+    this.idOpcionTxtActivateRight = opcionRight;
+    this.idOpcionTxtActivateLeft = opcionLeft;
+    this.idOpcionTxtActivateCenter = opcionCenter;
+    //Cambio estilos (color) fuentes
+    this.idOpcionTxtActivateColorFontRight = fuenteRight;
+    this.idOpcionTxtActivateColorFontLeft = fuenteLeft;
+    this.idOpcionTxtActivateColorFontCenter = fuenteCenter;
+  }
+
+  verificarRespuesta(respuesta) {
+    var respuestaActividad = new EvaluacionInicial();
+    respuestaActividad.Lectura = respuesta;
+    if (
+      respuestaActividad.Lectura ==
+      this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
+    ) {
+      respuestaActividad.respuesta = true;
+    } else if (
+      respuestaActividad.Lectura !=
+      this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
+    ) {
+      respuestaActividad.respuesta = false;
+    }
+
+    return respuestaActividad;
+  }
+
+  //No existe una respuesta
+
+  popupDialog() {
+    this.dialog.open(PopupComponent);
+  }
+
+  //------------------------------------------------------------------------------------
 }
