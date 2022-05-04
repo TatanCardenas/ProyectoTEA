@@ -47,7 +47,6 @@
             <div class="multimedia">
                 <div class="panelImagen">
                     <div class="imagen" *ngIf="mensajeInicial_Audios == false">
-                        <!--<img src="./assets/image/backgroundDocente.jpg" alt="">-->
                         <img [src]="imagen" alt="">
                     </div>
                     <div class="info-txt" *ngIf="mensajeInicial_Audios == true">
@@ -90,21 +89,18 @@
                     </div>
                 </div>
                 <div class="opciones">
-                    <div class="opcion">
-                        <div class="opcion-txt">
-                            <input type="radio" name="opc" id="1">
+                    <div class="opcion" id={{idOpcionTxtActivateLeft}} (click)='cargarRespuesta(pronunciacionTxt1,1)'>
+                        <div class="opcion-txt" id={{idOpcionTxtActivateColorFontLeft}}>
                             <label for="txt">{{pronunciacionTxt1}}</label>
                         </div>
                     </div>
-                    <div class="opcion">
-                        <div class="opcion-txt">
-                            <input type="radio" name="opc" id="1">
+                    <div class="opcion" id={{idOpcionTxtActivateCenter}} (click)='cargarRespuesta(pronunciacionTxt2,2)'>
+                        <div class="opcion-txt" id={{idOpcionTxtActivateColorFontCenter}}>
                             <label for="txt">{{pronunciacionTxt2}}</label>
                         </div>
                     </div>
-                    <div class="opcion">
-                        <div class="opcion-txt">
-                            <input type="radio" name="opc" id="1">
+                    <div class="opcion" id={{idOpcionTxtActivateRight}} (click)='cargarRespuesta(pronunciacionTxt3,3)'>
+                        <div class="opcion-txt" id={{idOpcionTxtActivateColorFontRight}}>
                             <label for="txt">{{pronunciacionTxt3}}</label>
                         </div>
                     </div>
