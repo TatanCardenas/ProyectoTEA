@@ -86,8 +86,13 @@
     color: #ffffff;
     font: italic bold Georgia, Serif;
 }
+.tables{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+}
 table {
-    width: 80%;
+    width: 90%;
     position: static;
+    margin: 20px;
     margin: auto;
 }

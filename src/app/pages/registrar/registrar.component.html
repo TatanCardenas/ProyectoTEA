@@ -9,23 +9,24 @@
   <div class="imagen">
     <img src="./assets/image/administrador.png" alt="">
   </div>
-  <div class="formularioGeneral">
+  <!--           Formulario para acudiente y docente             -->
+  <div class="formularioGeneral" *ngIf="tipoDeRegistro_ID !=3">
     <form [formGroup]="formR" class="form-inline">
       <div class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label class="textC">Nombre</mat-label>
           <input matInput placeholder="Juan David" formControlName="nombre" class="formu">
           <mat-hint *ngIf="formR.get('nombre').errors && formR.get('nombre').touched">
-            <p *ngIf="form.get('nombre').hasError('required')">
+            <p *ngIf="formR.get('nombre').hasError('required')">
               Se requiere este campo
             </p>
-            <p *ngIf="form.get('nombre').hasError('maxlength')">
+            <p *ngIf="formR.get('nombre').hasError('maxlength')">
               Nombre demasiado largo
             </p>
-            <p *ngIf="form.get('nombre').hasError('minlength')">
+            <p *ngIf="formR.get('nombre').hasError('minlength')">
               Nombre demasiado corto
             </p>
-            <p *ngIf="form.get('nombre').hasError('pattern')">
+            <p *ngIf="formR.get('nombre').hasError('pattern')">
               El nombre no puede ocntener numeros ni signos
             </p>
           </mat-hint>
@@ -36,13 +37,13 @@
           <mat-label>Apellido</mat-label>
           <input matInput placeholder="Castro Lopez" formControlName="apellido" class="formu">
           <mat-hint *ngIf="formR.get('apellido').errors && formR.get('apellido').touched">
-            <p *ngIf="form.get('apellido').hasError('required')">
+            <p *ngIf="formR.get('apellido').hasError('required')">
               Se requiere este campo
             </p>
-            <p *ngIf="form.get('apellido').hasError('maxlength')">
+            <p *ngIf="formR.get('apellido').hasError('maxlength')">
               El apellido no deberia ser tan extenso
             </p>
-            <p *ngIf="form.get('apellido').hasError('minlength')">
+            <p *ngIf="formR.get('apellido').hasError('minlength')">
               El apellido debe contener mas letras
             </p>
 
@@ -55,37 +56,18 @@
           <mat-label class="formu">Documento</mat-label>
           <input matInput placeholder="1010101012" formControlName="documento" class="formu">
           <mat-hint *ngIf="formR.get('documento').errors && formR.get('documento').touched">
-            <p *ngIf="form.get('documento').hasError('required')">
+            <p *ngIf="formR.get('documento').hasError('required')">
               Se requiere este campo
             </p>
-            <p *ngIf="form.get('documento').hasError('minlength')">
+            <p *ngIf="formR.get('documento').hasError('minlength')">
               Documento no valido, faltan numeros
             </p>
-            <p *ngIf="form.get('documento').hasError('maxlength')">
+            <p *ngIf="formR.get('documento').hasError('maxlength')">
               Documento no valido, muy largo
             </p>
           </mat-hint>
         </mat-form-field>
       </div>
-      <!--<div class="prueba">
-        <mat-form-field appearance="outline" class="tamano">
-          <mat-label>N. Profesional</mat-label>
-          <input matInput placeholder="1111111" formControlName="nit" class="formu">
-          <mat-hint *ngIf="form.get('nit').errors && form.get('nit').touched">
-            <p *ngIf="form.get('nit').hasError('required')">
-              Se requiere este campo
-            </p>
-            <p *ngIf="form.get('nit').hasError('maxlength')">
-              El nit no debe ser tan extenso
-            </p>
-            <p *ngIf="form.get('nit').hasError('minlength')">
-              Numero profesional incorrecto
-            </p>
-  
-          </mat-hint>
-        </mat-form-field>
-      </div>-->
-
       <div class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Contraseña</mat-label>
@@ -95,13 +77,13 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-hint *ngIf="formR.get('clave').errors && formR.get('clave').touched">
-            <p *ngIf="form.get('clave').hasError('required')">
+            <p *ngIf="formR.get('clave').hasError('required')">
               *Se requiere este campo
             </p>
-            <p *ngIf="form.get('clave').hasError('minlength')">
+            <p *ngIf="formR.get('clave').hasError('minlength')">
               *Minimo 5 caracteres
             </p>
-            <p *ngIf="form.get('clave').hasError('maxlength')">
+            <p *ngIf="formR.get('clave').hasError('maxlength')">
               *Maximo 15 caracteres
             </p>
           </mat-hint>
@@ -111,12 +93,12 @@
       <div class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Correo</mat-label>
-          <input matInput placeholder="abc@gmail.com" formControlName="correo" class="formu">
+          <input matInput placeholder="abc@gmail.com" formControlName="correo" class="formu" type="email">
           <mat-hint *ngIf="formR.get('correo').errors && formR.get('correo').touched">
-            <p *ngIf="form.get('correo').hasError('required')">
-              Se requiere este campo
+            <p *ngIf="formR.get('correo').hasError('required')">
+              *Se requiere este campo
             </p>
-            <p *ngIf="form.get('correo').hasError('pattern')">
+            <p *ngIf="formR.get('correo').hasError('pattern')">
               *Introduzca una direccion de correo valida
             </p>
           </mat-hint>
@@ -124,6 +106,132 @@
       </div>
       <div class="campo_texto">
         <button mat-raised-button [disabled]="formR.invalid" color="primary"
+          style="float: left; margin-left: 20px; margin-top: 20px;" class="boton" type="submit"
+          (click)="registrar($event)">Enviar Registro
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--                            Formulario para paciente                   -->
+  <div class="formularioGeneral" *ngIf="tipoDeRegistro_ID !=1 && tipoDeRegistro_ID !=2">
+    <form [formGroup]="formRP" class="form-inline">
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label class="textC">Nombre</mat-label>
+          <input matInput placeholder="Juan DAvid" formControlName="nombre" class="formu">
+          <mat-hint *ngIf="formRP.get('nombre').errors && formRP.get('nombre').touched">
+            <p *ngIf="formRP.get('nombre').hasError('required')">
+              Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('nombre').hasError('maxlength')">
+              Nombre demasiado largo
+            </p>
+            <p *ngIf="formRP.get('nombre').hasError('minlength')">
+              Nombre demasiado corto
+            </p>
+            <p *ngIf="formRP.get('nombre').hasError('pattern')">
+              El nombre no puede ocntener numeros ni signos
+            </p>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Apellido</mat-label>
+          <input matInput placeholder="Castro Lopez" formControlName="apellido" class="formu">
+          <mat-hint *ngIf="formRP.get('apellido').errors && formRP.get('apellido').touched">
+            <p *ngIf="formRP.get('apellido').hasError('required')">
+              Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('apellido').hasError('maxlength')">
+              El apellido no deberia ser tan extenso
+            </p>
+            <p *ngIf="formRP.get('apellido').hasError('minlength')">
+              El apellido debe contener mas letras
+            </p>
+
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label class="formu">Documento</mat-label>
+          <input matInput placeholder="1010101012" formControlName="documento" class="formu">
+          <mat-hint *ngIf="formRP.get('documento').errors && formRP.get('documento').touched">
+            <p *ngIf="formRP.get('documento').hasError('required')">
+              Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('documento').hasError('minlength')">
+              Documento no valido, faltan numeros
+            </p>
+            <p *ngIf="formRP.get('documento').hasError('maxlength')">
+              Documento no valido, muy largo
+            </p>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" formControlName="clave" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint *ngIf="formRP.get('clave').errors && formRP.get('clave').touched">
+            <p *ngIf="formRP.get('clave').hasError('required')">
+              *Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('clave').hasError('minlength')">
+              *Minimo 5 caracteres
+            </p>
+            <p *ngIf="formRP.get('clave').hasError('maxlength')">
+              *Maximo 15 caracteres
+            </p>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Grado de autismo</mat-label>
+          <input matInput placeholder="2" formControlName="grado_autismo" class="formu" type="number">
+          <mat-hint *ngIf="formRP.get('grado_autismo').errors && formRP.get('grado_autismo').touched">
+            <p *ngIf="formRP.get('grado_autismo').hasError('required')">
+              Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('grado_autismo').hasError('max')">
+              El valor maximo para el grado de autismo es de 3
+            </p>
+            <p *ngIf="formRP.get('grado_autismo').hasError('pattern')">
+              El grado de autismo debe ser en numeros y mayor a 0
+            </p>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="campo_texto">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Edad</mat-label>
+          <input matInput placeholder="2" formControlName="edad" class="formu" type="number">
+          <mat-hint *ngIf="formRP.get('edad').errors && formRP.get('edad').touched">
+            <p *ngIf="formRP.get('edad').hasError('required')">
+              Se requiere este campo
+            </p>
+            <p *ngIf="formRP.get('edad').hasError('min')">
+              El valor minimo para la edad es de 6
+            </p>
+            <p *ngIf="formRP.get('edad').hasError('max')">
+              El valor maximo para la edad es de 11
+            </p>
+            <p *ngIf="formRP.get('edad').hasError('pattern')">
+              La edad debe ser en numeros
+            </p>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="campo_texto">
+        <button mat-raised-button [disabled]="formRP.invalid" color="primary"
           style="float: left; margin-left: 20px; margin-top: 20px;" class="boton" type="submit"
           (click)="registrar($event)">Enviar Registro
         </button>

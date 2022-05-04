@@ -9,4 +9,5 @@ export class Actividad {
     Tipo_actividad_texto:String;
     NuevoEstudiante:PacienteScoreJSon;
 	EstudiantesHicieronActividad:String;
+    Estado_id:number;
 }

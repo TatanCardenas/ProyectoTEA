@@ -33,7 +33,7 @@ export class RegistrarComponent implements OnInit {
     private snackBar: MatSnackBar,
     private route_ID: ActivatedRoute,
     private route: Router
-  ) {}
+  ) { }
 
   public tipoDeRegistro_ID: number = Number(
     this.route_ID.snapshot.params.registroID
@@ -43,34 +43,26 @@ export class RegistrarComponent implements OnInit {
     //this.formulario();
   }
 
-  public formR = new FormGroup({
-    nombre: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(25),
-    ]),
-    apellido: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(25),
-    ]),
-    documento: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(25),
-    ]),
-    clave: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(25),
-    ]),
-    correo: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(25),
-    ]),
+  //FORMULARIO PARA ACUDIENTE Y DOCENTE
+  public formR = this.formBuilder.group({
+
+    nombre: [this.datosEstudiante.nombre, [Validators.required, Validators.maxLength(20), Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')]],
+    apellido: [this.datosEstudiante.apellido, [Validators.required, Validators.minLength(4), , Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]],
+    documento: [this.datosEstudiante.documento, [Validators.required, Validators.minLength(6), Validators.maxLength(11), Validators.pattern('[0-9]*')]],
+    clave: [this.datosEstudiante.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+    correo: [this.datosEstudiante.grado_autismo, [Validators.required, Validators.min(1), Validators.max(3), Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/)]],
   });
 
+  //FORMULARIO PARA PACIENTE
+  public formRP = this.formBuilder.group({
+
+    nombre: [this.datosEstudiante.nombre, [Validators.required, Validators.maxLength(20), Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')]],
+    apellido: [this.datosEstudiante.apellido, [Validators.required, Validators.minLength(4), , Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]],
+    documento: [this.datosEstudiante.documento, [Validators.required, Validators.minLength(9), Validators.maxLength(11), Validators.pattern('[0-9]*')]],
+    clave: [this.datosEstudiante.clave, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+    grado_autismo: [this.datosEstudiante.grado_autismo, [Validators.required, Validators.min(1), Validators.max(3), Validators.pattern('[0-9]*')]],
+    edad: [this.datosEstudiante.edad, [Validators.required, Validators.min(6), Validators.max(11), Validators.pattern('[0-9]*')]],
+  });
   //accion del boton (any son los datos que recibe del form)
   registrar(any): void {
     switch (this.tipoDeRegistro_ID) {
@@ -82,7 +74,14 @@ export class RegistrarComponent implements OnInit {
           .registrarDocente(this.datosDocente)
           .subscribe((data) => {
             console.log(data);
-            this.openSnackBar('Registro Exitoso');
+            this.openSnackBar(data.toString());
+            this.route.navigate(['login']);
+          }, err => {
+            if (err.status == 409) {
+              this.openSnackBar("Ya existe este usuario");
+            } else {
+              this.openSnackBar(err);
+            }
           });
         break;
       case 2:
@@ -91,7 +90,14 @@ export class RegistrarComponent implements OnInit {
         this.usuarioService
           .registrarAcudiente(this.datosAcudiente)
           .subscribe((data) => {
-            console.log(data);
+            this.openSnackBar(data.toString());
+            this.route.navigate(['login']);
+          }, err => {
+            if (err.status == 409) {
+              this.openSnackBar("Ya existe este usuario");
+            } else {
+              this.openSnackBar(err);
+            }
           });
         break;
       case 3:
@@ -102,7 +108,7 @@ export class RegistrarComponent implements OnInit {
         );
         const documetoDeLaRegistradora = decodedToken.Usuario;
         const rol = decodedToken.Rol;
-        this.datosEstudiante = this.formR.value;
+        this.datosEstudiante = this.formRP.value;
         this.datosEstudiante.institucion_id = 1;
         this.datosEstudiante.documento_docente = documetoDeLaRegistradora;
         this.usuarioService.registrarPaciente(this.datosEstudiante).subscribe(
@@ -111,7 +117,11 @@ export class RegistrarComponent implements OnInit {
             this.route.navigate(['enlazarNino/' + rol]);
           },
           (err) => {
-            this.openSnackBar('Este usuario ya existe');
+            if (err.status == 409) {
+              this.openSnackBar("Este usuario ya existe");
+            } else {
+              this.openSnackBar(err);
+            }
           }
         );
         break;

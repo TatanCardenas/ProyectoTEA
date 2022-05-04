@@ -61,9 +61,9 @@ export class ActividadService {
     );
   }
 
-  deleteElminarActividad(id_actividad: string) {
+  putActividad(id_actividad: string) {
     console.log('id service ' + id_actividad);
-    return this.http.delete<any>(`${this.url}/DeleteActividad/` + id_actividad);
+    return this.http.delete<any>(`${this.url}/PutActividadDesActivar/` + id_actividad);
   }
 
   getActivityId(activity_Id: number) {
@@ -92,5 +92,11 @@ export class ActividadService {
 
   getResulActivity(id_activity,id_card_patient){
     return this.http.get<Array<PacienteScoreJSon>>(`${this.url}/GetResulActivity/${id_activity}/${id_card_patient}`);
+  }
+
+  getScoreImitationActivity(phrase_base:String,phrase_said:String){
+    phrase_base = phrase_base.replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi,"").replace(/ /g,'').toLowerCase();
+    phrase_said = phrase_said.replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi,"").replace(/ /g,'').toLowerCase();
+    return this.http.get<any>(`${this.url}/GetScoreImitationActivity/${phrase_base}/${phrase_said}`);
   }
 }

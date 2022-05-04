@@ -33,7 +33,8 @@ export class CrearActividadComponent implements OnInit {
   public user:string;
   private dateNow;
   private nuevaActividad = new Actividad();
-  public listaActividades  = new MatTableDataSource<Actividad>() 
+  public listaActividades_activas  = new MatTableDataSource<Actividad>();
+  public listaActividades_inactivas  = new MatTableDataSource<Actividad>();
   public actividad_tipo: TypeActivity[];
 
 
@@ -44,14 +45,16 @@ export class CrearActividadComponent implements OnInit {
     await this.delay(1000);
     this.datos();
     this.servicioActividad.getListaActividades(1,this.user).subscribe(data=>{
-      this.listaActividades= new MatTableDataSource(data);
+      this.listaActividades_activas= new MatTableDataSource(data.filter(x=>x.Estado_id<=1));
+      this.listaActividades_inactivas= new MatTableDataSource(data.filter(x=>x.Estado_id>=2));
     });
     this.servicioActividad.getTypeActivity().subscribe(data=>{
       this.actividad_tipo = data;
     });
   }
 
-  displayedColumns: string[] = ['Nombre Actividad', 'Descripcion', 'Tipo Actividad','Contenido','Eliminar Actividad'];
+  displayedColumns: string[] = ['Nombre Actividad', 'Descripcion', 'Tipo Actividad','Contenido','Desactivar'];
+  displayedColumns_: string[] = ['Nombre Actividad', 'Descripcion', 'Tipo Actividad','Contenido','Activar'];
 
   crearActividad = new FormGroup({
     nombreActividad : new FormControl(this.actividad.NombreActividad, [Validators.required,Validators.minLength(4),Validators.maxLength(25), Validators.pattern('[a-zA-Z ]+[0-9]*')]),
@@ -118,9 +121,9 @@ export class CrearActividadComponent implements OnInit {
   uploadImage(){
 
   }
-  eliminarActividad(id_actividad){
+  actualizareActividad(id_actividad){
     console.log("id actividad "+ id_actividad)
-    this.servicioActividad.deleteElminarActividad(id_actividad).subscribe(data=>{
+    this.servicioActividad.putActividad(id_actividad).subscribe(data=>{
       this.openSnackBar(data)
       this.ngOnInit()
     })
@@ -130,7 +133,7 @@ export class CrearActividadComponent implements OnInit {
 
 
   private openSnackBar(mensaje: string) {
-    this.snackBar.open(mensaje, 'Aceptar', {
+    this.snackBar.open(mensaje, '', {
       duration: 7000,
       horizontalPosition: 'center',
       verticalPosition: 'top',

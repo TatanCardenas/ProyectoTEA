@@ -1,10 +1,9 @@
 .title{
-    font-size: 40px;
+    font-size: 3vw;
     margin: 10px;
     font-family: Blinker;
     text-align: center;
     color: #557;
-
 }
 .activity{
     display: grid;
@@ -15,4 +14,5 @@
     cursor: pointer;
     margin: 20px;
     margin-bottom: 8px;
+    cursor: pointer;
 }

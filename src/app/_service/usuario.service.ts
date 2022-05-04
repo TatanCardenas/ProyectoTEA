@@ -31,11 +31,26 @@ export class UsuarioService {
   }
 
   public datosAcudiente(documento: string){
-    return this.http.get<UsuarioDocente>(`${this.url}/GetDatosAcudiente?cedulaE=${documento}`);
+    return this.http.get<UsuarioAcudiente>(`${this.url}/GetDatosAcudiente?cedulaE=${documento}`);
   }
 
   public datosPaciente(documento: string){
     return this.http.get<UsuarioPaciente>(`${this.url}/datosPaciente/${documento}`);
   }
 
+  //    Se invocan los servicios de actualizar
+  //Actualizar Docente 
+  public putActulizarDocente(docenteNuevo:UsuarioDocente){
+    return this.http.put<any>(`${this.url}/PutActualizarDatosDocente`,docenteNuevo);
+  }
+
+  //Actualizar Acudiente
+  public putActulizarAcudiente(acudienteNuevo:UsuarioAcudiente){
+    return this.http.put<any>(`${this.url}/PutActualizarDatosAcudiente`,acudienteNuevo);
+  }
+
+  //Actualizar Paciente
+  public putActulizarpaciente(pacienteNuevo:UsuarioPaciente){
+    return this.http.put<any>(`${this.url}/PutActualizarDatosPaciente`,pacienteNuevo);
+  }
 }

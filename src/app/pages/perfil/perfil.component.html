@@ -1,47 +1,189 @@
-
 <div class="header">
   <img src="./assets/image/backgroundDocente.jpg" alt="">
-  <div class="boton">
-  <button mat-fab color="accent" style="float: left; margin-left: 10px;" [routerLink]="['/inicio']">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-</div>
-  <p class="titulo" >Perfil de {{this.nombre}}</p>
-  <div class="formu">
-    <form [formGroup]="form" class="form-inline">
-      <div class="formularioI">
+  <p class="titulo">Perfil de {{this.nombre}}</p>
+  <div class="perfil">
+    <!--    Formulario para actualizar nombre y apellido -->
+    <form [formGroup]="formNombreApellido" class="form-inline">
+      <div class="formulario">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label class="textC">Nombre</mat-label>
+          <input matInput placeholder="Juan David" formControlName="nombre" class="formu">
+          <mat-hint *ngIf="formNombreApellido.get('nombre').errors && formNombreApellido.get('nombre').touched">
+            <div class="alerts">
+              <p *ngIf="formNombreApellido.get('nombre').hasError('required')">
+                Se requiere este campo
+              </p>
+              <p *ngIf="formNombreApellido.get('nombre').hasError('maxlength')">
+                Nombre demasiado largo
+              </p>
+              <p *ngIf="formNombreApellido.get('nombre').hasError('minlength')">
+                Nombre demasiado corto
+              </p>
+              <p *ngIf="formNombreApellido.get('nombre').hasError('pattern')">
+                El nombre no puede contener numeros ni signos
+              </p>
+            </div>
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Apellido</mat-label>
+          <input matInput placeholder="Castro Lopez" formControlName="apellido" class="formu">
+          <mat-hint *ngIf="formNombreApellido.get('apellido').errors && formNombreApellido.get('apellido').touched">
+            <div class="alerts">
+              <p *ngIf="formNombreApellido.get('apellido').hasError('required')">
+                Se requiere este campo
+              </p>
+              <p *ngIf="formNombreApellido.get('apellido').hasError('maxlength')">
+                Apellido demasiado largo
+              </p>
+              <p *ngIf="formNombreApellido.get('apellido').hasError('minlength')">
+                Apellido demasiado corto
+              </p>
+              <p *ngIf="formNombreApellido.get('apellido').hasError('pattern')">
+                El apellido no puede contener numeros ni signos
+              </p>
+            </div>
+          </mat-hint>
+        </mat-form-field>
         <div class="prueba">
-          <mat-form-field appearance="outline" class="tamano">
-            <mat-label class="textC">Nombre</mat-label>
-            <input matInput placeholder="Juan David" formControlName="nombre_docente" class="formu" readonly>
-          </mat-form-field>
-        </div>
-        <div class="prueba">
-          <mat-form-field appearance="outline" class="tamano">
-            <mat-label>Apellido</mat-label>
-            <input matInput placeholder="Castro Lopez" formControlName="apellido_docente" class="formu" readonly>
-          </mat-form-field>
-        </div>
-        <div class="prueba">
-          <mat-form-field appearance="outline" class="tamano">
-            <mat-label>Documento</mat-label>
-            <input matInput placeholder="1010101012" formControlName="cedula" class="formu" readonly>
-          </mat-form-field>
-        </div>
-        <div class="prueba">
-          <mat-form-field appearance="outline" class="tamano">
-            <mat-label>NIT</mat-label>
-            <input matInput placeholder="1111111" formControlName="nit" class="formu" readonly>
-          </mat-form-field>
-        </div>
-
-        <div class="prueba">
-          <mat-form-field appearance="outline" class="tamano">
-            <mat-label>Correo</mat-label>
-            <input matInput placeholder="abc@gmail.com" formControlName="correo" class="formu" readonly>
-          </mat-form-field>
+          <button mat-raised-button [disabled]="formNombreApellido.invalid" color="primary" type="submit"
+            (click)="actualizarDatos(1)">
+            Actualizar nombre y apellido
+          </button>
         </div>
       </div>
     </form>
+    <!--    Formulario para actualizar Clave -->
+    <form [formGroup]="formAClave" class="form-inline">
+      <div class="formulario">
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Contraseña actual</mat-label>
+          <input matInput placeholder="1010101012" formControlName="clave_actual" class="formu"
+            [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint *ngIf="formAClave.get('clave_actual').errors && formAClave.get('clave_actual').touched">
+            <div class="alerts">
+              <p *ngIf="formAClave.get('clave_actual').hasError('required')">
+                Contraseña
+              </p>
+              <p *ngIf="formAClave.get('clave_actual').hasError('maxlength')">
+                Contraseña demasiado larga
+              </p>
+              <p *ngIf="formAClave.get('clave_actual').hasError('minlength')">
+                Contraseña demasiado corta
+              </p>
+            </div>
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="tamano">
+          <mat-label>Contraseña nueva</mat-label>
+          <input matInput placeholder="1111111" formControlName="clave" class="formu"
+            [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint *ngIf="formAClave.get('clave').errors && formAClave.get('clave').touched">
+            <div class="alerts">
+              <p *ngIf="formAClave.get('clave').hasError('required')">
+                Se requiere este campo
+              </p>
+              <p *ngIf="formAClave.get('clave').hasError('maxlength')">
+                Contraseña demasiado larga
+              </p>
+              <p *ngIf="formAClave.get('clave').hasError('minlength')">
+                Contraseña demasiado corta
+              </p>
+            </div>
+          </mat-hint>
+        </mat-form-field>
+        <div class="prueba">
+          <button mat-raised-button [disabled]="formAClave.invalid" color="primary" type="submit"
+            (click)="actualizarDatos(2)">
+            Actualizar contraseña
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="id_rol !=3">
+      <!--    Formulario para actualizar Correo -->
+      <form [formGroup]="formCorreo" class="form-inline">
+        <div class="formulario">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="abc@gmail.com" formControlName="correo" class="formu" type="email">
+            <mat-hint *ngIf="formCorreo.get('correo').errors && formCorreo.get('correo').touched">
+              <p *ngIf="formCorreo.get('correo').hasError('required')">
+                *Se requiere este campo
+              </p>
+              <p *ngIf="formCorreo.get('correo').hasError('pattern')">
+                *Introduzca una direccion de correo valida
+              </p>
+            </mat-hint>
+          </mat-form-field>
+          <div class="prueba">
+            <button mat-raised-button [disabled]="formCorreo.invalid" color="primary" type="submit"
+              (click)="actualizarDatos(3)">
+              Actualizar correo
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="id_rol !=1 && id_rol !=2">
+      <!--    Formulario para actualizar Grado de autismo y edad -->
+      <form [formGroup]="formGradoAutismoEdad" class="form-inline">
+        <div class="formulario">
+          <div class="campo_texto">
+            <mat-form-field appearance="outline" class="tamano">
+              <mat-label>Grado de autismo</mat-label>
+              <input matInput placeholder="2" formControlName="grado_autismo" class="formu" type="number">
+              <mat-hint
+                *ngIf="formGradoAutismoEdad.get('grado_autismo').errors && formGradoAutismoEdad.get('grado_autismo').touched">
+                <p *ngIf="formGradoAutismoEdad.get('grado_autismo').hasError('required')">
+                  Se requiere este campo
+                </p>
+                <p *ngIf="formGradoAutismoEdad.get('grado_autismo').hasError('max')">
+                  El valor maximo para el grado de autismo es de 3
+                </p>
+                <p *ngIf="formGradoAutismoEdad.get('grado_autismo').hasError('pattern')">
+                  El grado de autismo debe ser en numeros y mayor a 0
+                </p>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="campo_texto">
+            <mat-form-field appearance="outline" class="tamano">
+              <mat-label>Edad</mat-label>
+              <input matInput placeholder="2" formControlName="edad" class="formu" type="number">
+              <mat-hint *ngIf="formGradoAutismoEdad.get('edad').errors && formGradoAutismoEdad.get('edad').touched">
+                <p *ngIf="formGradoAutismoEdad.get('edad').hasError('required')">
+                  Se requiere este campo
+                </p>
+                <p *ngIf="formGradoAutismoEdad.get('edad').hasError('min')">
+                  El valor minimo para la edad es de 6
+                </p>
+                <p *ngIf="formGradoAutismoEdad.get('edad').hasError('max')">
+                  El valor maximo para la edad es de 11
+                </p>
+                <p *ngIf="formGradoAutismoEdad.get('edad').hasError('pattern')">
+                  La edad debe ser en numeros
+                </p>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="prueba">
+            <button mat-raised-button [disabled]="formGradoAutismoEdad.invalid" color="primary" type="submit"
+              (click)="actualizarDatos(4)">
+              Actualizar grado autismo y edad
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

@@ -1,0 +1,28 @@
+.actividadImitacion {
+    display: flex;
+    justify-content: first baseline;
+    align-items: center;
+    flex-direction: column;
+    margin: 0%;
+}
+.frase {
+    margin-top: 5%;
+    font-family: cursive;
+    font-size: 5vw;
+    color: white;
+    text-align: center;
+    background: #7177E7;
+    padding: 50px;
+    border-radius: 100px 100px 100px 100px;
+    border: 2px solid #5878ca
+}
+.cuadroDeTexto{
+    margin-top: 20%;
+    font-family: cursive;
+    font-size: 5vw;
+    color: white;
+    text-align: center;
+    background: #7177E7;
+    padding: 50px;
+    border: 2px solid #5878ca
+}

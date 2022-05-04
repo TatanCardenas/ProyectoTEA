@@ -1,31 +1,36 @@
-
-.grid-container {
-  margin: 20px;
-}
-
-.dashboard-card {
-  position: absolute;
+/*Estilo para la tabla*/
+.dashboard {
   display: flex;
-  top: 15px;
-  left: 15px;
   width: 100%;
-  bottom: 15px;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 }
-.container {
-  display: flex;
-  height: 50%;
+.dashboard .container {
+  height: 40%;
+  width: 95%;
+}
+highcharts-chart{
+  display: block;
   width: 100%;
-  margin: 0 auto;
-  background: red;
-}
-.dashboard-card  .container {
-  display: flex;
   height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  background: red;
 }
-.container .grafico1{
-  background: red;
+/*Esto es para la informacion*/
+.information {
+  display:flex; 
+  flex-flow: row;
   width: 100%;
+}
+.card{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+  /*Pues se supone que es para dar un espacio entre las tajetas o sea para que no se sobrepongan*/
+  grid-gap: 10px;
+}
+.example-card {
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 60%;
+  display: flex;
+  flex-flow: column;
 }

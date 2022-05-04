@@ -32,10 +32,12 @@
     </div>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/perfil">
-        <mat-icon>face</mat-icon>
-        <span>Mi Perfil</span>
-      </button>
+      <div *ngIf="rol !=3">
+        <button mat-menu-item (click)="perfil()">
+          <mat-icon>face</mat-icon>
+          <span>Mi Perfil</span>
+        </button>
+      </div>
       <button mat-menu-item (click)="cerrarSession()">
         <mat-icon>logout</mat-icon>
         <span>Cerrar Sesión</span>
@@ -98,8 +100,7 @@
       </div>
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1||rol==2">
-          <button mat-menu-item  (click)="drawer.toggle()" style="cursor: pointer"
-            [routerLink]="['/panelResultados']">
+          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/panelResultados']">
             <mat-icon>fact_check</mat-icon>
             <span>Ver resultados</span>
           </button>
@@ -108,8 +109,7 @@
       </div>
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1||rol==3">
-          <button mat-menu-item  (click)="drawer.toggle()" style="cursor: pointer"
-            [routerLink]="['/panelActividades']">
+          <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer" [routerLink]="['/panelActividades']">
             <mat-icon>task</mat-icon>
             <span>Panel de Actividades</span>
           </button>

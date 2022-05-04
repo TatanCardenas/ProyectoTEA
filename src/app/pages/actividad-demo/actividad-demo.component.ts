@@ -18,7 +18,7 @@ export class ActividadDemoComponent implements OnInit {
 
   startService(): void {
     this.speech.text = '';
-    this.speech.start(this.fraseADecir);
+    this.speech.start();
     this.speech.error = false;
   }
 }

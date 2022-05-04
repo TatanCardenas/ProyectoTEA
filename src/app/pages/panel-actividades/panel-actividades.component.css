@@ -1,6 +1,7 @@
 .example-card {
     max-width: 400px;
     margin-bottom: 8px;
+    position: relative;
 }
 
 .activityCards{
@@ -10,8 +11,9 @@
   height: 100%;
   flex-direction: row;
   overflow: hidden;
+  position: relative;
 }
-.activityCards >mat-card :hover{
+.activityCards :hover{
   cursor: pointer;
   zoom: 1.2;
   /*transform: scale(1.2);*/

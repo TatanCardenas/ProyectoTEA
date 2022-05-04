@@ -4,4 +4,5 @@ export class UsuarioAcudiente {
     documento :  String;
     clave :  String;
     correo: String;
+    clave_actual:String;
 }

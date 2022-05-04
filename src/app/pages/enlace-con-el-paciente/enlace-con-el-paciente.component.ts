@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UsuarioPaciente } from 'src/app/_model/UsuarioPaciente';
 import { environment } from 'src/environments/environment';
+import CryptoJS from "crypto-js";
 import { PacienteService } from '../../_service/paciente.service';
 
 
@@ -16,45 +17,47 @@ import { PacienteService } from '../../_service/paciente.service';
 })
 export class EnlaceConElPacienteComponent implements OnInit {
 
-  constructor(private serivcioPaciente:PacienteService,
-    private route:ActivatedRoute,
-    private snackBar: MatSnackBar,) { }
-    
-    pacientesTabla = new MatTableDataSource<UsuarioPaciente>();
-    pacientesPorEnlazar= new MatTableDataSource<UsuarioPaciente>();
+  constructor(private serivcioPaciente: PacienteService,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private router: Router) { }
 
-    tipoDeUsuario = new UsuarioPaciente;
-    estudianteAEnlazar:UsuarioPaciente;
-    enlaceAEliminar = new UsuarioPaciente();
-    
-    public usuario: String;
-    public flagRol: boolean = false;
-    public rol: number;
-    private user: string;
+  pacientesTabla = new MatTableDataSource<UsuarioPaciente>();
+  pacientesPorEnlazar = new MatTableDataSource<UsuarioPaciente>();
 
-    displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Eliminar Enlace'];
-    columnasAgregarPaciente: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Numero_documento','Agregar enlace'];
-    public id: number = this.route.snapshot.params.id;
-    formEnlaceAgregar = new FormGroup({
-      PacienteAEnlazar: new FormControl('',Validators.required)
-    });
+  tipoDeUsuario = new UsuarioPaciente;
+  estudianteAEnlazar: UsuarioPaciente;
+  enlaceAEliminar = new UsuarioPaciente();
+
+  public usuario: String;
+  public flagRol: boolean = false;
+  public rol: number;
+  private user: string;
+  private id_rol_crypt: string;
+  private id_document_crypt: string;
+
+  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Edad', 'Editar Datos','Eliminar Enlace'];
+  columnasAgregarPaciente: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Numero_documento', 'Agregar enlace'];
+  public id: number = this.route.snapshot.params.id;
+  formEnlaceAgregar = new FormGroup({
+    PacienteAEnlazar: new FormControl('', Validators.required)
+  });
 
   async ngOnInit(): Promise<void> {
     await this.delay(1000);
     this.datos();
-    if(this.id==1){
+    if (this.id == 1) {
       this.tipoDeUsuario.documento_docente = this.user;
-      this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[])=>{
-        this.pacientesPorEnlazar=new MatTableDataSource(paciente);
+      this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe((paciente: UsuarioPaciente[]) => {
+        this.pacientesPorEnlazar = new MatTableDataSource(paciente);
       });
-      this.serivcioPaciente.getPacientesEnlazados(this.id,this.tipoDeUsuario).subscribe((pacientes)=>{
+      this.serivcioPaciente.getPacientesEnlazados(this.id, this.tipoDeUsuario).subscribe((pacientes) => {
         this.pacientesTabla = new MatTableDataSource(pacientes);
       })
-    }else if(this.id==2){
-      await this.delay(1000);
+    } else if (this.id == 2) {
       this.pacientesPorEnlazar = null;
-      this.tipoDeUsuario.documento_acudiente=this.user;
-      this.serivcioPaciente.getPacientesEnlazados(this.id, this.tipoDeUsuario).subscribe((pacientes: UsuarioPaciente[])=>{
+      this.tipoDeUsuario.documento_acudiente = this.user;
+      this.serivcioPaciente.getPacientesEnlazados(this.id, this.tipoDeUsuario).subscribe((pacientes: UsuarioPaciente[]) => {
         this.pacientesTabla = new MatTableDataSource(pacientes);
       });
       await this.delay(1000);
@@ -62,17 +65,17 @@ export class EnlaceConElPacienteComponent implements OnInit {
     }
   }
 
-  private delay(ms:number){
+  private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  pacientesDelAcudiente(){
-    this.pacientesPorEnlazar=null;
-    this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe(paciente=>{
-      if(this.pacientesTabla.data[0]==undefined){
-        this.pacientesPorEnlazar=new MatTableDataSource(paciente);
-      }else{
-        this.pacientesPorEnlazar=null;
+  pacientesDelAcudiente() {
+    this.pacientesPorEnlazar = null;
+    this.serivcioPaciente.getPacientesPorEnlazar(this.id).subscribe(paciente => {
+      if (this.pacientesTabla.data[0] == undefined) {
+        this.pacientesPorEnlazar = new MatTableDataSource(paciente);
+      } else {
+        this.pacientesPorEnlazar = null;
       }
     });
   }
@@ -81,39 +84,48 @@ export class EnlaceConElPacienteComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.pacientesPorEnlazar.filter = filterValue.trim().toLowerCase();
-    
-  }   
 
-  agregarEnlace(valores){
-    this.pacientesPorEnlazar=null;
+  }
+
+  agregarEnlace(valores) {
+    this.pacientesPorEnlazar = null;
     this.estudianteAEnlazar = new UsuarioPaciente();
     this.estudianteAEnlazar.documento = valores;
-    if(this.id==1){
-      this.estudianteAEnlazar.documento_docente=this.user;
-    }else if(this.id ==2){
-      this.estudianteAEnlazar.documento_acudiente=this.user;
+    if (this.id == 1) {
+      this.estudianteAEnlazar.documento_docente = this.user;
+    } else if (this.id == 2) {
+      this.estudianteAEnlazar.documento_acudiente = this.user;
     }
-    this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data=>{
+    this.serivcioPaciente.enlazarPaciente(this.estudianteAEnlazar).subscribe(data => {
       this.ngOnInit();
-      this.openSnackBar(""+ data);
+      this.openSnackBar("" + data);
     });
-    
+
   }
-  eliminarEnlace(documentoPaciente){
-    if(this.id==1){
-      this.enlaceAEliminar.documento_docente= this.user;
-    }else if(this.id==2){
-      this.enlaceAEliminar.documento_acudiente= this.user;
+  eliminarEnlace(documentoPaciente) {
+    if (this.id == 1) {
+      this.enlaceAEliminar.documento_docente = this.user;
+    } else if (this.id == 2) {
+      this.enlaceAEliminar.documento_acudiente = this.user;
     }
-    this.enlaceAEliminar.documento= documentoPaciente;
-    this.serivcioPaciente.eliminarEnlacePaciente(this.enlaceAEliminar).subscribe(data=>{
-      this.openSnackBar(""+data);
+    this.enlaceAEliminar.documento = documentoPaciente;
+    this.serivcioPaciente.eliminarEnlacePaciente(this.enlaceAEliminar).subscribe(data => {
+      this.openSnackBar("" + data);
       this.ngOnInit();
     });
+  }
+  perfil(document_paciente) {
+    do {
+      this.id_rol_crypt = CryptoJS.AES.encrypt(JSON.stringify(3), 'id_rol_crypt').toString();
+    } while (this.id_rol_crypt.includes('/'))
+    do {
+      this.id_document_crypt = CryptoJS.AES.encrypt(JSON.stringify(document_paciente), 'id_document_crypt').toString();
+    } while (this.id_document_crypt.includes('/'))
+    this.router.navigate(['perfil/' + this.id_rol_crypt + '/' + this.id_document_crypt]);
   }
 
 
-  datos(){
+  datos() {
     const helper = new JwtHelperService();
     let token = sessionStorage.getItem(environment.TOKEN);
     const decodedToken = helper.decodeToken(token);
@@ -126,5 +138,5 @@ export class EnlaceConElPacienteComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
-  } 
+  }
 }

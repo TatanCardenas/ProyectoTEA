@@ -33,20 +33,22 @@ export class PanelActividadesImitacionComponent implements OnInit {
       this.listDeActividades(this.usuario.numero_documento.toString())
     }else{
       this.serviceUsuario.datosPaciente(this.usuario.numero_documento.toString()).subscribe(data=>{
+        
         this.pacienteDatos = data;
+        this.listDeActividades(this.pacienteDatos.documento_docente)
       })
-      this.listDeActividades(this.pacienteDatos.documento_docente)
     }
   }
   actividadSeleccionada(Id_actividad){
     do{
       this.idencrypted = CryptoJS.AES.encrypt(JSON.stringify(Id_actividad), 'secret key').toString();
     }while(this.idencrypted.includes('/'))
-    this.router.navigate(['actividad/'+this.idencrypted])
+    window.location.href = 'actividad/'+this.idencrypted;
   }
 
   listDeActividades(documentoDocente:string){
-    this.serviceActividad.getListaActividades(1,documentoDocente).subscribe(data=>{
+    this.serviceActividad.getListaActividades(this.usuario.tipo_usuario_id,documentoDocente).subscribe(data=>{
+      console.log(data)
       this.actividadesLista= data.filter(x=>x.Tipo_actividad==1);
     })
   }

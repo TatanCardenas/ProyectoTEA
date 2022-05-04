@@ -1,20 +1,27 @@
-
-<div *ngIf="actividad!=null">
-    <div *ngIf="actividad.Tipo_actividad==1">
-        <p>Acá va una una actividad tipo 1</p>
-        <div id="texto" class="card-header text-uppercase">Repite la siguiente oración:<br>
-            {{fraseADecir}}
+<div *ngIf="actividad!=null" style="background-color: #b1a4ff; height: 100%;">
+    <div *ngIf="actividad.Tipo_actividad==1" class="actividadImitacion">
+        Repite la siguiente oración:
+        <div class="frase">
+            <p>
+                {{fraseADecir}}
+            </p>
         </div>
-        <div>
-            <div class="card bg-light mt-2">
-            </div>
-            <mat-form-field id="textArea" appearance="fill">
-                <textarea matInput [disabled]="true" style="color: black;">{{speech.text}}</textarea>
-                <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
-                <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
-            </mat-form-field>
-            <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
-            <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="enviarDatos()">Enviar Datos</button>
+        <div class="card-body">
+            <button mat-button
+            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
+                (click)="reproducirPalabra()">
+              <mat-icon color="warn">play_arrow</mat-icon>
+            </button> 
+            <button mat-button
+            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
+            (click)="startService()">
+              <mat-icon color="warn">mic</mat-icon>
+            </button> 
+            <button mat-button
+            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
+            (click)="enviarDatos()">
+              <mat-icon color="warn">send</mat-icon>
+            </button> 
         </div>
     </div>
     <div *ngIf="actividad.Tipo_actividad==2">

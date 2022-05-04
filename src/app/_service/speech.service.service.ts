@@ -31,7 +31,7 @@ export class SpeechService {
     });
   }
 
-  start(fraseAdecir:String) {
+  start() {
     this.isStoppedSpeechRecog = false;
     this.recognition.start();
     this.recognition.addEventListener('end', () => {
@@ -41,28 +41,10 @@ export class SpeechService {
         this.wordConcat();
         this.recognition.start();
         var frase = this.text.trim();
-        var cantidadMinima=0;
-        //Para la frase a decir
-        var fraseADecir_sin_espacio = this.quitarEspaciosYCaracteresEspeciales(fraseAdecir);
-        //Para la frase dicha
-        var frase_sin_espacio = this.quitarEspaciosYCaracteresEspeciales(frase);
-        //prueba de salida por consola
-        console.log("entrada" + frase);
-        console.log("fraseDicha " + frase_sin_espacio);
-        console.log("frase a decir " + fraseADecir_sin_espacio);
-        cantidadMinima = frase_sin_espacio.length<=fraseADecir_sin_espacio.length?frase_sin_espacio.length:fraseADecir_sin_espacio.length;
-        console.log("porcentaje de acertividad "+this.porcentrajeDeAcertividad(frase_sin_espacio,fraseADecir_sin_espacio,cantidadMinima)+"%");
-        this.score = this.porcentrajeDeAcertividad(frase_sin_espacio,fraseADecir_sin_espacio,cantidadMinima);
-        //entrada de condicional
-        if (this.score == 100) {
+        if (frase != null) {
           this.stop();
           this.text = frase;
           this.bandera=1;
-          this.error = true;
-        } else {
-          this.text = "El mensaje es incorrecto repitelo frase dicha";
-          this.stop();
-          this.bandera=2;
           this.error = true;
         }
       }
@@ -78,25 +60,5 @@ export class SpeechService {
   wordConcat(): void {
     this.text = this.text + this.tempWords + ' ';
     this.tempWords = ' ';
-  }
-
-  quitarEspaciosYCaracteresEspeciales(palabraAModificar:String):String{
-    return palabraAModificar.replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi,"").replace(/ /g,'').toLowerCase();
-  }
-
-  porcentrajeDeAcertividad(fraseDicha,fraseAdecir,cantidadMinimaDePalabras): number{
-    var cant_acertada_de_letras=0;
-    var porcentaje=0;
-    for(var i=0;i<fraseAdecir.length;i++){
-      if(i<cantidadMinimaDePalabras){
-        if(fraseAdecir.charAt(i)==fraseDicha.charAt(i)){
-          cant_acertada_de_letras++;
-        }
-      }else{
-        break;
-      }
-    }
-    porcentaje=(cant_acertada_de_letras*100)/fraseAdecir.length;
-    return porcentaje;
   }
 }

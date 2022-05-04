@@ -1,4 +1,5 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import CryptoJS from "crypto-js";
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserLogin } from './_model/UserLogin';
@@ -33,6 +34,9 @@ export class AppComponent {
   private usuarioDocente = new UsuarioDocente();
   private usuarioAcudiente = new UsuarioAcudiente();
   private usuarioPaciente = new UsuarioPaciente();
+  private idRol_crypt: string;
+  private idDocumet_crypt: string;
+
 
   registros: Registro[] = [
     { value: '1', viewValue: 'Como Docente' },
@@ -43,8 +47,8 @@ export class AppComponent {
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     //this.usuario();
@@ -65,7 +69,7 @@ export class AppComponent {
       const user: string = decodedToken.Usuario;
       //this.flagRol = true;
 
-      switch (this.rol.toString()){
+      switch (this.rol.toString()) {
         case "1":
           this.usuarioService.datosDocente(user).subscribe((data) => {
             this.usuarioDocente = data;
@@ -88,7 +92,7 @@ export class AppComponent {
     }
   }
 
-  ingresoUsuario(usuarioIngreso:any){
+  ingresoUsuario(usuarioIngreso: any) {
     this.usuario = usuarioIngreso.nombre;
     this.idUser = usuarioIngreso.documento;
     this.flagRol = true;
@@ -96,13 +100,27 @@ export class AppComponent {
 
   cerrarSession() {
     this.user.usuario = this.idUser;
-    this.usuario=null;
+    this.usuario = null;
     this.loginService.cerrarSesion(this.user);
     this.ngOnInit();
   }
 
-  enviarRegistro(tipoDeRegistro){
-    window.location.href = 'registro/'+tipoDeRegistro;
+  enviarRegistro(tipoDeRegistro) {
+    window.location.href = 'registro/' + tipoDeRegistro;
+  }
+
+  perfil() {
+    const helper = new JwtHelperService();
+    let token = sessionStorage.getItem(environment.TOKEN);
+    const decodedToken = helper.decodeToken(token);
+    const documento: string = decodedToken.Usuario;
+    do {
+      this.idRol_crypt = CryptoJS.AES.encrypt(JSON.stringify(this.rol), 'id_rol_crypt').toString();
+    } while (this.idRol_crypt.includes('/'))
+    do {
+      this.idDocumet_crypt = CryptoJS.AES.encrypt(JSON.stringify(documento), 'id_document_crypt').toString();
+    } while (this.idDocumet_crypt.includes('/'))
+    this.router.navigate(['perfil/' + this.idRol_crypt + '/' + this.idDocumet_crypt]);
   }
 
 }
