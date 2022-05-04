@@ -1,9 +1,18 @@
 .contenedor-evaluacion{
     width: 100%;
 }
-.contenedor-evaluacion .materia, .contenedor-evaluacion .actividad{
+.contenedor-evaluacion .materia{
     width: 95%;
     height: 100vh;
+}
+
+.contenedor-evaluacion .actividad{
+    width: 95%;
+    height: 100vh;
+}
+
+.contenedor-evaluacion .actividad-off{
+    display: none;
 }
 
 .actividad .body{
@@ -291,6 +300,10 @@
 
 #sentimientos{
     background-color: #fa5f49;
+}
+
+#finalizacion{
+    background-color: #caffc2;
 }
 
 .titulo-evaluacion{

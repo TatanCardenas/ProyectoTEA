@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
@@ -41,6 +42,8 @@ import { PopupComponent } from './pages/popup/popup.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import {MatDialogModule } from '@angular/material/dialog';
 
+const routes: Routes = [{ path: 'inicio', component: InicioComponent }]; //Definicion de rutas internas para redireccionemiento
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +67,7 @@ import {MatDialogModule } from '@angular/material/dialog';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
@@ -84,6 +88,7 @@ import {MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
 
   ],
+  exports: [],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],

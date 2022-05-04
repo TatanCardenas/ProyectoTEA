@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="actividad" [id]="this.dynamicIdActividad" #actividad>
+    <div class="actividad" [hidden]="!inactivarActividad" [id]="this.dynamicIdActividad" #actividad>
         <div class="body">
             <div class="subtitulo-modulo">
                 <div class="subtitulo">

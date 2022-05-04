@@ -4,18 +4,20 @@ import { EvaluacionInicial } from 'src/app/_model/EvaluacionInicial';
 import { ActividadService } from 'src/app/_service/actividad.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from 'src/app/pages/popup/popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-evaluacion-inicial',
   templateUrl: './evaluacion-inicial.component.html',
   styleUrls: ['./evaluacion-inicial.component.css'],
 })
+
 export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   //RESULTADOS
   //almacenamiento de los datos de los servicios (dinamico, cambia dependiendo el servicio solicitado)
   public actividadEvaluacionInicial: EvaluacionInicial[];
-  //almacenamiento de resultados
-  public resultados: EvaluacionInicial[];
+  //almacenamiento de resultados - se inicializa para poder aplicar push()
+  public resultados: EvaluacionInicial[] = [];
   //Se da una Respuesta a cada actividad
   public respuestaActividad = new EvaluacionInicial();
   //verifica se hay respuesta
@@ -32,6 +34,8 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   avanceActividad = 1;
   //define si se encuentra en un avance de actividad o en un avance de modulo (true-Actividad, false-Modulo)
   avanceActividad_ModuloBandera = false;
+  //inactiva y activa al panel actividad
+  inactivarActividad=true;
   //---------------------------------------------------
 
   //IDENTIFICADORES
@@ -87,7 +91,9 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     //permite limpiar las imagenes que llegan en base64 para poder mostrarlas
     private _sanitizer: DomSanitizer,
     //permite generar ventana emergente
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    //router para redireccion
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -109,19 +115,27 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   }
 
   scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: 'smooth' });
-    if (this.avanceModulo == 0) {
-      this.avanceActividad_ModuloBandera = false;
-      //ajuste botones
-      this.primerBoton = false;
-      this.segundoboton = true;
-    } else if (this.avanceModulo > 0) {
-      //se deshabilita el mensaje inicial y se habilita la seccion de audios
-      this.mensajeInicial_Audios = false;
-      this.avanceActividad_ModuloBandera = true;
-      //ajuste botones
-      this.primerBoton = false;
-      this.segundoboton = true;
+    if (this.avanceModulo >= 5) {
+      for(var i=0;i<13;i++){
+        console.log("Resultado"+i+" "+this.resultados[i].respuesta);
+      }
+      this.router.navigate(['/inicio']);
+    } else {
+      //trasladar vista
+      el.scrollIntoView({ behavior: 'smooth' });
+      if (this.avanceModulo == 0) {
+        this.avanceActividad_ModuloBandera = false;
+        //ajuste botones
+        this.primerBoton = false;
+        this.segundoboton = true;
+      } else if (this.avanceModulo > 0 && this.avanceModulo < 5) {
+        //se deshabilita el mensaje inicial y se habilita la seccion de audios
+        this.mensajeInicial_Audios = false;
+        this.avanceActividad_ModuloBandera = true;
+        //ajuste botones
+        this.primerBoton = false;
+        this.segundoboton = true;
+      }
     }
   }
 
@@ -161,6 +175,12 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
             this.avanzarModulo(this.avanceModulo, el);
             break;
           }
+          case 5: {
+            //final - envio respuestas
+            this.avanzarModulo(this.avanceModulo, el);
+            console.log('prueba modulo 5');
+            break;
+          }
           default: {
             //statements
 
@@ -175,22 +195,26 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
         switch (this.avanceModulo) {
           case 1: {
             //ciencias
-            this.avanzarActividad(this.avanceModulo);
+            //carga variables de la actividad {1}
+            this.avanzarActividad();
             break;
           }
           case 2: {
             //matematicas;
-            this.avanzarActividad(this.avanceModulo);
+            //carga variables de la actividad {2}
+            this.avanzarActividad();
             break;
           }
           case 3: {
             //comunicativas;
-            this.avanzarActividad(this.avanceModulo);
+            //carga variables de la actividad {3}
+            this.avanzarActividad();
             break;
           }
           case 4: {
             //ciudadanas;
-            this.avanzarActividad(this.avanceModulo);
+            //carga variables de la actividad {4}
+            this.avanzarActividad();
             break;
           }
           default: {
@@ -199,38 +223,6 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
         }
       }
     }
-  }
-
-  //AVANZAR ACTIVIDAD
-  avanzarActividad(avanceModulo) {
-    //almacenar la respuesta
-    console.log(this.respuestaActividad);
-    //this.resultados.push(this.respuestaActividad);
-    //carga el contenido de la actividad
-    this.cargaContenidoActividad();
-    if (this.avanceActividad >= 3) {
-      //cambio a modulo
-      this.avanceActividad_ModuloBandera = false;
-      //reinicia actividad
-      this.avanceActividad = 1;
-      //pre carga los servicios de la siguiente actividad
-      this.activityLoad(avanceModulo + 1);
-    }
-  }
-  //AVANZAR MODULO
-  avanzarModulo(avanceModulo, el) {
-    //almacenar la respuesta
-    console.log(this.respuestaActividad);
-    //carga el contenido de la actividad
-    this.cargaContenidoActividad();
-    //guardar respuesta por modulo
-
-    //carga variables de la actividad {1}
-    this.cargaDeIdentificadores(avanceModulo);
-    el.scrollIntoView({ behavior: 'smooth' });
-    //ajuste botones
-    this.primerBoton = true;
-    this.segundoboton = false;
   }
 
   //CONFIGURACION DE VIDEO
@@ -279,7 +271,6 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   }
   //permite las funciones de reproducir y parar el video desde el iframe
   onPlayerStateChange(event) {
-    console.log(event.data);
     switch (event.data) {
       case window['YT'].PlayerState.PLAYING:
         if (this.cleanTime() == 0) {
@@ -354,6 +345,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   //CONSUMO DE SERVICIOS
   //Recibe el modulo actual y solicita el servicio dependiendo de este
   activityLoad(idModulo) {
+    console.log("Modulo "+idModulo);
     switch (idModulo) {
       case 1:
         //CIENCIAS
@@ -420,6 +412,11 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
         this.dynamicIdActividad = 'sentimientos';
         this.dynamicIdMateria = 'sentimientos';
         this.tituloEvaluacion = 'HABILIDADES SOCIALES';
+        break;
+      case 5:
+        this.dynamicIdActividad = 'finalizacion';
+        this.dynamicIdMateria = 'finalizacion';
+        this.tituloEvaluacion = 'EVALUACIÓN FINALIZADA';
         break;
       default:
         break;
@@ -538,6 +535,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
 
   verificarRespuesta(respuesta) {
     var respuestaActividad = new EvaluacionInicial();
+    //respuesta dada
     respuestaActividad.Lectura = respuesta;
     if (
       respuestaActividad.Lectura ==
@@ -550,15 +548,61 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     ) {
       respuestaActividad.respuesta = false;
     }
+    //realiza cambio de modulo
+    this.cambioModulo();
 
     return respuestaActividad;
   }
 
   //No existe una respuesta
-
   popupDialog() {
-    this.dialog.open(PopupComponent);
+    this.dialog.open(PopupComponent, {
+      width: '30%',
+    });
   }
 
+  //------------------------------------------------------------------------------------
+
+  //CAMBIO DE MODULO Y ACTIVIDAD
+  //avanzar actividad
+  avanzarActividad() {
+    //almacenar la respuesta
+    this.resultados.push(this.respuestaActividad);
+    //carga el contenido de la actividad
+    this.cargaContenidoActividad();
+  }
+
+  //avanzar modulo
+  avanzarModulo(avanceModulo, el) {
+    //almacenar la respuesta
+    this.resultados.push(this.respuestaActividad);
+    if (avanceModulo <= 4) {
+      //carga el contenido de la actividad
+      this.cargaContenidoActividad();
+    }else{
+      //quita panel actividad 
+      this.inactivarActividad= false;
+
+    }
+    //carga variables de la actividad {1}
+    this.cargaDeIdentificadores(avanceModulo);
+    //trasladar vista
+    el.scrollIntoView({ behavior: 'smooth' });
+    //ajuste botones
+    this.primerBoton = true;
+    this.segundoboton = false;
+  }
+
+  //realiza cambio de modulo al finalizar cada actividad
+  cambioModulo() {
+    if (this.avanceActividad >= 3) {
+      //cambio a modulo
+      this.avanceActividad_ModuloBandera = false;
+      //reinicia actividad
+      this.avanceActividad = 1;
+      //pre carga los servicios del siguiente modulo
+      this.activityLoad(this.avanceModulo + 1);
+    }
+  }
   //------------------------------------------------------------------------------------
 }
