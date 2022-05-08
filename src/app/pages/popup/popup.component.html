@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>¡Ops!</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Es necesaria una respuesta</h3>
-  <p>responde la pregunta</p>
+  <h3>{{data.txtMensaje}}</h3>
+  <img src="../../../assets/image/estudiantesTEA.png" alt="">
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Aceptar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Aceptar</button>
 </mat-dialog-actions>

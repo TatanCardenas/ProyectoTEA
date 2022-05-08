@@ -1,25 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EvaluacionInicial } from 'src/app/_model/EvaluacionInicial';
+import { ResultadoEvaluacionInicial } from 'src/app/_model/ResultadoEvaluacionInicial';
 import { ActividadService } from 'src/app/_service/actividad.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from 'src/app/pages/popup/popup.component';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { Usuario } from 'src/app/_model/Usuario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-evaluacion-inicial',
   templateUrl: './evaluacion-inicial.component.html',
   styleUrls: ['./evaluacion-inicial.component.css'],
 })
-
 export class EvaluacionInicialComponent implements OnInit, PopupComponent {
+  public dialogRef;
+  public data;
+  textomensaje: string;
+
+  //DATOS DEL USUARIO
+  public usuario = new Usuario();
+  //----------------------------------------------------
   //RESULTADOS
   //almacenamiento de los datos de los servicios (dinamico, cambia dependiendo el servicio solicitado)
   public actividadEvaluacionInicial: EvaluacionInicial[];
   //almacenamiento de resultados - se inicializa para poder aplicar push()
-  public resultados: EvaluacionInicial[] = [];
+  public resultados: ResultadoEvaluacionInicial[] = [];
   //Se da una Respuesta a cada actividad
-  public respuestaActividad = new EvaluacionInicial();
+  public respuestaActividad = new ResultadoEvaluacionInicial();
   //verifica se hay respuesta
   respuestaBandera = true;
   //---------------------------------------------------
@@ -35,7 +46,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   //define si se encuentra en un avance de actividad o en un avance de modulo (true-Actividad, false-Modulo)
   avanceActividad_ModuloBandera = false;
   //inactiva y activa al panel actividad
-  inactivarActividad=true;
+  inactivarActividad = true;
   //---------------------------------------------------
 
   //IDENTIFICADORES
@@ -93,10 +104,14 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     //permite generar ventana emergente
     public dialog: MatDialog,
     //router para redireccion
-    private router: Router
+    private router: Router,
+    //mensaje emergente
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
+    //carga datos de usuario por sesion
+    this.datosSesion();
     //inicializa las informacion de la actividad informativa
     this.buildFrom();
     //inicializa el video
@@ -116,10 +131,13 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
 
   scroll(el: HTMLElement) {
     if (this.avanceModulo >= 5) {
-      for(var i=0;i<13;i++){
-        console.log("Resultado"+i+" "+this.resultados[i].respuesta);
-      }
-      this.router.navigate(['/inicio']);
+      //Para video
+      this.stopVideo();
+      //ENVIO DE RESULTADOS
+      this.enviarResultadosService();
+      /*for(var i=0;i<13;i++){
+        console.log("Resultado\n"+i+" "+this.resultados[i].valuacion+" "+this.resultados[i].respuesta_seleccionada);
+      }*/
     } else {
       //trasladar vista
       el.scrollIntoView({ behavior: 'smooth' });
@@ -142,7 +160,8 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   scrollSecondary(el: HTMLElement): void {
     //verifica si respondio la pregunta
     if (this.respuestaBandera == false) {
-      this.popupDialog();
+      this.textomensaje = 'Es necesaria una respuesta!';
+      this.popupDialog(1);
     } else if (this.respuestaBandera == true) {
       this.progreso = this.progreso + 7.8;
       //Modulo
@@ -342,10 +361,10 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   }
   //------------------------------------------------------------------------------------
 
-  //CONSUMO DE SERVICIOS
+  //SERVICIOS
   //Recibe el modulo actual y solicita el servicio dependiendo de este
   activityLoad(idModulo) {
-    console.log("Modulo "+idModulo);
+    console.log('Modulo ' + idModulo);
     switch (idModulo) {
       case 1:
         //CIENCIAS
@@ -382,6 +401,19 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       case 5:
         break;
     }
+  }
+
+  enviarResultadosService() {
+    this.actividadService
+      .postEnvioResultadosEvaluacionInicial(this.resultados)
+      .subscribe(
+        (data) => {
+          this.router.navigate(['inicio']);
+        },
+        (err) => {
+          this.openSnackBar('Intente nuevamente...');
+        }
+      );
   }
   //------------------------------------------------------------------------------------
 
@@ -534,19 +566,23 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   }
 
   verificarRespuesta(respuesta) {
-    var respuestaActividad = new EvaluacionInicial();
+    var respuestaActividad = new ResultadoEvaluacionInicial();
     //respuesta dada
-    respuestaActividad.Lectura = respuesta;
+    respuestaActividad.respuesta_seleccionada = respuesta;
+    //modulo actual de la respuesta
+    respuestaActividad.modulo = this.avanceModulo;
+    //id del usuario
+    respuestaActividad.id_usuario = this.usuario.numero_documento;
     if (
-      respuestaActividad.Lectura ==
+      respuestaActividad.respuesta_seleccionada ==
       this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
     ) {
-      respuestaActividad.respuesta = true;
+      respuestaActividad.valuacion = true;
     } else if (
-      respuestaActividad.Lectura !=
+      respuestaActividad.respuesta_seleccionada !=
       this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
     ) {
-      respuestaActividad.respuesta = false;
+      respuestaActividad.valuacion = false;
     }
     //realiza cambio de modulo
     this.cambioModulo();
@@ -554,10 +590,30 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     return respuestaActividad;
   }
 
-  //No existe una respuesta
-  popupDialog() {
-    this.dialog.open(PopupComponent, {
+  //------------------------------------------------------------------------------------
+
+  //MENSAJES EMERGENTES
+  popupDialog(tipo) {
+    this.dialogRef = this.dialog.open(PopupComponent, {
       width: '30%',
+      data: { txtMensaje: this.textomensaje },
+    });
+    //0 problema al iniciar sesion
+    if(tipo == 0){
+
+      this.dialogRef.afterClosed().subscribe((result) => {
+        if ((result = true)) {
+          this.router.navigate(['inicio']);
+        }
+      });
+    }
+  }
+
+  private openSnackBar(mensaje: string) {
+    this.snackBar.open(mensaje, 'Aceptar', {
+      duration: 7000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 
@@ -579,10 +635,9 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     if (avanceModulo <= 4) {
       //carga el contenido de la actividad
       this.cargaContenidoActividad();
-    }else{
-      //quita panel actividad 
-      this.inactivarActividad= false;
-
+    } else {
+      //quita panel actividad
+      this.inactivarActividad = false;
     }
     //carga variables de la actividad {1}
     this.cargaDeIdentificadores(avanceModulo);
@@ -605,4 +660,21 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     }
   }
   //------------------------------------------------------------------------------------
+
+  //DATOS DEL USUARIO
+  datosSesion() {
+    try {
+      const helper = new JwtHelperService();
+      let token = sessionStorage.getItem(environment.TOKEN);
+      const decodedToken = helper.decodeToken(token);
+      this.usuario.numero_documento = decodedToken.Usuario;
+    } catch (e) {
+      //ajuste botones
+      this.primerBoton = false;
+      this.segundoboton = false;
+      //mensaje emergente
+      this.textomensaje = 'Inicia Sesion para continuar';
+      this.popupDialog(0);
+    }
+  }
 }

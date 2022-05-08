@@ -16,4 +16,5 @@ export class InicioComponent implements OnInit {
   open(){
     this.router.navigate(['actividadDemo']);
   }
+
 }

@@ -15,8 +15,10 @@ import { PanelResultadosComponent } from './pages/panel-resultados/panel-resulta
 import { EvaluacionInicialComponent } from './pages/evaluacion-inicial/evaluacion-inicial.component';
 import { PanelGraficasResultadosComponent } from './pages/panel-graficas-resultados/panel-graficas-resultados.component';
 import { PanelActividadesImitacionComponent } from './pages/panel-actividades-imitacion/panel-actividades-imitacion.component';
+import { PecsComponent } from './pages/pecs/pecs.component';
 
 const routes: Routes = [
+  {path: 'pecs', component: PecsComponent},
   {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
   {path: 'evaluacionInicial', component: EvaluacionInicialComponent},

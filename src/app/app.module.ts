@@ -41,6 +41,7 @@ import { PanelActividadesImitacionComponent } from './pages/panel-actividades-im
 import { PopupComponent } from './pages/popup/popup.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import {MatDialogModule } from '@angular/material/dialog';
+import { PecsComponent } from './pages/pecs/pecs.component';
 
 const routes: Routes = [{ path: 'inicio', component: InicioComponent }]; //Definicion de rutas internas para redireccionemiento
 
@@ -63,6 +64,7 @@ const routes: Routes = [{ path: 'inicio', component: InicioComponent }]; //Defin
     PanelGraficasResultadosComponent,
     PanelActividadesImitacionComponent,
     PopupComponent,
+    PecsComponent,
   ],
   imports: [
     BrowserModule,

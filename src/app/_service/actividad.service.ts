@@ -8,6 +8,7 @@ import { PacienteScoreJSon } from '../_model/PacienteScoreJSon';
 import { EvaluacionInicial } from '../_model/EvaluacionInicial';
 import { TypeActivity } from '../_model/TypeActivity';
 import { UsuarioPaciente } from '../_model/UsuarioPaciente';
+import { ResultadoEvaluacionInicial } from 'src/app/_model/ResultadoEvaluacionInicial';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +64,9 @@ export class ActividadService {
 
   putActividad(id_actividad: string) {
     console.log('id service ' + id_actividad);
-    return this.http.delete<any>(`${this.url}/PutActividadDesActivar/` + id_actividad);
+    return this.http.delete<any>(
+      `${this.url}/PutActividadDesActivar/` + id_actividad
+    );
   }
 
   getActivityId(activity_Id: number) {
@@ -90,13 +93,28 @@ export class ActividadService {
     );
   }
 
-  getResulActivity(id_activity,id_card_patient){
-    return this.http.get<Array<PacienteScoreJSon>>(`${this.url}/GetResulActivity/${id_activity}/${id_card_patient}`);
+  getResulActivity(id_activity, id_card_patient) {
+    return this.http.get<Array<PacienteScoreJSon>>(
+      `${this.url}/GetResulActivity/${id_activity}/${id_card_patient}`
+    );
   }
 
-  getScoreImitationActivity(phrase_base:String,phrase_said:String){
-    phrase_base = phrase_base.replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi,"").replace(/ /g,'').toLowerCase();
-    phrase_said = phrase_said.replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi,"").replace(/ /g,'').toLowerCase();
-    return this.http.get<any>(`${this.url}/GetScoreImitationActivity/${phrase_base}/${phrase_said}`);
+  getScoreImitationActivity(phrase_base: String, phrase_said: String) {
+    phrase_base = phrase_base
+      .replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi, '')
+      .replace(/ /g, '')
+      .toLowerCase();
+    phrase_said = phrase_said
+      .replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi, '')
+      .replace(/ /g, '')
+      .toLowerCase();
+    return this.http.get<any>(
+      `${this.url}/GetScoreImitationActivity/${phrase_base}/${phrase_said}`
+    );
+  }
+
+  //guardar resultados actividad evaluacion inicial
+  public postEnvioResultadosEvaluacionInicial(resultados: ResultadoEvaluacionInicial[]) {
+    return this.http.post<any>(`${this.url}/PostGuardarResultadosEvaluacionInicial`, resultados);
   }
 }

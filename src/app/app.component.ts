@@ -1,5 +1,5 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserLogin } from './_model/UserLogin';
@@ -11,6 +11,9 @@ import { User } from './_model/User';
 import { UsuarioAcudiente } from './_model/UsuarioAcudiente';
 import { UsuarioPaciente } from './_model/UsuarioPaciente';
 import { Router } from '@angular/router';
+
+//permite el acceso a las animaciones en el componente de inicio
+var jquery: NodeRequire = require('../assets/jquery.js');
 
 interface Registro {
   value: string;
@@ -37,7 +40,6 @@ export class AppComponent {
   private idRol_crypt: string;
   private idDocumet_crypt: string;
 
-
   registros: Registro[] = [
     { value: '1', viewValue: 'Como Docente' },
     { value: '2', viewValue: 'Como Acudiente' },
@@ -47,8 +49,13 @@ export class AppComponent {
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {
+    //permite el acceso a las animaciones en el componente de inicio
+    (<any>window).jQuery = jquery;
+    (<any>window).$ = jquery;
+    var nicepage: NodeRequire = require('../assets/nicepage.js');
+  }
 
   ngOnInit(): void {
     //this.usuario();
@@ -70,19 +77,19 @@ export class AppComponent {
       //this.flagRol = true;
 
       switch (this.rol.toString()) {
-        case "1":
+        case '1':
           this.usuarioService.datosDocente(user).subscribe((data) => {
             this.usuarioDocente = data;
             this.ingresoUsuario(this.usuarioDocente);
-          })
+          });
           break;
-        case "2":
+        case '2':
           this.usuarioService.datosAcudiente(user).subscribe((data) => {
             this.usuarioAcudiente = data;
             this.ingresoUsuario(this.usuarioAcudiente);
           });
           break;
-        case "3":
+        case '3':
           this.usuarioService.datosPaciente(user).subscribe((data) => {
             this.usuarioPaciente = data;
             this.ingresoUsuario(this.usuarioPaciente);
@@ -115,12 +122,19 @@ export class AppComponent {
     const decodedToken = helper.decodeToken(token);
     const documento: string = decodedToken.Usuario;
     do {
-      this.idRol_crypt = CryptoJS.AES.encrypt(JSON.stringify(this.rol), 'id_rol_crypt').toString();
-    } while (this.idRol_crypt.includes('/'))
+      this.idRol_crypt = CryptoJS.AES.encrypt(
+        JSON.stringify(this.rol),
+        'id_rol_crypt'
+      ).toString();
+    } while (this.idRol_crypt.includes('/'));
     do {
-      this.idDocumet_crypt = CryptoJS.AES.encrypt(JSON.stringify(documento), 'id_document_crypt').toString();
-    } while (this.idDocumet_crypt.includes('/'))
-    this.router.navigate(['perfil/' + this.idRol_crypt + '/' + this.idDocumet_crypt]);
+      this.idDocumet_crypt = CryptoJS.AES.encrypt(
+        JSON.stringify(documento),
+        'id_document_crypt'
+      ).toString();
+    } while (this.idDocumet_crypt.includes('/'));
+    this.router.navigate([
+      'perfil/' + this.idRol_crypt + '/' + this.idDocumet_crypt,
+    ]);
   }
-
 }

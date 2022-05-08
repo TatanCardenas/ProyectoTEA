@@ -1,0 +1,91 @@
+<section class="container">
+    <div class="container-pecs">
+
+        <div class="panel-actividades">
+            <div class="actividades">
+                <div class="titulo">
+                    <div class="txt">
+                        <h1>Actividad</h1>
+                    </div>
+                </div>
+
+                <div class="imagenes-principal" *ngIf="principal==true">
+                    <div class="imagenes-central">
+                        <div class="izquierda">
+                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                                <div class="texto">
+                                    <p>hola</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="centro">
+                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                                <div class="texto">
+                                    <p>hola</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="derecha">
+                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                                <div class="texto">
+                                    <p>hola</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="imagenes-secundaria"  *ngIf="principal==false">
+                    <div class="imagenes-superior">
+                        <div class="izquierda"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="centro"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="derecha"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                    </div>
+                    <div class="imagenes-inferior">
+                        <div class="izquierda"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="centro"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="derecha"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="list-actividades">
+                <div class="opciones">
+
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc1}" (click)='actividad(1)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad1}}</p>
+                        </div>
+                    </div>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc2}" (click)='actividad(2)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad2}}</p>
+                        </div>
+                    </div>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc3}" (click)='actividad(3)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad3}}</p>
+                        </div>
+                    </div>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc4}" (click)='actividad(4)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad4}}</p>
+                        </div>
+                    </div>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc5}" (click)='actividad(5)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad5}}</p>
+                        </div>
+                    </div>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc6}" (click)='actividad(6)'>
+                        <div class="opcion-txt">
+                            <p>{{actividad6}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
