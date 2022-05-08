@@ -81,7 +81,12 @@ export class EnlaceConElPacienteComponent implements OnInit {
   }
 
 
-  applyFilter(event: Event) {
+  applyFilterEli(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.pacientesTabla.filter = filterValue.trim().toLowerCase();
+
+  }
+  applyFilterAgre(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.pacientesPorEnlazar.filter = filterValue.trim().toLowerCase();
 

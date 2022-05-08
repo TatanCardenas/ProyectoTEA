@@ -1,12 +1,12 @@
 <mat-card>
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>INGRESA</mat-card-title>
     <mat-card-content>
       <div class="total">
         <form [formGroup]="formul" class="form-inline">
   
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="documento" />
+              <input type="text" matInput placeholder="Numero de documento" formControlName="documento" />
               <mat-hint *ngIf="formul.get('documento').errors && formul.get('documento').touched">
                 <p *ngIf="formul.get('documento').hasError('required')">
                   *Se requiere este campo
@@ -25,7 +25,7 @@
           </p>
           <p>
             <mat-form-field>
-              <input matInput placeholder="Password" formControlName="clave" [type]="hide ? 'password' : 'text'">
+              <input matInput placeholder="Clave" formControlName="clave" [type]="hide ? 'password' : 'text'">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -44,7 +44,7 @@
             </mat-form-field>
           </p>
           <button type="submit" mat-raised-button color="primary" [disabled]="formul.invalid"
-            (click)="ingresar($event)">Login</button>
+            (click)="ingresar($event)">Ingresar</button>
   
         </form>
   

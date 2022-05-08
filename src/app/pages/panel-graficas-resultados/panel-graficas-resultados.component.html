@@ -1,11 +1,32 @@
-<div >
+<div>
   <!--<h1 >Reporte</h1>-->
   <div class="dashboard">
     <div class="container">
       <!--aca va el codigo para las actividades-->
-      <highcharts-chart  *ngIf="chartOptions" [Highcharts]="Highcharts" [options]="chartOptions">
+      <highcharts-chart *ngIf="chartOptions" [Highcharts]="Highcharts" [options]="chartOptions">
       </highcharts-chart>
     </div>
+  </div>
+  <div class="boton_information">
+    <button mat-raised-button [matMenuTriggerFor]="menu" color="primary" class="information_button">
+      <mat-icon>help_outline</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <mat-card class="information example-card">
+        <mat-card-title>Información del promedio</mat-card-title>
+        <mat-card-subtitle>Descripción del promedio</mat-card-subtitle>
+        <mat-card-content class="promedio">
+          <p>0%-32%</p>
+          <p>33%-65%</p>
+          <p>66%-100%</p>
+        </mat-card-content>
+        <mat-card-content class="promedio">
+          <p>BAJO(B)</p>
+          <p>ALTO(A)</p>
+          <p>SUPERIOR(S)</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-menu>
   </div>
   <div class="information card">
     <mat-card class="information example-card">
@@ -30,7 +51,7 @@
       <mat-card-subtitle>Promedio en porcentaje</mat-card-subtitle>
       <mat-card-content>
         <p>El promedio evaludo hasta el: {{fecha_Hoy}}</p>
-        <p>Promedio acumulado: {{promedioActividad}} %</p>
+        <p>Promedio acumulado: {{promedioTexto}}</p>
       </mat-card-content>
     </mat-card>
   </div>

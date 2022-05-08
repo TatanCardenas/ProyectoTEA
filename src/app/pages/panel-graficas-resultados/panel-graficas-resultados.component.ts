@@ -21,6 +21,7 @@ export class PanelGraficasResultadosComponent {
   private id_estudiante_crypted;
   private scoreArray= [];
   public promedioActividad=0;
+  public promedioTexto="";
   public fecha_Hoy;
   private dateDidActivity =[];
   public usuario= new Usuario();
@@ -50,6 +51,14 @@ export class PanelGraficasResultadosComponent {
         this.promedioActividad += parseInt(data[i].Score.toString());
       }
       this.promedioActividad = this.promedioActividad/data.length;
+      if(this.promedioActividad>0&&this.promedioActividad<33){
+        this.promedioTexto = "(B)";
+      }else if(this.promedioActividad>=33&&this.promedioActividad<66){
+        this.promedioTexto = "(A)";
+      }else{
+        this.promedioTexto = "(S)";
+      }
+      this.promedioTexto= this.promedioActividad+"% "+this.promedioTexto;
       this.fecha_Hoy = new Date(data[data.length-1].FechaRealizacion.toString()).toLocaleDateString();
       this.fillFirstGhrap(this.scoreArray,this.dateDidActivity);
     })

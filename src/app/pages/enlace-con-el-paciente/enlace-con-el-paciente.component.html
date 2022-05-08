@@ -1,5 +1,13 @@
 <div>
   <div>
+    <div style="width: 80%;
+    position: static;
+    margin: auto;">
+      <mat-form-field appearance="fill">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilterEli($event)" placeholder="David" #input>
+      </mat-form-field>
+    </div>
     <table mat-table [dataSource]="pacientesTabla" matSort class="mat-elevation-z8">
       <caption>PACIENTES A TU CARGO</caption>
       <ng-container matColumnDef="Nombre Paciente">
@@ -40,7 +48,7 @@
     margin: auto;">
       <mat-form-field appearance="fill">
         <mat-label>Filtro</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="David" #input>
+        <input matInput (keyup)="applyFilterAgre($event)" placeholder="David" #input>
       </mat-form-field>
     </div>
     <table mat-table [dataSource]="pacientesPorEnlazar" matSort class="mat-elevation-z8">
