@@ -1,4 +1,13 @@
-.actividadImitacion {
+.fondo{
+    background-color: #b1a4ff; 
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 95%;
+    border-radius: 150px 150px 15px 15px;
+}
+.fondo .actividadImitacion {
+    height: 100%;
     display: flex;
     justify-content: first baseline;
     align-items: center;
@@ -24,5 +33,31 @@
     text-align: center;
     background: #7177E7;
     padding: 50px;
-    border: 2px solid #5878ca
+    border: 2px solid #5878ca;
+}
+.group_buttons{
+    width: 100%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+.mat-icon{
+    height:48px !important;
+    width:150% !important;
+    font-size:48px !important;
+    color: white;
+    background-color: #5878ca;
+    border-radius: 100px 100px 100px 100px; 
+}
+.buttons p{
+    font-family: cursive;
+    font-size: 1vw;
+    font-weight: 00;
+    color: #7177E7;
+    text-align: center;
+    background: white;
+    padding: 10%;
+    width: 128%;
+    border-radius: 100px 100px 100px 100px;
+    border: 3px solid #5878ca;
 }

@@ -6,7 +6,7 @@
       <mat-icon *ngIf="drawer.opened" id="close">close</mat-icon>
     </button>
 
-    <button class="welcome" mat-button [routerLink]="['/inicio']">¡Bienvenido! {{usuario}}</button>
+    <button class="welcome" mat-button [routerLink]="['/inicio']">¡Bienvenido/a! {{usuario}}</button>
 
     <span class="example-spacer"></span>
     <button class="welcome2" mat-button>¿Quienes somos?</button>
@@ -18,7 +18,7 @@
       </mat-menu>
     </div>
 
-    <div *ngIf="flagRol">
+    <div *ngIf="rol !=3 && flagSesion ">
       <button mat-raised-button target="_blank" [matMenuTriggerFor]="menu">Registrar</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="['registro/3']">Registrar Estudiante</button>
@@ -32,7 +32,7 @@
     </div>
 
     <mat-menu #menu="matMenu">
-      <div *ngIf="rol !=3">
+      <div *ngIf="rol !=3 && flagSesion">
         <button mat-menu-item (click)="perfil()">
           <mat-icon>face</mat-icon>
           <span>Mi Perfil</span>

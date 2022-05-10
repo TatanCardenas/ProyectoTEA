@@ -1,31 +1,38 @@
-<div *ngIf="actividad!=null" style="background-color: #b1a4ff; height: 100%;">
+<div *ngIf="actividad!=null" class="fondo">
     <div *ngIf="actividad.Tipo_actividad==1" class="actividadImitacion">
-        Repite la siguiente oración:
         <div class="frase">
             <p>
                 {{fraseADecir}}
             </p>
         </div>
-        <div class="card-body">
-            <button mat-button
-            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
-                (click)="reproducirPalabra()">
-              <mat-icon color="warn">play_arrow</mat-icon>
-            </button> 
-            <button mat-button
-            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
-            (click)="startService()">
-              <mat-icon color="warn">mic</mat-icon>
-            </button> 
-            <button mat-button
-            id="basic" type="submit" class="buttons" [disabled]="!speech.error"
-            (click)="enviarDatos()">
-              <mat-icon color="warn">send</mat-icon>
-            </button> 
+        <div class="group_buttons">
+            <div class="buttons">
+                <button mat-button id="basic" type="submit" [disabled]="!speech.error"
+                    (click)="reproducirPalabra()">
+                    <mat-icon color="white">play_arrow</mat-icon>
+                </button>
+                <p>
+                    REPRODUCIR
+                </p>
+            </div>
+            <div class="buttons">
+                <button mat-button id="basic" type="submit" [disabled]="!speech.error"
+                    (click)="startService()">
+                    <mat-icon color="warn">mic</mat-icon>
+                </button>
+                <p>
+                    HABLAR
+                </p>
+            </div>
+            <div class="buttons">
+                <button mat-button id="basic" type="submit" [disabled]="!speech.error"
+                    (click)="enviarDatos()">
+                    <mat-icon color="warn">send</mat-icon>
+                </button>
+                <p>
+                    ENVIAR
+                </p>
+            </div>
         </div>
-    </div>
-    <div *ngIf="actividad.Tipo_actividad==2">
-        <p>Acá va una una actividad de PECS</p>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     </div>
 </div>
