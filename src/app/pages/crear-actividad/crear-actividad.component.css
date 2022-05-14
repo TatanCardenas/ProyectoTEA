@@ -67,7 +67,7 @@
 
 .registro{
     width: 53%;
-    height: 40em;
+    height: 85%;
     margin: auto;
 }
 
@@ -86,6 +86,11 @@
     color: #ffffff;
     font: italic bold Georgia, Serif;
 }
+
+
+
+
+
 .tables{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(400px,1fr));

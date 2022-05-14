@@ -1,0 +1,60 @@
+<div>
+    <div class="tables">
+        <table mat-table [dataSource]="listaActividades_activas" matSort class="mat-elevation-z8">
+            <caption>TUS ACTIVIDADES ACTIVAS</caption>
+            <ng-container matColumnDef="Nombre Actividad">
+                <th mat-header-cell *matHeaderCellDef> Nombre actividad / documento </th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreActividad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Tipo Actividad">
+                <th mat-header-cell *matHeaderCellDef> Tipo actividad</th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo_actividad_texto}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Contenido">
+                <th mat-header-cell *matHeaderCellDef> Contenido </th>
+                <td mat-cell *matCellDef="let element"> {{element.Contenido_actividad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Desactivar">
+                <th mat-header-cell *matHeaderCellDef> Desactivar </th>
+                <td mat-cell *matCellDef="let element"><button mat-button
+                        (click)="actualizareActividad(element.Id_actividad)">
+                        <mat-icon color="warn">toggle_on</mat-icon>
+                    </button> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <table mat-table [dataSource]="listaActividades_inactivas" matSort class="mat-elevation-z8">
+            <caption>TUS ACTIVIDADES INACTIVAS</caption>
+            <ng-container matColumnDef="Nombre Actividad">
+                <th mat-header-cell *matHeaderCellDef> Nombre actividad / documento </th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreActividad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Tipo Actividad">
+                <th mat-header-cell *matHeaderCellDef> Tipo actividad</th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo_actividad_texto}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Contenido">
+                <th mat-header-cell *matHeaderCellDef> Contenido </th>
+                <td mat-cell *matCellDef="let element"> {{element.Contenido_actividad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Activar">
+                <th mat-header-cell *matHeaderCellDef> Activar </th>
+                <td mat-cell *matCellDef="let element"><button mat-button
+                        (click)="actualizareActividad(element.Id_actividad)">
+                        <mat-icon color="warn">toggle_off</mat-icon>
+                    </button> </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns_"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns_;"></tr>
+        </table>
+    </div>
+</div>

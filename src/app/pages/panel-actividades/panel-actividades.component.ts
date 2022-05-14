@@ -21,10 +21,8 @@ export class PanelActividadesComponent implements OnInit {
         pagina = 'panelActividadesDeImitacion';
         break;
       case 2:
-        do{
-          this.id_tp_activity = CryptoJS.AES.encrypt(JSON.stringify(0), 'secret key').toString();
-        }while(this.id_tp_activity.includes('/'))
-        pagina='actividad/'+this.id_tp_activity
+
+        pagina = 'pecs';
         break;
     }
     this.router.navigate([pagina]);

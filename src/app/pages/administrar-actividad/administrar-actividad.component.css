@@ -1,0 +1,10 @@
+.tables{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+}
+table {
+    width: 90%;
+    position: static;
+    margin: 20px;
+    margin: auto;
+}

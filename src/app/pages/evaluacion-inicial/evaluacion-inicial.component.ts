@@ -135,9 +135,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       this.stopVideo();
       //ENVIO DE RESULTADOS
       this.enviarResultadosService();
-      /*for(var i=0;i<13;i++){
-        console.log("Resultado\n"+i+" "+this.resultados[i].valuacion+" "+this.resultados[i].respuesta_seleccionada);
-      }*/
+
     } else {
       //trasladar vista
       el.scrollIntoView({ behavior: 'smooth' });

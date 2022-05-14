@@ -2,7 +2,7 @@
     <div class="container-pecs">
 
         <div class="panel-actividades">
-            <div class="actividades">
+            <div class="actividades" [ngStyle]="{'background-color':backgroundOpc_Activity[actividadActual]}">
                 <div class="titulo">
                     <div class="txt">
                         <h1>Actividad</h1>
@@ -12,21 +12,21 @@
                 <div class="imagenes-principal" *ngIf="principal==true">
                     <div class="imagenes-central">
                         <div class="izquierda">
-                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[0]" (click)='ColocarImagen(0)' alt="">
                                 <div class="texto">
                                     <p>hola</p>
                                 </div>
                             </div>
                         </div>
                         <div class="centro">
-                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[1]" (click)='ColocarImagen(1)' alt="">
                                 <div class="texto">
                                     <p>hola</p>
                                 </div>
                             </div>
                         </div>
                         <div class="derecha">
-                            <div class="img"><img id="brightness-on" src="../../../assets/image/autismo.jpg" alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[2]" (click)='ColocarImagen(2)' alt="">
                                 <div class="texto">
                                     <p>hola</p>
                                 </div>
@@ -34,52 +34,112 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="imagenes-secundaria"  *ngIf="principal==false">
+
+                <div class="imagenes-secundaria" *ngIf="principal==false">
                     <div class="imagenes-superior">
-                        <div class="izquierda"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
-                        <div class="centro"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
-                        <div class="derecha"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="izquierda">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(0)'
+                                *ngIf="activacionOpcionPECS[0]==true"><img [src]="imagenesPECS[0]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(0)'
+                                *ngIf="activacionOpcionPECS[0]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
+                        <div class="centro">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(1)'
+                                *ngIf="activacionOpcionPECS[1]==true"><img [src]="imagenesPECS[1]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(1)'
+                                *ngIf="activacionOpcionPECS[1]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
+                        <div class="derecha">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(2)'
+                                *ngIf="activacionOpcionPECS[2]==true"><img [src]="imagenesPECS[2]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(1)'
+                                *ngIf="activacionOpcionPECS[2]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="imagenes-inferior">
-                        <div class="izquierda"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
-                        <div class="centro"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
-                        <div class="derecha"><div class="img" id="brightness-on"><img src="../../../assets/image/autismo.jpg" alt=""></div></div>
+                        <div class="izquierda">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(3)'
+                                *ngIf="activacionOpcionPECS[3]==true"><img [src]="imagenesPECS[3]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(3)'
+                                *ngIf="activacionOpcionPECS[3]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
+                        <div class="centro">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(4)'
+                                *ngIf="activacionOpcionPECS[4]==true"><img [src]="imagenesPECS[4]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(4)'
+                                *ngIf="activacionOpcionPECS[4]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
+                        <div class="derecha">
+                            <div class="img" id="brightness-on" (click)='SeleccionImagen(5)'
+                                *ngIf="activacionOpcionPECS[5]==true"><img [src]="imagenesPECS[5]" alt=""></div>
+                            <div class="mensajeSeleccion" (click)='SeleccionImagen(5)'
+                                *ngIf="activacionOpcionPECS[5]==false">
+                                <div class="mensaje">
+                                    imagen seleccionada
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            
+
             </div>
             <div class="list-actividades">
                 <div class="opciones">
 
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc1}" (click)='actividad(1)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[0]}"
+                        (click)='actividad(1)'>
                         <div class="opcion-txt">
-                            <p>{{actividad1}}</p>
+                            <p>{{actividadTxt[0]}}</p>
                         </div>
                     </div>
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc2}" (click)='actividad(2)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[1]}"
+                        (click)='actividad(2)'>
                         <div class="opcion-txt">
-                            <p>{{actividad2}}</p>
+                            <p>{{actividadTxt[1]}}</p>
                         </div>
                     </div>
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc3}" (click)='actividad(3)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[2]}"
+                        (click)='actividad(3)'>
                         <div class="opcion-txt">
-                            <p>{{actividad3}}</p>
+                            <p>{{actividadTxt[2]}}</p>
                         </div>
                     </div>
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc4}" (click)='actividad(4)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[3]}"
+                        (click)='actividad(4)'>
                         <div class="opcion-txt">
-                            <p>{{actividad4}}</p>
+                            <p>{{actividadTxt[3]}}</p>
                         </div>
                     </div>
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc5}" (click)='actividad(5)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[4]}"
+                        (click)='actividad(5)'>
                         <div class="opcion-txt">
-                            <p>{{actividad5}}</p>
+                            <p>{{actividadTxt[4]}}</p>
                         </div>
                     </div>
-                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc6}" (click)='actividad(6)'>
+                    <div class="opcion" [ngStyle]="{'background-color':backgroundOpc_Activity[5]}"
+                        (click)='actividad(6)'>
                         <div class="opcion-txt">
-                            <p>{{actividad6}}</p>
+                            <p>{{actividadTxt[5]}}</p>
                         </div>
                     </div>
                 </div>

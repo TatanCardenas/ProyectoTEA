@@ -1,5 +1,4 @@
 <div class="container_titulo">
-
   <p *ngIf="tipoDeRegistro_ID==1" class="titulo">DOCENTE REGISTRATE AQUÍ</p>
   <p *ngIf="tipoDeRegistro_ID==2" class="titulo">ACUDIENTE REGISTRATE AQUÍ</p>
   <p *ngIf="tipoDeRegistro_ID==3" class="titulo">REGISTRAR ESTUDIANTE</p>
@@ -112,7 +111,10 @@
       </div>
     </form>
   </div>
+
+
   <!--                            Formulario para paciente                   -->
+  
   <div class="formularioGeneral" *ngIf="tipoDeRegistro_ID !=1 && tipoDeRegistro_ID !=2">
     <form [formGroup]="formRP" class="form-inline">
       <div class="campo_texto">

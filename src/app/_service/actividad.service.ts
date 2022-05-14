@@ -9,6 +9,8 @@ import { EvaluacionInicial } from '../_model/EvaluacionInicial';
 import { TypeActivity } from '../_model/TypeActivity';
 import { UsuarioPaciente } from '../_model/UsuarioPaciente';
 import { ResultadoEvaluacionInicial } from 'src/app/_model/ResultadoEvaluacionInicial';
+import { ActividadPECS_Categorias } from '../_model/ActividadPECS_Categorias';
+import { ActividadPECS_Imagenes } from '../_model/ActividadPECS_Imagenes';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +65,6 @@ export class ActividadService {
   }
 
   putActividad(id_actividad: string) {
-    console.log('id service ' + id_actividad);
     return this.http.delete<any>(
       `${this.url}/PutActividadDesActivar/` + id_actividad
     );
@@ -114,7 +115,26 @@ export class ActividadService {
   }
 
   //guardar resultados actividad evaluacion inicial
-  public postEnvioResultadosEvaluacionInicial(resultados: ResultadoEvaluacionInicial[]) {
-    return this.http.post<any>(`${this.url}/PostGuardarResultadosEvaluacionInicial`, resultados);
+  public postEnvioResultadosEvaluacionInicial(
+    resultados: ResultadoEvaluacionInicial[]
+  ) {
+    return this.http.post<any>(
+      `${this.url}/PostGuardarResultadosEvaluacionInicial`,
+      resultados
+    );
   }
+
+  //PECS
+  //obtener categorias segun estudiante-docente
+  getCategoriasPECS(Id_docente: String, Id_estudiante: String) {
+    return this.http.get<ActividadPECS_Categorias>(
+      `${this.url}/GetCategoriaPECS/${Id_docente}/${Id_estudiante}`
+    );
+  }
+    //obtener imagenes segun estudiante-docente-actividadActual
+    getImagenesPECS(Id_docente: String, Id_estudiante: String, actividadActual: number) {
+      return this.http.get<ActividadPECS_Imagenes>(
+        `${this.url}/GetImagenesPECS/${Id_docente}/${Id_estudiante}/${actividadActual}`
+      );
+    }
 }

@@ -67,7 +67,7 @@
 
 .registro {
   width: 53%;
-  height: 40em;
+  height: 80%;
   margin: auto;
 }
 
@@ -78,7 +78,7 @@
 
 .titulo {
   position: relative;
-  font-size: 3.5vw;
+  font-size: 3vw;
   font-style: inherit;
   text-align: center;
   margin-top: 25px;
