@@ -131,10 +131,30 @@ export class ActividadService {
       `${this.url}/GetCategoriaPECS/${Id_docente}/${Id_estudiante}`
     );
   }
-    //obtener imagenes segun estudiante-docente-actividadActual
-    getImagenesPECS(Id_docente: String, Id_estudiante: String, actividadActual: number) {
-      return this.http.get<ActividadPECS_Imagenes>(
-        `${this.url}/GetImagenesPECS/${Id_docente}/${Id_estudiante}/${actividadActual}`
-      );
-    }
+  //obtener imagenes segun estudiante-docente-actividadActual
+  getImagenesPECS(
+    Id_docente: String,
+    Id_estudiante: String,
+    actividadActual: number
+  ) {
+    return this.http.get<ActividadPECS_Imagenes>(
+      `${this.url}/GetImagenesPECS/${Id_docente}/${Id_estudiante}/${actividadActual}`
+    );
+  }
+
+  //actividades pecs activas
+  getListaCategorias(id_docente: string) {
+    return this.http.get<ActividadPECS_Categorias[]>(
+      `${this.url}/GetCategoriaActivaPECS/${id_docente}`
+    );
+  }
+
+  putCategoriaEstado(id_actividad: string) {
+    return this.http.delete<any>(
+      `${this.url}/PutCategoriaDesActivar/` + id_actividad
+    );
+  }
+
+
+
 }

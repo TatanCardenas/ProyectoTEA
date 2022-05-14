@@ -195,7 +195,6 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
           case 5: {
             //final - envio respuestas
             this.avanzarModulo(this.avanceModulo, el);
-            console.log('prueba modulo 5');
             break;
           }
           default: {

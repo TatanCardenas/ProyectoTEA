@@ -17,9 +17,11 @@ import { PanelGraficasResultadosComponent } from './pages/panel-graficas-resulta
 import { PanelActividadesImitacionComponent } from './pages/panel-actividades-imitacion/panel-actividades-imitacion.component';
 import { PecsComponent } from './pages/pecs/pecs.component';
 import { AdministrarActividadComponent } from './pages/administrar-actividad/administrar-actividad.component';
+import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades.component';
 
 const routes: Routes = [
-  {path: 'administrarActividad', component: AdministrarActividadComponent},
+  {path: 'administrarActividad/:idActividad', component: AdministrarActividadComponent},
+  {path: 'misActividades', component: MisActividadesComponent},
   {path: 'pecs', component: PecsComponent},
   {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},

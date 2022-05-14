@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
@@ -43,8 +42,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import {MatDialogModule } from '@angular/material/dialog';
 import { PecsComponent } from './pages/pecs/pecs.component';
 import { AdministrarActividadComponent } from './pages/administrar-actividad/administrar-actividad.component';
-
-const routes: Routes = [{ path: 'inicio', component: InicioComponent }]; //Definicion de rutas internas para redireccionemiento
+import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades.component';
 
 @NgModule({
   declarations: [
@@ -67,11 +65,11 @@ const routes: Routes = [{ path: 'inicio', component: InicioComponent }]; //Defin
     PopupComponent,
     PecsComponent,
     AdministrarActividadComponent,
+    MisActividadesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
