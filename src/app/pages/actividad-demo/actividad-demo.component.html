@@ -2,16 +2,16 @@
 <div id="containerPrincipal" class="container text-center mt-5">
     <div class="card text-white bg-dark mb-3">
       <div id="texto" class="card-header text-uppercase">Repite la siguiente oración:<br>
-        {{fraseADecir}}
+        {{fraseADecir}}.
     </div>
       <div class="card-body">
         <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="startService()">Repetir</button>
+        <button mat-raised-button id="basic"  type="submit" class="buttons" [disabled]="!speech.error" (click)="verPuntaje()">Ver Puntaje</button>
         <div class="card bg-light mt-2">
         </div>
         <mat-form-field id="textArea" appearance="fill">
             <textarea matInput [disabled]="true" style="color: black;">{{speech.text}}</textarea>
-            <mat-hint *ngIf="speech.bandera==1" >Correcto, bien hecho</mat-hint>
-            <mat-hint *ngIf="speech.bandera==2">Repite nuevamente</mat-hint>
+            <mat-hint *ngIf="resultadoPuntaje!=-1"> Tu puntaje para esta actividad fue de {{resultadoPuntaje}} %</mat-hint>
         </mat-form-field>
       </div>
     </div>
