@@ -19,10 +19,12 @@ export class CrearActividadComponent implements OnInit {
   uploadURL: Observable<string>;
   uploadProgress: Observable<number>;
 
+  opcionCreacion = null;
+
   private tipoActividad: UsuarioAcudiente[];
   public id_tipo_actividad: number;
   public id_tipo_actividadAccion: string;
-  private actividad = new Actividad();
+  private EnviarActividad = new Actividad();
   public imagen: string;
   public pruebaImagen;
   private extencionImagen: string;
@@ -48,18 +50,40 @@ export class CrearActividadComponent implements OnInit {
     });
   }
 
-  crearActividad = new FormGroup({
-    nombreActividad: new FormControl(this.actividad.NombreActividad, [
+  crearActividadImitacion = new FormGroup({
+    nombreActividad: new FormControl(this.EnviarActividad.NombreActividad, [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(25),
-      Validators.pattern('[a-zA-Z ]+[0-9]*'),
+      Validators.pattern('[a-zA-Z 0-9]*'),
     ]),
     tipo_actividad: new FormControl(
-      this.actividad.Tipo_actividad,
+      this.EnviarActividad.Tipo_actividad,
       Validators.required
     ),
-    descripcion: new FormControl(this.actividad.Descripcion, [
+    descripcion: new FormControl(this.EnviarActividad.Descripcion, [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+    ]),
+  });
+
+  crearActividadPECS = new FormGroup({
+    nombreActividad: new FormControl(this.EnviarActividad.NombreActividad, [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(25),
+      Validators.pattern('[a-zA-Z 0-9]*'),
+    ]),
+    tipo_actividad: new FormControl(
+      this.EnviarActividad.Tipo_actividad,
+      Validators.required
+    ),
+    color_categoria: new FormControl(
+      this.EnviarActividad.Tipo_actividad,
+      Validators.required
+    ),
+    descripcion: new FormControl(this.EnviarActividad.Descripcion, [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(25),
@@ -79,7 +103,7 @@ export class CrearActividadComponent implements OnInit {
   });
 
   async agregarActividad(any): Promise<void> {
-    this.nuevaActividad = this.crearActividad.value;
+    this.nuevaActividad = this.crearActividadImitacion.value;
     this.nuevaActividad.Docente_creador = this.user;
     if (this.id_tipo_actividad == 1) {
       this.nuevaActividad.Contenido_actividad =
@@ -156,5 +180,13 @@ export class CrearActividadComponent implements OnInit {
     let token = sessionStorage.getItem(environment.TOKEN);
     const decodedToken = helper.decodeToken(token);
     this.user = decodedToken.Usuario;
+  }
+
+  opcionRegistro(id) {
+    if (id == 1) {
+      this.opcionCreacion = 1;
+    } else if (id == 2) {
+      this.opcionCreacion = 2;
+    }
   }
 }

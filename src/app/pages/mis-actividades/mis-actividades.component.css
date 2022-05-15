@@ -43,23 +43,23 @@
 }
 
 .opciones .opcion-ImitacionVerbal:hover {
-    opacity: inherit;
-    text-decoration: underline;
-    background-color: #3e4fb2;
-    animation-duration: 3s;
-    cursor: pointer;
-    transition-duration: 1s;
-    border-bottom-left-radius: 100px;
-    border-top-left-radius: 100px;
+  opacity: inherit;
+  text-decoration: underline;
+  background-color: #3e4fb2;
+  animation-duration: 3s;
+  cursor: pointer;
+  transition-duration: 1s;
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
 }
 
 .opciones .opcion-PECS:hover {
-    opacity: inherit;
-    text-decoration: underline;
-    background-color: #3e4fb2;
-    animation-duration: 3s;
-    cursor: pointer;
-    transition-duration: 1s;
-    border-bottom-right-radius: 100px;
-    border-top-right-radius: 100px;
+  opacity: inherit;
+  text-decoration: underline;
+  background-color: #3e4fb2;
+  animation-duration: 3s;
+  cursor: pointer;
+  transition-duration: 1s;
+  border-bottom-right-radius: 100px;
+  border-top-right-radius: 100px;
 }
