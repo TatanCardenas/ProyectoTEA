@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Actividad } from 'src/app/_model/Actividad';
+import { ActividadPECS_Categorias } from 'src/app/_model/ActividadPECS_Categorias';
 import { UsuarioAcudiente } from 'src/app/_model/UsuarioAcudiente';
 import { ActividadService } from 'src/app/_service/actividad.service';
 import { environment } from 'src/environments/environment';
@@ -21,17 +22,21 @@ export class CrearActividadComponent implements OnInit {
 
   opcionCreacion = null;
 
-  private tipoActividad: UsuarioAcudiente[];
   public id_tipo_actividad: number;
-  public id_tipo_actividadAccion: string;
+  public seleccionAgregar_Categoria_Imagen: string;
+  public tipo_actividad_Accion;
+  public colorAsignadoA_Categoria;
+  public categoriaAsignadaA_Imagen;
+  private pathImagen;
+  private EnviarCategoriaPECS = new ActividadPECS_Categorias();
   private EnviarActividad = new Actividad();
   public imagen: string;
   public pruebaImagen;
   private extencionImagen: string;
-  private pathImagen;
   public user: string;
   private dateNow;
   private nuevaActividad = new Actividad();
+  private nuevaCategoriaPECS = new ActividadPECS_Categorias();
   public actividad_tipo: TypeActivity[];
 
   constructor(
@@ -50,6 +55,7 @@ export class CrearActividadComponent implements OnInit {
     });
   }
 
+  //IMITACION
   crearActividadImitacion = new FormGroup({
     nombreActividad: new FormControl(this.EnviarActividad.NombreActividad, [
       Validators.required,
@@ -57,10 +63,6 @@ export class CrearActividadComponent implements OnInit {
       Validators.maxLength(25),
       Validators.pattern('[a-zA-Z 0-9]*'),
     ]),
-    tipo_actividad: new FormControl(
-      this.EnviarActividad.Tipo_actividad,
-      Validators.required
-    ),
     descripcion: new FormControl(this.EnviarActividad.Descripcion, [
       Validators.required,
       Validators.minLength(4),
@@ -68,30 +70,26 @@ export class CrearActividadComponent implements OnInit {
     ]),
   });
 
+  //PECS
   crearActividadPECS = new FormGroup({
-    nombreActividad: new FormControl(this.EnviarActividad.NombreActividad, [
+    Id_estudiante: new FormControl(this.EnviarCategoriaPECS.Id_estudiante, [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(25),
       Validators.pattern('[a-zA-Z 0-9]*'),
     ]),
-    tipo_actividad: new FormControl(
-      this.EnviarActividad.Tipo_actividad,
-      Validators.required
-    ),
-    color_categoria: new FormControl(
-      this.EnviarActividad.Tipo_actividad,
-      Validators.required
-    ),
-    descripcion: new FormControl(this.EnviarActividad.Descripcion, [
+    tipo_actividad: new FormControl(Validators.required),
+    Color: new FormControl(this.EnviarCategoriaPECS.Color, Validators.required),
+    Categoria: new FormControl(this.EnviarCategoriaPECS.Categoria, [
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(25),
     ]),
+    categoriaAsignada: new FormControl(this.EnviarActividad.Tipo_actividad),
   });
 
   actividadImagen = new FormGroup({
-    contenido_actividad: new FormControl('', Validators.required),
+    contenido_actividad: new FormControl(''),
   });
 
   public actividadTexto = new FormGroup({
@@ -103,6 +101,7 @@ export class CrearActividadComponent implements OnInit {
   });
 
   async agregarActividad(any): Promise<void> {
+    console.log('actividad');
     this.nuevaActividad = this.crearActividadImitacion.value;
     this.nuevaActividad.Docente_creador = this.user;
     if (this.id_tipo_actividad == 1) {
@@ -130,31 +129,40 @@ export class CrearActividadComponent implements OnInit {
         this.nuevaActividad.Contenido_actividad = this.imagen;
         const ref = this.serviceAngularFireBase.ref('"file/_Z622939.jpg"');
         console.log(ref.getDownloadURL());
-        /*const fileRef = this.serviceAngularFireBase.ref("file/_Z622939.jpg");
-        const respuesta = this.serviceAngularFireBase.upload("file/_Z622939.jpg",this.pathImagen);
-        this.uploadProgress = respuesta.percentageChanges();
-
-    // Get notified when the download URL is available
-      respuesta.snapshotChanges().pipe(
-        finalize(() => console.log(fileRef.getDownloadURL()))
-        ).subscribe();
-        /*this.servicioActividad.postAgregarActividad(this.nuevaActividad).subscribe(data=>{
-          console.log("datos ", data.Mensaje)
-          this.openSnackBar(data.Mensaje)
-          this.ngOnInit()
-        })*/
       } else {
         this.openSnackBar('Solo puedes seleccionar imagenes');
       }
     }
   }
 
-  onSelect(value) {
-    this.id_tipo_actividad = value = 1 ? value : value;
+  async agregarCategoriaPECS(any): Promise<void> {
+    this.nuevaCategoriaPECS = this.crearActividadPECS.value;
+
+    var nuevaCtaegoria = new ActividadPECS_Categorias();
+    nuevaCtaegoria.Categoria = this.nuevaCategoriaPECS.Categoria;
+    nuevaCtaegoria.Categoria_id = 7;
+    nuevaCtaegoria.Color = this.nuevaCategoriaPECS.Color;
+    nuevaCtaegoria.Id_docente = this.user;
+    nuevaCtaegoria.Id_estudiante = this.nuevaCategoriaPECS.Id_estudiante;
+    nuevaCtaegoria.estado_id = 2;
+    console.log(nuevaCtaegoria);
+    this.servicioActividad
+      .postAgregarCategoria(nuevaCtaegoria)
+      .subscribe((data) => {
+        this.openSnackBar(data.Mensaje);
+      });
   }
 
-  onSelectAccion(value) {
-    this.id_tipo_actividadAccion = value;
+  onSelectAccionTipoActividad(value) {
+    this.tipo_actividad_Accion = value;
+  }
+
+  onSelectAccionColor(value) {
+    this.colorAsignadoA_Categoria = value;
+  }
+
+  onSelectAccionAsignarCategoria(value) {
+    this.categoriaAsignadaA_Imagen = value;
   }
 
   upload($event) {

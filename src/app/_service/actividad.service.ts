@@ -155,6 +155,11 @@ export class ActividadService {
     );
   }
 
-
+  postAgregarCategoria(categoriaNueva: ActividadPECS_Categorias) {
+    return this.http.post<any>(
+      `${this.url}/PostAgregarCategoria`,
+      categoriaNueva
+    );
+  }
 
 }

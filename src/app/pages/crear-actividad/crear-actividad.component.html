@@ -83,17 +83,17 @@
       <div class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label class="textC">NUMERO DE IDENTIFICACIÓN ESTUDIANTE</mat-label>
-          <input matInput placeholder="Actividad 1" formControlName="nombreActividad" class="formu">
-          <mat-error *ngIf="crearActividadPECS.get('nombreActividad').hasError('required')">
+          <input matInput placeholder="identificación" formControlName="Id_estudiante" class="formu">
+          <mat-error *ngIf="crearActividadPECS.get('Id_estudiante').hasError('required')">
             Ingrese los datos solicitados
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('nombreActividad').hasError('minlength')">
+          <mat-error *ngIf="crearActividadPECS.get('Id_estudiante').hasError('minlength')">
             El texto ingresado es muy corto
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('nombreActividad').hasError('maxlength')">
+          <mat-error *ngIf="crearActividadPECS.get('Id_estudiante').hasError('maxlength')">
             El texto ingresado es muy grande
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('nombreActividad').hasError('pattern')">
+          <mat-error *ngIf="crearActividadPECS.get('Id_estudiante').hasError('pattern')">
             Debe ingresar solo numero y letras
           </mat-error>
         </mat-form-field>
@@ -102,7 +102,8 @@
       <div class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Acción a realizar</mat-label>
-          <select matNativeControl formControlName="tipo_actividad" (change)="onSelectAccion($event.target.value)">
+          <select matNativeControl formControlName="tipo_actividad"
+            (change)="onSelectAccionTipoActividad($event.target.value)">
             <option style="font-size: 20px; color: black;" label="--Seleccione una accion a realizar--"></option>
             <option style="font-size: 20px; color: black;" value="categoriaPECS" label="Agregar categoria"></option>
             <option style="font-size: 20px; color: black;" value="imagenPECS" label="Agregar imagen"></option>
@@ -113,60 +114,70 @@
         </mat-form-field>
       </div>
 
-      <div>
+      <div *ngIf="tipo_actividad_Accion!=null" class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
-          <mat-label>NOMBRE CATEGORÍA</mat-label>
-          <input matInput placeholder="La actividad será" formControlName="descripcion">
-          <mat-error *ngIf="crearActividadPECS.get('descripcion').hasError('required')">
+          <mat-label *ngIf="tipo_actividad_Accion=='categoriaPECS'">NOMBRE CATEGORÍA</mat-label>
+          <mat-label *ngIf="tipo_actividad_Accion=='imagenPECS'">DESCRIPCIÓN DE LA IMAGEN</mat-label>
+          <input matInput placeholder="ingrese su dato" formControlName="Categoria">
+          
+          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('required')">
             Ingrese los datos solicitados
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('descripcion').hasError('minlength')">
+          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('minlength')">
             El texto ingresado es muy corto
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('descripcion').hasError('maxlength')">
+          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('maxlength')">
             El texto ingresado es muy grande
           </mat-error>
-          <mat-error *ngIf="crearActividadPECS.get('descripcion').hasError('pattern')">
+          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('pattern')">
             Debe ingresar solo numero y letras
           </mat-error>
         </mat-form-field>
       </div>
 
-      <div class="campo_texto">
+      <div *ngIf="tipo_actividad_Accion=='categoriaPECS'" class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Asignar color a la categoría</mat-label>
-          <select matNativeControl formControlName="color_categoria" (change)="onSelectAccion($event.target.value)">
+          <select matNativeControl formControlName="Color"
+            (change)="onSelectAccionColor($event.target.value)">
             <option style="font-size: 20px; color: black;" label="--Seleccione un color--"></option>
-            <option style="font-size: 20px; color: black; background-color: #ff6961;" label="Rojo"></option>
-            <option style="font-size: 20px; color: black; background-color: #77dd77;" label="Verde"></option>
-            <option style="font-size: 20px; color: black; background-color: #fdfd96;" label="Amarillo"></option>
-            <option style="font-size: 20px; color: black; background-color: #84b6f4;" label="Azul"></option>
-            <option style="font-size: 20px; color: black; background-color: #fdcae1;" label="Rosa"></option>
+            <option style="font-size: 20px; color: black; background-color: #ff6961;" value="#ff6961" label="Rojo">
+            </option>
+            <option style="font-size: 20px; color: black; background-color: #77dd77;" value="#77dd77" label="Verde">
+            </option>
+            <option style="font-size: 20px; color: black; background-color: #fdfd96;" value="#fdfd96" label="Amarillo">
+            </option>
+            <option style="font-size: 20px; color: black; background-color: #84b6f4;" value="#84b6f4" label="Azul">
+            </option>
+            <option style="font-size: 20px; color: black; background-color: #fdcae1;" value="#fdcae1" label="Rosa">
+            </option>
           </select>
-          <mat-error *ngIf="crearActividadPECS.get('color_categoria').hasError('required')">
+          <mat-error *ngIf="crearActividadPECS.get('Color').hasError('required')">
             Debe seleccionar un tipo de actividad
           </mat-error>
         </mat-form-field>
       </div>
-      
-      <div class="campo_texto">
+
+
+      <!--falta-->
+      <div *ngIf="tipo_actividad_Accion=='imagenPECS'" class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Asignar categoría</mat-label>
-          <select matNativeControl formControlName="tipo_actividad" (change)="onSelectAccion($event.target.value)">
+          <select matNativeControl formControlName="Categoria"
+            (change)="onSelectAccionAsignarCategoria($event.target.value)">
             <option style="font-size: 20px; color: black;" label="--Seleccione un color--"></option>
             <option style="font-size: 20px; color: black;" label="1"></option>
-            <option style="font-size: 20px; color: black;" label="2"></option>
-            <option style="font-size: 20px; color: black;" label="3"></option>
-            <option style="font-size: 20px; color: black;" label="4"></option>
-            <option style="font-size: 20px; color: black;" label="5"></option>
+|
           </select>
-          <mat-error *ngIf="crearActividadPECS.get('tipo_actividad').hasError('required')">
+          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('required')">
             Debe seleccionar color para la categoría
           </mat-error>
         </mat-form-field>
       </div>
 
-      <form [formGroup]="actividadImagen" #frmImagen="ngForm" class="form-inline">
+      <!--falta-->
+      <form *ngIf="tipo_actividad_Accion=='imagenPECS'" [formGroup]="actividadImagen" #frmImagen="ngForm"
+        class="form-inline">
         <div class="campo_texto">
           <input type="file" (change)="upload($event)" formControlName="contenido_actividad" class="formu"
             accept="*.png.jpg">
@@ -175,9 +186,16 @@
           </mat-error>
         </div>
       </form>
-      <div class="campo_texto">
+
+      <div *ngIf="tipo_actividad_Accion=='imagenPECS'" class="campo_texto">
         <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
-          (click)="agregarActividad($event)">Agregar
+          (click)="agregarImagenPECS($event)">Agregar
+          <mat-icon>bookmark_add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="tipo_actividad_Accion=='categoriaPECS'" class="campo_texto">
+        <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
+          (click)="agregarCategoriaPECS($event)">Agregar
           <mat-icon>bookmark_add</mat-icon>
         </button>
       </div>

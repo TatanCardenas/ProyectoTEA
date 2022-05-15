@@ -36,7 +36,7 @@ export class EnlaceConElPacienteComponent implements OnInit {
   private id_rol_crypt: string;
   private id_document_crypt: string;
 
-  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Edad', 'Editar Datos','Eliminar Enlace'];
+  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Numero_documento', 'Editar Datos','Eliminar Enlace'];
   columnasAgregarPaciente: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Numero_documento', 'Agregar enlace'];
   public id: number = this.route.snapshot.params.id;
   formEnlaceAgregar = new FormGroup({
