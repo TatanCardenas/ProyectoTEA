@@ -17,8 +17,10 @@ export class AdministrarActividadComponent implements OnInit {
   public listaActividades_activas = new MatTableDataSource<Actividad>();
   public listaActividades_inactivas = new MatTableDataSource<Actividad>();
 
-  public listaCategorias_activas = new MatTableDataSource<ActividadPECS_Categorias>();
-  public listaCategorias_inactivas = new MatTableDataSource<ActividadPECS_Categorias>();
+  public listaCategorias_activas =
+    new MatTableDataSource<ActividadPECS_Categorias>();
+  public listaCategorias_inactivas =
+    new MatTableDataSource<ActividadPECS_Categorias>();
 
   public user: string;
   public id_activityencrypt: number;
@@ -72,10 +74,12 @@ export class AdministrarActividadComponent implements OnInit {
 
   actualizarCategoria(id_categoria) {
     console.log('id categoria ' + id_categoria);
-    this.servicioActividad.putCategoriaEstado(id_categoria).subscribe((data) => {
-      this.openSnackBar(data);
-      this.ngOnInit();
-    });
+    this.servicioActividad
+      .putCategoriaEstado(id_categoria)
+      .subscribe((data) => {
+        this.openSnackBar(data);
+        this.ngOnInit();
+      });
   }
 
   private openSnackBar(mensaje: string) {
@@ -96,7 +100,7 @@ export class AdministrarActividadComponent implements OnInit {
       this.servicioActividad
         .getListaActividades(1, this.user)
         .subscribe((data) => {
-          console.log(data)
+          console.log(data);
           this.listaActividades_activas = new MatTableDataSource(
             data.filter((x) => x.Estado_id <= 1)
           );
@@ -106,17 +110,14 @@ export class AdministrarActividadComponent implements OnInit {
         });
     } else if (id_tipoGestion == 2) {
       this.tipoGestion = 'GESTIÓN DE CATEGORÍAS PECS';
-      this.servicioActividad
-        .getListaCategorias(this.user)
-        .subscribe((data) => {
-          console.log(data[0].estado_id)
-          this.listaCategorias_activas = new MatTableDataSource(
-            data.filter((x) => x.estado_id <= 1)
-          );
-          this.listaCategorias_inactivas = new MatTableDataSource(
-            data.filter((x) => x.estado_id >= 2)
-          );
-        });
+      this.servicioActividad.getListaCategorias(this.user).subscribe((data) => {
+        this.listaCategorias_activas = new MatTableDataSource(
+          data.filter((x) => x.estado_id <= 1)
+        );
+        this.listaCategorias_inactivas = new MatTableDataSource(
+          data.filter((x) => x.estado_id >= 2)
+        );
+      });
     }
   }
 }

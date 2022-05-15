@@ -162,4 +162,10 @@ export class ActividadService {
     );
   }
 
+  postAgregarActividadPECS(actividadNueva: ActividadPECS_Imagenes) {
+    return this.http.post<any>(
+      `${this.url}/PostAgregarActividadImagenPECS`,
+      actividadNueva
+    );
+  }
 }

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { TypeActivity } from 'src/app/_model/TypeActivity';
+import { ActividadPECS_Imagenes } from 'src/app/_model/ActividadPECS_Imagenes';
 
 @Component({
   selector: 'app-crear-actividad',
@@ -29,15 +30,21 @@ export class CrearActividadComponent implements OnInit {
   public categoriaAsignadaA_Imagen;
   private pathImagen;
   private EnviarCategoriaPECS = new ActividadPECS_Categorias();
+  private EnviarImagenPECS = new ActividadPECS_Imagenes();
   private EnviarActividad = new Actividad();
   public imagen: string;
   public pruebaImagen;
   private extencionImagen: string;
   public user: string;
+  public infoCategorias = new ActividadPECS_Categorias();
   private dateNow;
   private nuevaActividad = new Actividad();
-  private nuevaCategoriaPECS = new ActividadPECS_Categorias();
+  public nuevaCategoriaPECS = new ActividadPECS_Categorias();
+  public nuevaImagenPECS = new ActividadPECS_Imagenes();
   public actividad_tipo: TypeActivity[];
+
+  //imagen
+  public base64textString: string;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -70,7 +77,7 @@ export class CrearActividadComponent implements OnInit {
     ]),
   });
 
-  //PECS
+  //PECS-categoria
   crearActividadPECS = new FormGroup({
     Id_estudiante: new FormControl(this.EnviarCategoriaPECS.Id_estudiante, [
       Validators.required,
@@ -88,6 +95,13 @@ export class CrearActividadComponent implements OnInit {
     categoriaAsignada: new FormControl(this.EnviarActividad.Tipo_actividad),
   });
 
+  crearActividadPECS_IMAGEN = new FormGroup({
+    DesctipcionImagen: new FormControl(this.EnviarImagenPECS.Texto_imagen),
+    CategoriaAsignada: new FormControl(this.EnviarImagenPECS.Categoria_id),
+  });
+
+  //PECS-imagen
+
   actividadImagen = new FormGroup({
     contenido_actividad: new FormControl(''),
   });
@@ -100,8 +114,9 @@ export class CrearActividadComponent implements OnInit {
     ]),
   });
 
+  //BOTONES ENVIO DE DATOS
+
   async agregarActividad(any): Promise<void> {
-    console.log('actividad');
     this.nuevaActividad = this.crearActividadImitacion.value;
     this.nuevaActividad.Docente_creador = this.user;
     if (this.id_tipo_actividad == 1) {
@@ -153,6 +168,44 @@ export class CrearActividadComponent implements OnInit {
       });
   }
 
+  async categoriasImagenPECS(any): Promise<void> {
+    this.tipo_actividad_Accion = 'imagenPECS_categoria';
+    this.nuevaCategoriaPECS = this.crearActividadPECS.value;
+    try {
+      this.servicioActividad
+        .getCategoriasPECS(this.user, this.nuevaCategoriaPECS.Id_estudiante)
+        .subscribe((data) => {
+          this.infoCategorias = data;
+        });
+    } catch (error) {
+      console.log('ingrese el id del estudiante' + error);
+    }
+  }
+
+  async agregarImagenPECS(any): Promise<void> {
+    this.nuevaImagenPECS = this.crearActividadPECS_IMAGEN.value;
+    this.nuevaImagenPECS.Categoria_id = this.crearActividadPECS_IMAGEN.value.CategoriaAsignada;
+    this.nuevaImagenPECS.Texto_imagen = this.crearActividadPECS_IMAGEN.value.DesctipcionImagen;
+    
+    var nuevImagen = new ActividadPECS_Imagenes();
+    nuevImagen.Categoria_id = this.nuevaImagenPECS.Categoria_id;
+    nuevImagen.Texto_imagen = this.nuevaImagenPECS.Texto_imagen;
+    nuevImagen.Id_docente = this.user;
+    nuevImagen.Id_estudiante = this.nuevaCategoriaPECS.Id_estudiante;
+    nuevImagen.Imagen = this.base64textString;
+
+    this.servicioActividad
+      .postAgregarActividadPECS(nuevImagen)
+      .subscribe((data) => {
+        this.openSnackBar(data.Mensaje);
+      });
+
+
+  }
+
+  //--------------------------------------------------------------------------------------------------
+
+  //SELECCTORES - OPCION
   onSelectAccionTipoActividad(value) {
     this.tipo_actividad_Accion = value;
   }
@@ -164,12 +217,28 @@ export class CrearActividadComponent implements OnInit {
   onSelectAccionAsignarCategoria(value) {
     this.categoriaAsignadaA_Imagen = value;
   }
+  //---------------------------------------------------------------------------------------
+  //SUBIR IMAGEN
+  upload(File) {
+    console.log(File);
 
-  upload($event) {
-    console.log($event.target.files[0]);
-    this.pathImagen = $event.target.files[0];
+    var files = File.target.files;
+    var file = files[0];
+
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload = this.uploadImage.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
   }
-  uploadImage() {}
+  uploadImage(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+  }
+
+  //---------------------------------------------------------------------------------------
 
   private openSnackBar(mensaje: string) {
     this.snackBar.open(mensaje, '', {

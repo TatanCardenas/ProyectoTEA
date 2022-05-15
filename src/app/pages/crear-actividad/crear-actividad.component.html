@@ -114,12 +114,11 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="tipo_actividad_Accion!=null" class="campo_texto">
+      <div *ngIf="tipo_actividad_Accion=='categoriaPECS'" class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
-          <mat-label *ngIf="tipo_actividad_Accion=='categoriaPECS'">NOMBRE CATEGORÍA</mat-label>
-          <mat-label *ngIf="tipo_actividad_Accion=='imagenPECS'">DESCRIPCIÓN DE LA IMAGEN</mat-label>
+          <mat-label>NOMBRE CATEGORÍA</mat-label>
           <input matInput placeholder="ingrese su dato" formControlName="Categoria">
-          
+
           <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('required')">
             Ingrese los datos solicitados
           </mat-error>
@@ -138,8 +137,7 @@
       <div *ngIf="tipo_actividad_Accion=='categoriaPECS'" class="campo_texto">
         <mat-form-field appearance="outline" class="tamano">
           <mat-label>Asignar color a la categoría</mat-label>
-          <select matNativeControl formControlName="Color"
-            (change)="onSelectAccionColor($event.target.value)">
+          <select matNativeControl formControlName="Color" (change)="onSelectAccionColor($event.target.value)">
             <option style="font-size: 20px; color: black;" label="--Seleccione un color--"></option>
             <option style="font-size: 20px; color: black; background-color: #ff6961;" value="#ff6961" label="Rojo">
             </option>
@@ -158,47 +156,62 @@
         </mat-form-field>
       </div>
 
-
-      <!--falta-->
       <div *ngIf="tipo_actividad_Accion=='imagenPECS'" class="campo_texto">
-        <mat-form-field appearance="outline" class="tamano">
-          <mat-label>Asignar categoría</mat-label>
-          <select matNativeControl formControlName="Categoria"
-            (change)="onSelectAccionAsignarCategoria($event.target.value)">
-            <option style="font-size: 20px; color: black;" label="--Seleccione un color--"></option>
-            <option style="font-size: 20px; color: black;" label="1"></option>
-|
-          </select>
-          <mat-error *ngIf="crearActividadPECS.get('Categoria').hasError('required')">
-            Debe seleccionar color para la categoría
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <!--falta-->
-      <form *ngIf="tipo_actividad_Accion=='imagenPECS'" [formGroup]="actividadImagen" #frmImagen="ngForm"
-        class="form-inline">
-        <div class="campo_texto">
-          <input type="file" (change)="upload($event)" formControlName="contenido_actividad" class="formu"
-            accept="*.png.jpg">
-          <mat-error *ngIf="actividadImagen.get('contenido_actividad').hasError('required')">
-            Selecciona una imagen
-          </mat-error>
-        </div>
-      </form>
-
-      <div *ngIf="tipo_actividad_Accion=='imagenPECS'" class="campo_texto">
-        <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
-          (click)="agregarImagenPECS($event)">Agregar
+        <button mat-raised-button color="primary" (click)="categoriasImagenPECS($event)">Buscar
           <mat-icon>bookmark_add</mat-icon>
         </button>
       </div>
+
       <div *ngIf="tipo_actividad_Accion=='categoriaPECS'" class="campo_texto">
         <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
           (click)="agregarCategoriaPECS($event)">Agregar
           <mat-icon>bookmark_add</mat-icon>
         </button>
       </div>
+
+      <form *ngIf="tipo_actividad_Accion=='imagenPECS_categoria'" [formGroup]="crearActividadPECS_IMAGEN"
+        #frmActividad="ngForm" class="form-inline">
+
+        <div *ngIf="tipo_actividad_Accion=='imagenPECS_categoria'" class="campo_texto">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>DESCRIPCION DE LA IMAGEN</mat-label>
+            <input matInput placeholder="ingrese su dato" formControlName="DesctipcionImagen">
+          </mat-form-field>
+        </div>
+
+
+        <div *ngIf="tipo_actividad_Accion=='imagenPECS_categoria'" class="campo_texto">
+          <mat-form-field appearance="outline" class="tamano">
+            <mat-label>Asignar categoría</mat-label>
+            <select matNativeControl formControlName="CategoriaAsignada"
+              (change)="onSelectAccionAsignarCategoria($event.target.value)">
+              <option style="font-size: 20px; color: black;" label="--Seleccione una categoría--"></option>
+              <option style="font-size: 20px; color: black;" *ngFor="let item of infoCategorias"
+                value="{{item.categoria_id}}">
+                {{item.categoria}}</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+
+        <form *ngIf="tipo_actividad_Accion=='imagenPECS_categoria'" [formGroup]="actividadImagen" #frmImagen="ngForm"
+          class="form-inline">
+          <div class="campo_texto">
+            <input type="file" (change)="upload($event)" formControlName="Imagen_cargada" class="formu_btn"
+              accept="*.png.jpg">
+          </div>
+        </form>
+
+        <div *ngIf="tipo_actividad_Accion=='imagenPECS_categoria'" class="campo_texto">
+          <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
+            (click)="agregarImagenPECS($event)">Agregar imagen a categoria
+            <mat-icon>bookmark_add</mat-icon>
+          </button>
+        </div>
+      </form>
+
     </form>
   </div>
+
+
 </div>
