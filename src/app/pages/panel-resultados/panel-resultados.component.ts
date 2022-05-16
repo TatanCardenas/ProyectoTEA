@@ -17,16 +17,16 @@ import CryptoJS from "crypto-js";
 })
 export class PanelResultadosComponent implements OnInit {
 
-  public actividadesLista:Actividad[];
-  public usuario= new Usuario();
+  public actividadesLista: Actividad[];
+  public usuario = new Usuario();
   public id_actividad;
   private id_actividad_crypted;
   private id_estudiante_crypted;
   pacientesTabla = new MatTableDataSource<UsuarioPaciente>();
-  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Reporte'];//['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Reporte'];
+  displayedColumns: string[] = ['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo', 'Edad', 'Reporte'];//['Nombre Paciente', 'Apellido Paciente', 'Grado Autismo','Edad','Reporte'];
 
-  constructor(private serviceActividad:ActividadService,private snackBar: MatSnackBar,
-    private router:Router) { }
+  constructor(private serviceActividad: ActividadService, private snackBar: MatSnackBar,
+    private router: Router) { }
 
   async ngOnInit(): Promise<void> {
     this.datos();
@@ -34,55 +34,75 @@ export class PanelResultadosComponent implements OnInit {
     this.listDeActividades(this.usuario.tipo_usuario_id, this.usuario.numero_documento.toString())
   }
 
-  listDeActividades(id_rol:number,documento:string){
-    this.serviceActividad.getListaActividades(id_rol,documento).subscribe(data=>{
-      this.actividadesLista= data;
+  listDeActividades(id_rol: number, documento: string) {
+    this.serviceActividad.getListaActividades(id_rol, documento).subscribe(data => {
+      this.actividadesLista = data;
     }, err => {
       this.openSnackBar(err.error.Message);
     });
   }
-  actividadSeleccionada(Id_actividad){
-    this.id_actividad=Id_actividad
-    if(this.usuario.tipo_usuario_id==1){
-      this.serviceActividad.getGetAcivitysMakedByPatientForTeacher(this.id_actividad,this.usuario.numero_documento)
-      .subscribe(data=>{
-        this.pacientesTabla = new MatTableDataSource(data);
-      }, err => {
-        this.pacientesTabla = null;
-        this.openSnackBar(err.error.Message);
-      })
-    }else{
-      this.serviceActividad.getGetAcivitysMakedByPatientForAttendant(this.id_actividad,this.usuario.numero_documento)
-      .subscribe(data=>{
-        this.pacientesTabla = new MatTableDataSource(data);
-        console.log("elegir",data)
-      }, err => {
-        this.pacientesTabla = null;
-        this.openSnackBar(err.error.Message);
-      });
+  actividadSeleccionada(Id_actividad) {
+    this.id_actividad = Id_actividad
+    if (this.usuario.tipo_usuario_id == 1) {
+      if (this.id_actividad != 0) {
+        this.serviceActividad.getGetAcivitysMakedByPatientForTeacher(this.id_actividad, this.usuario.numero_documento)
+          .subscribe(data => {
+            this.pacientesTabla = new MatTableDataSource(data);
+          }, err => {
+            this.pacientesTabla = null;
+            this.openSnackBar(err.error.Message);
+          })
+      } else {
+        this.serviceActividad.getlistStudenEvaluation()
+          .subscribe(data => {
+            this.pacientesTabla = new MatTableDataSource(data);
+          }, err => {
+            this.pacientesTabla = null;
+            this.openSnackBar(err.error.Message);
+          })
+      }
+    } else {
+      if (this.id_actividad != 0) {
+        this.serviceActividad.getGetAcivitysMakedByPatientForAttendant(this.id_actividad, this.usuario.numero_documento)
+          .subscribe(data => {
+            this.pacientesTabla = new MatTableDataSource(data);
+            console.log("elegir", data)
+          }, err => {
+            this.pacientesTabla = null;
+            this.openSnackBar(err.error.Message);
+          });
+      } else {
+        this.serviceActividad.getlistStudenEvaluation()
+          .subscribe(data => {
+            this.pacientesTabla = new MatTableDataSource(data);
+          }, err => {
+            this.pacientesTabla = null;
+            this.openSnackBar(err.error.Message);
+          })
+      }
     }
   }
-  obtenerEstudiante(documento_estudiante){
-    do{
+  obtenerEstudiante(documento_estudiante) {
+    do {
       this.id_actividad_crypted = CryptoJS.AES.encrypt(JSON.stringify(this.id_actividad), 'secret_id_actividad').toString();
-    }while(this.id_actividad_crypted.includes('/'))
-    do{
+    } while (this.id_actividad_crypted.includes('/'))
+    do {
       this.id_estudiante_crypted = CryptoJS.AES.encrypt(JSON.stringify(documento_estudiante), 'secret_id_estudiante').toString();
-    }while(this.id_estudiante_crypted.includes('/'))
-    
-    this.router.navigate(['graficas/'+this.id_actividad_crypted+"/"+this.id_estudiante_crypted]);
-    console.log(documento_estudiante,this.id_actividad)
+    } while (this.id_estudiante_crypted.includes('/'))
+
+    this.router.navigate(['graficas/' + this.id_actividad_crypted + "/" + this.id_estudiante_crypted]);
+    console.log(documento_estudiante, this.id_actividad)
   }
 
-  datos(){
+  datos() {
     const helper = new JwtHelperService();
     let token = sessionStorage.getItem(environment.TOKEN);
     const decodedToken = helper.decodeToken(token);
     this.usuario.numero_documento = decodedToken.Usuario;
-    this.usuario.tipo_usuario_id= decodedToken.Rol;
+    this.usuario.tipo_usuario_id = decodedToken.Rol;
   }
 
-  private delay(ms:number){
+  private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
@@ -92,6 +112,6 @@ export class PanelResultadosComponent implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
-  } 
+  }
 
 }

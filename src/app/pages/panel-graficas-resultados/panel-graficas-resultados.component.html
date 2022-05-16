@@ -29,22 +29,28 @@
     </mat-menu>
   </div>
   <div class="information card">
-    <mat-card class="information example-card">
-      <mat-card-title>Información de la actividad</mat-card-title>
-      <mat-card-subtitle>Descripción de la actividad</mat-card-subtitle>
-      <mat-card-content>
-        <p>Nombre de la actividad : {{actividadInfo.NombreActividad}} </p>
-        <p>Descripción : {{actividadInfo.Descripcion}} </p>
-      </mat-card-content>
-    </mat-card>
+    <div *ngIf="id_actividad_crypted!=0">
+      <mat-card class="information example-card">
+        <mat-card-title>Información de la actividad</mat-card-title>
+        <mat-card-subtitle>Descripción de la actividad</mat-card-subtitle>
+        <div *ngIf="actividadInfo.NombreActividad != null">
+          <mat-card-content>
+            <p>Nombre de la actividad : {{actividadInfo.NombreActividad}} </p>
+            <p>Descripción : {{actividadInfo.Descripcion}} </p>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
     <mat-card class="information example-card">
       <mat-card-title>Información del niño</mat-card-title>
       <mat-card-subtitle>Información personal</mat-card-subtitle>
-      <mat-card-content>
-        <p>Nombre de niño : {{usuarioPaciente.nombre}} {{usuarioPaciente.apellido}}</p>
-        <p>Grado de autismo : {{usuarioPaciente.grado_autismo}}</p>
-        <p>Edad : {{usuarioPaciente.edad}}</p>
-      </mat-card-content>
+      <div *ngIf="usuarioPaciente.nombre != null">
+        <mat-card-content>
+          <p>Nombre de niño : {{usuarioPaciente.nombre}} {{usuarioPaciente.apellido}}</p>
+          <p>Grado de autismo : {{usuarioPaciente.grado_autismo}}</p>
+          <p>Edad : {{usuarioPaciente.edad}}</p>
+        </mat-card-content>
+      </div>
     </mat-card>
     <mat-card class="information example-card">
       <mat-card-title>Promedio de la actividad</mat-card-title>

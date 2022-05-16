@@ -168,4 +168,13 @@ export class ActividadService {
       actividadNueva
     );
   }
+
+  //Obtener estudiantes que hicieron evaluuacion inicial
+  getlistStudenEvaluation(){
+    return this.http.get<any>(`${this.url}/GetListStudentEvaluation`)
+  }
+  //Obtener estudiantes que hicieron evaluuacion inicial
+  getScoreStudenEvaluation(id_card_patient){
+    return this.http.get<ResultadoEvaluacionInicial[]>(`${this.url}/GetScoreStudenEvaluation/${id_card_patient}`)
+  }
 }

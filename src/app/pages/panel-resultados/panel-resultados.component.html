@@ -7,6 +7,13 @@
 <div class="resultados">
   <div class="containerClientSol">
     <div class="formulario">
+      <mat-card class="example-card" (click)="actividadSeleccionada(0)">
+        <mat-card-title-group>
+          <mat-card-title>Evaluación</mat-card-title>
+          <mat-card-subtitle>Evaluación inicial</mat-card-subtitle>
+          <img mat-card-xl-image src="../../../assets/image/niñoPECS.jpg">
+        </mat-card-title-group>
+      </mat-card>
       <mat-list-item *ngFor="let actividad of actividadesLista" class="list-horizontal">
         <mat-card class="example-card" (click)="actividadSeleccionada(actividad.Id_actividad)">
           <mat-card-title-group>

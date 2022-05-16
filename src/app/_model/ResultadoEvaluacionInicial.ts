@@ -1,7 +1,8 @@
 export class ResultadoEvaluacionInicial {
-  id: number;
-  id_usuario: String;
-  valuacion: boolean;
-  respuesta_seleccionada: String;
-  modulo: number;
+  Id: number;
+  Id_usuario: String;
+  Valuacion: boolean;
+  Respuesta_seleccionada: String;
+  Modulo: number;
+  Fecha:Date;
 }
