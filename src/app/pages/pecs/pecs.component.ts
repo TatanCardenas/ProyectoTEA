@@ -13,6 +13,7 @@ import {
   SafeResourceUrl,
   SafeUrl,
 } from '@angular/platform-browser';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-pecs',
@@ -27,6 +28,7 @@ export class PecsComponent implements OnInit {
   principal = true;
   actividadActual = 0;
   imagenTomada;
+  texto_imagenTomada;
 
   actividadTxt: string[] = [
     'INICIAL',
@@ -55,10 +57,24 @@ export class PecsComponent implements OnInit {
     '../../../assets/image/autismo.jpg',
   ];
 
+  imagenesPECS_texto: string[] = [
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+  ];
+
   imagenesSeleccionadasPECS: string[] = [
     '../../../assets/image/autismo.jpg',
     '../../../assets/image/autismo.jpg',
     '../../../assets/image/autismo.jpg',
+  ];
+
+  textosSeleccionadosPECS: string[] = [
+    ' sin selección ',
+    ' sin selección ',
+    ' sin selección ',
   ];
 
   activacionOpcionPECS: boolean[] = [true, true, true, true, true, true];
@@ -116,21 +132,29 @@ export class PecsComponent implements OnInit {
       .getImagenesPECS(documentoDocente, documentoPaciente, actividadActual)
       .subscribe((data) => {
         this.infoImagenes = data;
-        console.log(this.infoImagenes);
         this.cargarImagenesPECS(this.infoImagenes);
       });
   }
 
-  cargarImagenesPECS(infoImagenes) {
-    if (Object.entries(infoImagenes).length > 0) {
-      for (var i = 0; i < 5; i++) {
-        this.imagenesPECS[i] = this._sanitizer.bypassSecurityTrustResourceUrl(
-          'data:image/jpg;base64,' + this.infoImagenes[i].imagen
-        ) as string;
+  cargarImagenesPECS(infoImagenesE) {
+    this.imagenesPECS.splice(0, this.imagenesPECS.length);
+    this.imagenesPECS_texto.splice(0, this.imagenesPECS_texto.length);
+    if (Object.entries(infoImagenesE).length > 0) {
+      for (var i = 0; i < 6; i++) {
+        try {
+          this.imagenesPECS[i] = this._sanitizer.bypassSecurityTrustResourceUrl(
+            'data:image/jpg;base64,' + infoImagenesE[i].imagen
+          ) as string;
+          this.imagenesPECS_texto[i] = infoImagenesE[i].texto_imagen;
+        } catch (error) {
+          this.imagenesPECS[i] = '../../../assets/image/autismo.jpg';
+          this.imagenesPECS_texto[i] = ' '; 
+        }
       }
-    } else if (Object.entries(infoImagenes).length == 0) {
-      for (var i = 0; i < 5; i++) {
+    } else if (Object.entries(infoImagenesE).length == 0) {
+      for (var i = 0; i < 6; i++) {
         this.imagenesPECS[i] = '../../../assets/image/autismo.jpg';
+        this.imagenesPECS_texto[i] = ' '; 
       }
     }
   }
@@ -205,6 +229,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [false, true, true, true, true, true];
         }
         this.imagenTomada = this.imagenesPECS[0];
+        this.texto_imagenTomada = this.imagenesPECS_texto[0];
 
         break;
       case 1:
@@ -214,6 +239,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [true, false, true, true, true, true];
         }
         this.imagenTomada = this.imagenesPECS[1];
+        this.texto_imagenTomada = this.imagenesPECS_texto[1];
         break;
       case 2:
         if (this.activacionOpcionPECS[2] == false) {
@@ -222,6 +248,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [true, true, false, true, true, true];
         }
         this.imagenTomada = this.imagenesPECS[2];
+        this.texto_imagenTomada = this.imagenesPECS_texto[2];
         break;
       case 3:
         if (this.activacionOpcionPECS[3] == false) {
@@ -230,6 +257,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [true, true, true, false, true, true];
         }
         this.imagenTomada = this.imagenesPECS[3];
+        this.texto_imagenTomada = this.imagenesPECS_texto[3];
         break;
       case 4:
         if (this.activacionOpcionPECS[4] == false) {
@@ -238,6 +266,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [true, true, true, true, false, true];
         }
         this.imagenTomada = this.imagenesPECS[4];
+        this.texto_imagenTomada = this.imagenesPECS_texto[4];
         break;
       case 5:
         if (this.activacionOpcionPECS[5] == false) {
@@ -246,6 +275,7 @@ export class PecsComponent implements OnInit {
           this.activacionOpcionPECS = [true, true, true, true, true, false];
         }
         this.imagenTomada = this.imagenesPECS[5];
+        this.texto_imagenTomada = this.imagenesPECS_texto[5];
         break;
       default:
         break;
@@ -256,12 +286,15 @@ export class PecsComponent implements OnInit {
     switch (id_imagen) {
       case 0:
         this.imagenesSeleccionadasPECS[0] = this.imagenTomada;
+        this.textosSeleccionadosPECS[0]= this.texto_imagenTomada;
         break;
       case 1:
         this.imagenesSeleccionadasPECS[1] = this.imagenTomada;
+        this.textosSeleccionadosPECS[1]= this.texto_imagenTomada;
         break;
       case 2:
         this.imagenesSeleccionadasPECS[2] = this.imagenTomada;
+        this.textosSeleccionadosPECS[2]= this.texto_imagenTomada;
         break;
       default:
         break;
