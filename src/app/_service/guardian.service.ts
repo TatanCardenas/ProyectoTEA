@@ -39,8 +39,11 @@ export class GuardianService implements CanActivate {
         return true;
       } else if ((url.includes('/panelResultados')) && (rol == 1 || rol == 2)) {
         return true;
-        
+
       } else if ((url.includes('/graficas')) && (rol == 1 || rol == 2)) {
+        return true;
+      }
+      else if ((url.includes('/evaluacionInicial')) && (rol == 1 || rol == 2)) {
         return true;
       }
       else {

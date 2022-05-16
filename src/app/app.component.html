@@ -90,7 +90,7 @@
           <mat-divider></mat-divider>
         </div>
       </div>
-      
+
       <div [hidden]="!flagSesion">
         <div *ngIf="rol==1">
           <div>
@@ -147,6 +147,10 @@
           <mat-divider></mat-divider>
         </div>
       </div>
+      <button mat-menu-item (click)="drawer.toggle()" style="cursor: pointer">
+        <mat-icon>picture_as_pdf</mat-icon>
+        <a style="color: black;" href="../../../assets/documents/MANUAL DE USUARIO.pdf" target="_blank" >Manual De Usuario</a>
+      </button>
     </mat-drawer>
     <div class="example-sidenav-content">
       <router-outlet></router-outlet>
