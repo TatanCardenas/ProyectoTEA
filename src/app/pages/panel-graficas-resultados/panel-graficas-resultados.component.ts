@@ -66,12 +66,17 @@ export class PanelGraficasResultadosComponent {
         })
         this.moduls.forEach(element => {
           let valorModulo = (data.filter(x=>x.Valuacion==true &&x.Modulo==parseInt(element.split(" ")[1])).length*100)/3;
+          let cantidadRepetModulos = (data.filter(x=>x.Modulo==parseInt(element.split(" ")[1])).length);
+          valorModulo = valorModulo/cantidadRepetModulos;
+          console.log(valorModulo+" "+cantidadRepetModulos)
+
           this.scoreArray.push(valorModulo)
           this.modulos.push(element)
           this.promedioActividad += valorModulo;
         });
         this.promedioActividad = this.promedioActividad / this.modulos.length;
         this.fecha_Hoy = new Date(data[data.length - 1].Fecha.toString()).toLocaleDateString();
+
         this.obtenerporcentajeAcumulado();
         this.fillFirstGhrap(this.scoreArray, this.modulos);
       })

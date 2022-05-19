@@ -565,21 +565,21 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
   verificarRespuesta(respuesta) {
     var respuestaActividad = new ResultadoEvaluacionInicial();
     //respuesta dada
-    respuestaActividad.respuesta_seleccionada = respuesta;
+    respuestaActividad.Respuesta_seleccionada = respuesta;
     //modulo actual de la respuesta
-    respuestaActividad.modulo = this.avanceModulo;
+    respuestaActividad.Modulo = this.avanceModulo;
     //id del usuario
-    respuestaActividad.id_usuario = this.usuario.numero_documento;
+    respuestaActividad.Id_usuario = this.usuario.numero_documento;
     if (
-      respuestaActividad.respuesta_seleccionada ==
+      respuestaActividad.Respuesta_seleccionada ==
       this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
     ) {
-      respuestaActividad.valuacion = true;
+      respuestaActividad.Valuacion = true;
     } else if (
-      respuestaActividad.respuesta_seleccionada !=
+      respuestaActividad.Respuesta_seleccionada !=
       this.actividadEvaluacionInicial[this.avanceActividad - 1].Lectura
     ) {
-      respuestaActividad.valuacion = false;
+      respuestaActividad.Valuacion = false;
     }
     //realiza cambio de modulo
     this.cambioModulo();
