@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'pecs', component: PecsComponent},
   {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
-  {path: 'evaluacionInicial', component: EvaluacionInicialComponent},
+  {path: 'evaluacionInicial', component: EvaluacionInicialComponent, canActivate: [GuardianService]},
   {path: 'panelActividadesDeImitacion', component: PanelActividadesImitacionComponent},
   {path: 'graficas/:idActividad/:idEstudiante', component: PanelGraficasResultadosComponent,canActivate: [GuardianService]},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
