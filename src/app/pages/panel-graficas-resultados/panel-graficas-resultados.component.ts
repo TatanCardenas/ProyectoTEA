@@ -65,11 +65,8 @@ export class PanelGraficasResultadosComponent {
           this.moduls.add("modulo " + element.Modulo)
         })
         this.moduls.forEach(element => {
-          let valorModulo = (data.filter(x=>x.Valuacion==true &&x.Modulo==parseInt(element.split(" ")[1])).length*100)/3;
           let cantidadRepetModulos = (data.filter(x=>x.Modulo==parseInt(element.split(" ")[1])).length);
-          valorModulo = valorModulo/cantidadRepetModulos;
-          console.log(valorModulo+" "+cantidadRepetModulos)
-
+          let valorModulo = (data.filter(x=>x.Valuacion==true &&x.Modulo==parseInt(element.split(" ")[1])).length*100)/(3*cantidadRepetModulos);  
           this.scoreArray.push(valorModulo)
           this.modulos.push(element)
           this.promedioActividad += valorModulo;
