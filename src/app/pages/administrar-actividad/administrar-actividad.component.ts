@@ -37,7 +37,6 @@ export class AdministrarActividadComponent implements OnInit {
     await this.delay(1000);
     this.actividadRouter.params.subscribe((parametros: Params) => {
       this.id_activityencrypt = parametros['idActividad'];
-      console.log(this.id_activityencrypt);
     });
 
     this.cargaDatosSegunTipoGestion(this.id_activityencrypt);

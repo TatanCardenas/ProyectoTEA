@@ -37,6 +37,7 @@ export class CrearActividadComponent implements OnInit {
   private extencionImagen: string;
   public user: string;
   public infoCategorias = new ActividadPECS_Categorias();
+  public cantidadCategoriasAsignadas: number;
   private dateNow;
   private nuevaActividad = new Actividad();
   public nuevaCategoriaPECS = new ActividadPECS_Categorias();
@@ -119,53 +120,28 @@ export class CrearActividadComponent implements OnInit {
   async agregarActividad(any): Promise<void> {
     this.nuevaActividad = this.crearActividadImitacion.value;
     this.nuevaActividad.Docente_creador = this.user;
-    if (this.id_tipo_actividad == 1) {
-      this.nuevaActividad.Contenido_actividad =
-        this.actividadTexto.value.contenido_actividad;
-      this.servicioActividad
-        .postAgregarActividad(this.nuevaActividad)
-        .subscribe((data) => {
-          this.openSnackBar(data.Mensaje);
-          this.ngOnInit();
-        });
-    } else if (this.id_tipo_actividad == 2) {
-      this.dateNow = new Date()
-        .toLocaleString()
-        .replace(/[`~!@#$%^&*()_|+\-=?¡¿;:'",.<>\{\}\[\]\\\/]/gi, '')
-        .replace(' ', '');
-      this.dateNow = this.dateNow + new Date().getMilliseconds();
-      this.imagen = this.actividadImagen.value.contenido_actividad;
-      this.extencionImagen = this.imagen.substring(
-        this.imagen.lastIndexOf('.') + 1,
-        this.imagen.length
-      );
-      this.imagen = this.dateNow + this.user;
-      if (this.extencionImagen == ('jpg' || 'png' || 'jpeg')) {
-        this.nuevaActividad.Contenido_actividad = this.imagen;
-        const ref = this.serviceAngularFireBase.ref('"file/_Z622939.jpg"');
-        console.log(ref.getDownloadURL());
-      } else {
-        this.openSnackBar('Solo puedes seleccionar imagenes');
-      }
-    }
+
+    this.nuevaActividad.Contenido_actividad =
+      this.actividadTexto.value.contenido_actividad;
+    this.nuevaActividad.Tipo_actividad = 1;
+    this.servicioActividad
+      .postAgregarActividad(this.nuevaActividad)
+      .subscribe((data) => {
+        this.openSnackBar(data.Mensaje);
+        this.ngOnInit();
+      });
   }
 
   async agregarCategoriaPECS(any): Promise<void> {
+    //carga cantidad de categorias asignadas por el docente a el paciente especificado
     this.nuevaCategoriaPECS = this.crearActividadPECS.value;
-
     var nuevaCtaegoria = new ActividadPECS_Categorias();
     nuevaCtaegoria.Categoria = this.nuevaCategoriaPECS.Categoria;
-    nuevaCtaegoria.Categoria_id = 7;
     nuevaCtaegoria.Color = this.nuevaCategoriaPECS.Color;
     nuevaCtaegoria.Id_docente = this.user;
     nuevaCtaegoria.Id_estudiante = this.nuevaCategoriaPECS.Id_estudiante;
     nuevaCtaegoria.estado_id = 2;
-    console.log(nuevaCtaegoria);
-    this.servicioActividad
-      .postAgregarCategoria(nuevaCtaegoria)
-      .subscribe((data) => {
-        this.openSnackBar(data.Mensaje);
-      });
+    this.cantidadCategoriasImagenPECS_agregarCategoria(nuevaCtaegoria);
   }
 
   async categoriasImagenPECS(any): Promise<void> {
@@ -182,11 +158,38 @@ export class CrearActividadComponent implements OnInit {
     }
   }
 
+  async cantidadCategoriasImagenPECS_agregarCategoria(
+    nuevaCtaegoria: ActividadPECS_Categorias
+  ): Promise<void> {
+    let cantidadCategoriasAsignadas;
+    try {
+      this.servicioActividad
+        .getCantidadCategoriasPECS(this.user, nuevaCtaegoria.Id_estudiante)
+        .subscribe((data) => {
+          cantidadCategoriasAsignadas = data;
+        });
+    } catch (error) {
+      console.log('fallo en servicio' + error);
+    }
+    
+    await this.delay(1500);
+    nuevaCtaegoria.Categoria_id = cantidadCategoriasAsignadas;
+    console.log(cantidadCategoriasAsignadas);
+
+    this.servicioActividad
+      .postAgregarCategoria(nuevaCtaegoria)
+      .subscribe((data) => {
+        this.openSnackBar(data.Mensaje);
+      });
+  }
+
   async agregarImagenPECS(any): Promise<void> {
     this.nuevaImagenPECS = this.crearActividadPECS_IMAGEN.value;
-    this.nuevaImagenPECS.Categoria_id = this.crearActividadPECS_IMAGEN.value.CategoriaAsignada;
-    this.nuevaImagenPECS.Texto_imagen = this.crearActividadPECS_IMAGEN.value.DesctipcionImagen;
-    
+    this.nuevaImagenPECS.Categoria_id =
+      this.crearActividadPECS_IMAGEN.value.CategoriaAsignada;
+    this.nuevaImagenPECS.Texto_imagen =
+      this.crearActividadPECS_IMAGEN.value.DesctipcionImagen;
+
     var nuevImagen = new ActividadPECS_Imagenes();
     nuevImagen.Categoria_id = this.nuevaImagenPECS.Categoria_id;
     nuevImagen.Texto_imagen = this.nuevaImagenPECS.Texto_imagen;
@@ -199,8 +202,6 @@ export class CrearActividadComponent implements OnInit {
       .subscribe((data) => {
         this.openSnackBar(data.Mensaje);
       });
-
-
   }
 
   //--------------------------------------------------------------------------------------------------

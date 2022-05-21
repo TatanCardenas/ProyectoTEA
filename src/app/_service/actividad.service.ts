@@ -131,6 +131,14 @@ export class ActividadService {
       `${this.url}/GetCategoriaPECS/${Id_docente}/${Id_estudiante}`
     );
   }
+
+  //obtener cantidad categorias segun estudiante-docente
+  getCantidadCategoriasPECS(Id_docente: String, Id_estudiante: String) {
+    return this.http.get<number>(
+      `${this.url}/GetCantidadCategoriaPECS/${Id_docente}/${Id_estudiante}`
+    );
+  }
+
   //obtener imagenes segun estudiante-docente-actividadActual
   getImagenesPECS(
     Id_docente: String,
@@ -170,11 +178,13 @@ export class ActividadService {
   }
 
   //Obtener estudiantes que hicieron evaluuacion inicial
-  getlistStudenEvaluation(){
-    return this.http.get<any>(`${this.url}/GetListStudentEvaluation`)
+  getlistStudenEvaluation() {
+    return this.http.get<any>(`${this.url}/GetListStudentEvaluation`);
   }
   //Obtener estudiantes que hicieron evaluuacion inicial
-  getScoreStudenEvaluation(id_card_patient){
-    return this.http.get<ResultadoEvaluacionInicial[]>(`${this.url}/GetScoreStudenEvaluation/${id_card_patient}`)
+  getScoreStudenEvaluation(id_card_patient) {
+    return this.http.get<ResultadoEvaluacionInicial[]>(
+      `${this.url}/GetScoreStudenEvaluation/${id_card_patient}`
+    );
   }
 }
