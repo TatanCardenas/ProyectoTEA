@@ -43,6 +43,7 @@ import {MatDialogModule } from '@angular/material/dialog';
 import { PecsComponent } from './pages/pecs/pecs.component';
 import { AdministrarActividadComponent } from './pages/administrar-actividad/administrar-actividad.component';
 import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades.component';
+import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades
     PecsComponent,
     AdministrarActividadComponent,
     MisActividadesComponent,
+    FormularioCompraComponent,
   ],
   imports: [
     BrowserModule,

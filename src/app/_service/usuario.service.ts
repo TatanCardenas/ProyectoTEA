@@ -53,4 +53,10 @@ export class UsuarioService {
   public putActulizarpaciente(pacienteNuevo:UsuarioPaciente){
     return this.http.put<any>(`${this.url}/PutActualizarDatosPaciente`,pacienteNuevo);
   }
+
+  //Agregar token Compra
+  public postAgregarTokenCompra(datosDocente:UsuarioDocente){
+    return this.http.post<boolean>(`${this.url}/PostAgregarTokenCompra_envioDeCorreo`,datosDocente);
+  }
+  
 }

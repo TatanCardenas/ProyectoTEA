@@ -18,8 +18,10 @@ import { PanelActividadesImitacionComponent } from './pages/panel-actividades-im
 import { PecsComponent } from './pages/pecs/pecs.component';
 import { AdministrarActividadComponent } from './pages/administrar-actividad/administrar-actividad.component';
 import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades.component';
+import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
 
 const routes: Routes = [
+  {path: 'formularioCompra', component: FormularioCompraComponent},  
   {path: 'administrarActividad/:idActividad', component: AdministrarActividadComponent},
   {path: 'misActividades', component: MisActividadesComponent},
   {path: 'pecs', component: PecsComponent},
