@@ -5,28 +5,28 @@
         </div>
         <div class="principal-datos">
             <div class="formu">
-                <form [formGroup]="form_compra" class="form-inline">
-                    <p>
-                        <mat-form-field>
+                <form [formGroup]="form_compra" #frmActividad="ngForm" class="form-inline">
+                    <div class="campo_texto">
+                        <mat-form-field appearance="outline" class="tamano">
                             <input type="text" matInput placeholder="Nombre" formControlName="nombre" />
                             <mat-hint *ngIf="form_compra.get('nombre').errors && form_compra.get('nombre').touched">
                                 <p *ngIf="formul.get('nombre').hasError('required')">
                                     *Se requiere este campo
                                 </p>
                                 <p *ngIf="formul.get('nombre').hasError('minlength')">
-                                    *Minimo 3 caracteres
+                                    *Minimo 4 caracteres
                                 </p>
                                 <p *ngIf="formul.get('nombre').hasError('maxlength')">
                                     *Maximo 15 caracteres
                                 </p>
                                 <p *ngIf="formul.get('nombre').hasError('pattern')">
-                                    El username solo debe contener numero
+                                    El nombre solo debe contener letras
                                 </p>
                             </mat-hint>
                         </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field>
+                    </div>
+                    <div class="campo_texto">
+                        <mat-form-field appearance="outline" class="tamano">
                             <input type="text" matInput placeholder="Cedula" formControlName="documento" />
                             <mat-hint
                                 *ngIf="form_compra.get('documento').errors && form_compra.get('documento').touched">
@@ -44,10 +44,10 @@
                                 </p>
                             </mat-hint>
                         </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field>
-                            <input type="text" matInput placeholder="Correo" formControlName="correo" />
+                    </div>
+                    <div class="campo_texto">
+                        <mat-form-field appearance="outline" class="tamano">
+                            <input type="email" ngModel email="true" matInput placeholder="Correo" formControlName="correo" />
                             <mat-hint *ngIf="form_compra.get('correo').errors && form_compra.get('correo').touched">
                                 <p *ngIf="formul.get('correo').hasError('required')">
                                     *Se requiere este campo
@@ -63,14 +63,14 @@
                                 </p>
                             </mat-hint>
                         </mat-form-field>
-                    </p>
-                    <button color="primary" type="submit" mat-raised-button [disabled]="form_compra.invalid"
+                    </div>
+                    <button color="primary" type="submit" mat-raised-button [disabled]="frmActividad.invalid" 
                         (click)="enviarDatos($event)">Enviar mis datos</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="secundario">
-        <p>Nos contacteremos contigo para realizar la compra.</p>
+        <p>Nos contacteremos contigo para realizar la compra. Pago anual por solo $50.000 Cop</p>
     </div>
 </div>
