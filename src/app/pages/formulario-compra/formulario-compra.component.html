@@ -10,16 +10,16 @@
                         <mat-form-field appearance="outline" class="tamano">
                             <input type="text" matInput placeholder="Nombre" formControlName="nombre" />
                             <mat-hint *ngIf="form_compra.get('nombre').errors && form_compra.get('nombre').touched">
-                                <p *ngIf="formul.get('nombre').hasError('required')">
+                                <p *ngIf="form_compra.get('nombre').hasError('required')">
                                     *Se requiere este campo
                                 </p>
-                                <p *ngIf="formul.get('nombre').hasError('minlength')">
+                                <p *ngIf="form_compra.get('nombre').hasError('minlength')">
                                     *Minimo 4 caracteres
                                 </p>
-                                <p *ngIf="formul.get('nombre').hasError('maxlength')">
+                                <p *ngIf="form_compra.get('nombre').hasError('maxlength')">
                                     *Maximo 15 caracteres
                                 </p>
-                                <p *ngIf="formul.get('nombre').hasError('pattern')">
+                                <p *ngIf="form_compra.get('nombre').hasError('pattern')">
                                     El nombre solo debe contener letras
                                 </p>
                             </mat-hint>
@@ -30,16 +30,16 @@
                             <input type="text" matInput placeholder="Cedula" formControlName="documento" />
                             <mat-hint
                                 *ngIf="form_compra.get('documento').errors && form_compra.get('documento').touched">
-                                <p *ngIf="formul.get('documento').hasError('required')">
+                                <p *ngIf="form_compra.get('documento').hasError('required')">
                                     *Se requiere este campo
                                 </p>
-                                <p *ngIf="formul.get('documento').hasError('minlength')">
-                                    *Minimo 3 caracteres
+                                <p *ngIf="form_compra.get('documento').hasError('minlength')">
+                                    *Minimo 9 caracteres
                                 </p>
-                                <p *ngIf="formul.get('documento').hasError('maxlength')">
-                                    *Maximo 15 caracteres
+                                <p *ngIf="form_compra.get('documento').hasError('maxlength')">
+                                    *Maximo 11 caracteres
                                 </p>
-                                <p *ngIf="formul.get('documento').hasError('pattern')">
+                                <p *ngIf="form_compra.get('documento').hasError('pattern')">
                                     El username solo debe contener numero
                                 </p>
                             </mat-hint>
@@ -47,24 +47,24 @@
                     </div>
                     <div class="campo_texto">
                         <mat-form-field appearance="outline" class="tamano">
-                            <input type="email" ngModel email="true" matInput placeholder="Correo" formControlName="correo" />
+                            <input type="email" ngModel email="true" matInput placeholder="Correo" formControlName="correo" type="email"/>
                             <mat-hint *ngIf="form_compra.get('correo').errors && form_compra.get('correo').touched">
-                                <p *ngIf="formul.get('correo').hasError('required')">
+                                <p *ngIf="form_compra.get('correo').hasError('required')">
                                     *Se requiere este campo
                                 </p>
-                                <p *ngIf="formul.get('correo').hasError('minlength')">
+                                <p *ngIf="form_compra.get('correo').hasError('minlength')">
                                     *Minimo 3 caracteres
                                 </p>
-                                <p *ngIf="formul.get('correo').hasError('maxlength')">
-                                    *Maximo 15 caracteres
+                                <p *ngIf="form_compra.get('correo').hasError('maxlength')">
+                                    *Maximo 50 caracteres
                                 </p>
-                                <p *ngIf="formul.get('correo').hasError('pattern')">
-                                    El username solo debe contener numero
+                                <p *ngIf="form_compra.get('correo').hasError('pattern')">
+                                    Debe contener un @ en el correo
                                 </p>
                             </mat-hint>
                         </mat-form-field>
                     </div>
-                    <button color="primary" type="submit" mat-raised-button [disabled]="frmActividad.invalid" 
+                    <button color="primary" type="submit" mat-raised-button [disabled]="form_compra.invalid" 
                         (click)="enviarDatos($event)">Enviar mis datos</button>
                 </form>
             </div>

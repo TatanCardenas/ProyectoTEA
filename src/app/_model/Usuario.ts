@@ -3,5 +3,8 @@ export class Usuario {
     apellido_usuario : String;
     numero_documento : String;
     clave_usuario : String;
-    tipo_usuario_id : number
+    clave : String;
+    tipo_usuario_id : number;
+    Token: string;
+    Expirar_token : Date;
 }

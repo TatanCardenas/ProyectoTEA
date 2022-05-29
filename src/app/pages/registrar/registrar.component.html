@@ -64,6 +64,9 @@
             <p *ngIf="formR.get('documento').hasError('maxlength')">
               Documento no valido, muy largo
             </p>
+            <p *ngIf="formR.get('documento').hasError('pattern')">
+              El username solo debe contener numero
+          </p>
           </mat-hint>
         </mat-form-field>
       </div>

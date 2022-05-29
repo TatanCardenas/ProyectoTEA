@@ -1,0 +1,40 @@
+<div class="contenedor">
+    <div class="principal">
+        <div class="principal-titulo">
+            <div class="titulo">INGESA ACÁ TU NUEVA CONTRASEÑA</div>
+        </div>
+        <div class="principal-datos">
+            <div class="formu">
+                <form [formGroup]="form_nueva_clave" #frmActividad="ngForm" class="form-inline">
+                    <div class="campo_texto">
+                        <mat-form-field appearance="outline" class="tamano">
+                            <input matInput placeholder="Contraseña" formControlName="clave_nueva"
+                                [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-hint
+                                *ngIf="form_nueva_clave.get('clave_nueva').errors && form_nueva_clave.get('clave_nueva').touched">
+                                <p *ngIf="form_nueva_clave.get('clave_nueva').hasError('required')">
+                                    *Se requiere este campo
+                                </p>
+                                <p *ngIf="form_nueva_clave.get('clave_nueva').hasError('minlength')">
+                                    *Minimo 4 caracteres
+                                </p>
+                                <p *ngIf="form_nueva_clave.get('clave_nueva').hasError('maxlength')">
+                                    *Maximo 15 caracteres
+                                </p>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <button color="primary" type="submit" mat-raised-button [disabled]="form_nueva_clave.invalid"
+                        (click)="enviarDatos($event)">Enviar mis datos</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="secundario">
+        <!--<p>Nos contacteremos contigo para realizar la compra. Pago anual por solo $50.000 Cop</p>-->
+    </div>
+</div>

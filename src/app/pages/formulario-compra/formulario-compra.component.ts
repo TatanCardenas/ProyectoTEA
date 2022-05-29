@@ -39,8 +39,10 @@ export class FormularioCompraComponent implements OnInit {
     correo: new FormControl(this.usser.correo, [
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(25),
-      
+      Validators.maxLength(50),
+      Validators.pattern(
+        /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}/
+      ),
     ]),
   });
 

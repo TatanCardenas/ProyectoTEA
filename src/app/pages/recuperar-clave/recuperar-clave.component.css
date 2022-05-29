@@ -1,0 +1,60 @@
+.contenedor {
+  width: 80%;
+  height: 100vh;
+  margin: auto;
+  text-align: center;
+}
+
+.principal {
+  width: 60%;
+  height: 60%;
+  background-color: #3f51b5;
+  border-radius: 100px;
+  margin: auto;
+  margin-top: 10vh;
+}
+
+.principal-titulo {
+  width: 90%;
+  height: 15%;
+  background-color: #ffffff;
+  margin: auto;
+  margin-top: 10%;
+  border: 5px solid #3f51b5;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.principal-titulo .titulo {
+  color: #3f51b5;
+  font-size: 2vw;
+}
+
+.principal-datos {
+  width: 50%;
+  height: 75%;
+  border-radius: 100px;
+  background-color: #ffffff;
+  color: #3f51b5;
+  margin: auto;
+}
+
+.formu {
+  width: 100%;
+  height: 80%;
+  padding-top: 10%;
+}
+
+.campo_texto {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000000;
+}
+
+.tamano {
+  width: 100%;
+  height: 100px;
+}

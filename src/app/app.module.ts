@@ -44,6 +44,8 @@ import { PecsComponent } from './pages/pecs/pecs.component';
 import { AdministrarActividadComponent } from './pages/administrar-actividad/administrar-actividad.component';
 import { MisActividadesComponent } from './pages/mis-actividades/mis-actividades.component';
 import { FormularioCompraComponent } from './pages/formulario-compra/formulario-compra.component';
+import { RecuperarClaveComponent } from './pages/recuperar-clave/recuperar-clave.component';
+import { NuevaClaveComponent } from './pages/nueva-clave/nueva-clave.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { FormularioCompraComponent } from './pages/formulario-compra/formulario-
     AdministrarActividadComponent,
     MisActividadesComponent,
     FormularioCompraComponent,
+    RecuperarClaveComponent,
+    NuevaClaveComponent,
   ],
   imports: [
     BrowserModule,

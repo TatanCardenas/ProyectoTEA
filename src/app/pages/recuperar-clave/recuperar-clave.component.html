@@ -1,0 +1,37 @@
+<div class="contenedor">
+    <div class="principal">
+        <div class="principal-titulo">
+            <div class="titulo">RECUPERAR CONTRASEÑA</div>
+        </div>
+        <div class="principal-datos">
+            <div class="formu">
+                <form [formGroup]="form_recuperar" #frmActividad="ngForm" class="form-inline">
+                    <div class="campo_texto">
+                        <mat-form-field appearance="outline" class="tamano">
+                            <input type="email" ngModel email="true" matInput placeholder="Correo" formControlName="correo" type="email"/>
+                            <mat-hint *ngIf="form_recuperar.get('correo').errors && form_recuperar.get('correo').touched">
+                                <p *ngIf="form_recuperar.get('correo').hasError('required')">
+                                    *Se requiere este campo
+                                </p>
+                                <p *ngIf="form_recuperar.get('correo').hasError('minlength')">
+                                    *Minimo 3 caracteres
+                                </p>
+                                <p *ngIf="form_recuperar.get('correo').hasError('maxlength')">
+                                    *Maximo 50 caracteres
+                                </p>
+                                <p *ngIf="form_recuperar.get('correo').hasError('pattern')">
+                                    Debe contener un @ en el correo
+                                </p>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <button color="primary" type="submit" mat-raised-button [disabled]="form_recuperar.invalid" 
+                        (click)="enviarDatos($event)">Enviar mis datos</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="secundario">
+        <p>Te enviaremos un correo para restableces tu contraseña</p>
+    </div>
+</div>
