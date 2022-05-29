@@ -23,23 +23,38 @@ import { RecuperarClaveComponent } from './pages/recuperar-clave/recuperar-clave
 import { NuevaClaveComponent } from './pages/nueva-clave/nueva-clave.component';
 
 const routes: Routes = [
-  {path: 'formularioCompra', component: FormularioCompraComponent},  
-  {path: 'administrarActividad/:idActividad', component: AdministrarActividadComponent},
-  {path: 'recuperarClave', component: RecuperarClaveComponent},
-  {path: 'nuevaClave/:token', component: NuevaClaveComponent},
-  {path: 'misActividades', component: MisActividadesComponent},
-  {path: 'pecs', component: PecsComponent},
-  {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
+  //Apartados solo para Docentes
   {path: 'crearActividad',component: CrearActividadComponent, canActivate: [GuardianService]},
-  {path: 'evaluacionInicial', component: EvaluacionInicialComponent},
-  {path: 'panelActividadesDeImitacion', component: PanelActividadesImitacionComponent},
+  {path: 'administrarActividad/:idActividad', component: AdministrarActividadComponent, canActivate: [GuardianService]},
+  {path: 'misActividades', component: MisActividadesComponent,canActivate: [GuardianService]},
+
+  //Apartados que pueden ver los docentes y los estudiantes
+  {path: 'pecs', component: PecsComponent,canActivate: [GuardianService]},
+  {path: 'evaluacionInicial', component: EvaluacionInicialComponent,canActivate: [GuardianService]},
+  {path: 'panelActividadesDeImitacion', component: PanelActividadesImitacionComponent,canActivate: [GuardianService]},
+  {path: 'actividad/:idActividad', component: ActividadComponent,canActivate: [GuardianService]},
+  {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
+
+  //Apartados que pueden ver el docente y acudiente
   {path: 'graficas/:idActividad/:idEstudiante', component: PanelGraficasResultadosComponent,canActivate: [GuardianService]},
   {path: 'enlazarNino/:id', component: EnlaceConElPacienteComponent, canActivate: [GuardianService]},
-  {path: 'panelActividades', component: PanelActividadesComponent,canActivate: [GuardianService]},
   {path: 'panelResultados', component: PanelResultadosComponent,canActivate: [GuardianService]},
-  {path: 'actividadDemo', component: ActividadDemoComponent},
-  {path: 'registro/:registroID', component: RegistrarComponent,canActivate: [GuardianService]},
+
+  //perfil para los usuarios
   {path: 'perfil/:idRol/:idDocumento', component: PerfilComponent,canActivate: [GuardianService]},
+
+  //actividad demo
+  {path: 'actividadDemo', component: ActividadDemoComponent},
+
+  //registro
+  {path: 'registro/:registroID', component: RegistrarComponent,canActivate: [GuardianService]},
+
+  //Recuperar contraseña
+  {path: 'recuperarClave', component: RecuperarClaveComponent},
+  {path: 'nuevaClave/:token', component: NuevaClaveComponent},
+
+  //inicio de session
+  {path: 'formularioCompra', component: FormularioCompraComponent},
   {path: 'login', component: LoginComponent},
   {path: 'inicio', component: InicioComponent},
   {path: '', component: InicioComponent},
