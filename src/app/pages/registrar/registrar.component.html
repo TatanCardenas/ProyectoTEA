@@ -66,7 +66,7 @@
             </p>
             <p *ngIf="formR.get('documento').hasError('pattern')">
               El username solo debe contener numero
-          </p>
+            </p>
           </mat-hint>
         </mat-form-field>
       </div>
@@ -107,7 +107,10 @@
         </mat-form-field>
       </div>
       <div class="campo_texto">
-        <button mat-raised-button [disabled]="formR.invalid" color="primary"
+        <mat-checkbox class="example-margin" (change)="aceptarDatos()">Aceptar los Terminos y Condiciones</mat-checkbox>
+      </div>
+      <div class="campo_texto">
+        <button mat-raised-button [disabled]="formR.invalid || disabled" color="primary"
           style="float: left; margin-left: 20px; margin-top: 20px;" class="boton" type="submit"
           (click)="registrar($event)">Enviar Registro
         </button>
@@ -117,7 +120,7 @@
 
 
   <!--                            Formulario para paciente                   -->
-  
+
   <div class="formularioGeneral" *ngIf="tipoDeRegistro_ID !=1 && tipoDeRegistro_ID !=2">
     <form [formGroup]="formRP" class="form-inline">
       <div class="campo_texto">
@@ -236,7 +239,11 @@
         </mat-form-field>
       </div>
       <div class="campo_texto">
-        <button mat-raised-button [disabled]="formRP.invalid" color="primary"
+        <mat-checkbox class="example-margin" (change)="aceptarDatos()">Aceptar los  
+          <a href="../../../assets/documents/TRATAMIENTO DE DATOS.pdf" target="_blank" >Terminos y Condiciones</a></mat-checkbox>
+      </div>
+      <div class="campo_texto">
+        <button mat-raised-button [disabled]="formR.invalid || disabled" color="primary"
           style="float: left; margin-left: 20px; margin-top: 20px;" class="boton" type="submit"
           (click)="registrar($event)">Enviar Registro
         </button>

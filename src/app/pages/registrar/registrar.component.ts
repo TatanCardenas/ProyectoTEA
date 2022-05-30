@@ -25,7 +25,7 @@ export class RegistrarComponent implements OnInit {
   private datosEstudiante = new UsuarioPaciente();
   private rol;
   hide = true;
-  public variable = 0;
+  disabled = true;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -208,6 +208,10 @@ export class RegistrarComponent implements OnInit {
         break;
     }
   }
+  public aceptarDatos(){
+    this.disabled = this.disabled?false:true;
+  }
+
   private openSnackBar(mensaje: string) {
     this.snackBar.open(mensaje, 'Aceptar', {
       duration: 2000,

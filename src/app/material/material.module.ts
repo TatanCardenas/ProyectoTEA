@@ -9,13 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -36,9 +37,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatTableModule,
     MatGridListModule,
-    MatSelectModule
-    
-  ], exports:[
+    MatSelectModule,
+    MatCheckboxModule
+  ], exports: [
     MatButtonModule,
     MatIconModule,
     FormsModule,
@@ -53,7 +54,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatTableModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }
