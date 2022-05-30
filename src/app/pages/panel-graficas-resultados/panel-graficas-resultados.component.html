@@ -19,20 +19,21 @@
         </mat-card-content>
       </mat-card>
     </mat-menu>
-    <button mat-raised-button (click)="generarReporte()" color="primary" class="information_button">
-      <mat-icon>article</mat-icon>
-      Generar Reporte
-    </button>
   </div>
-  <div id="convert">
-    <!--<h1 >Reporte</h1>-->
-    <div class="dashboard">
-      <div class="container">
-        <!--aca va el codigo para las actividades-->
-        <highcharts-chart *ngIf="chartOptions" [Highcharts]="Highcharts" [options]="chartOptions">
-        </highcharts-chart>
-      </div>
+
+  <!--<h1 >Reporte</h1>-->
+  <div class="dashboard">
+    <div class="container">
+      <!--aca va el codigo para las actividades-->
+      <highcharts-chart *ngIf="chartOptions" [Highcharts]="Highcharts" [options]="chartOptions">
+      </highcharts-chart>
     </div>
+  </div>
+  <button mat-raised-button (click)="generarReporte()" color="primary" class="information_button">
+    <mat-icon>article</mat-icon>
+    Generar Reporte
+  </button>
+  <div id="convert">
     <div class="information card">
       <div *ngIf="id_actividad_crypted!=0">
         <mat-card class="information example-card">
