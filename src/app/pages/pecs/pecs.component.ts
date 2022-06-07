@@ -14,17 +14,24 @@ import {
   SafeUrl,
 } from '@angular/platform-browser';
 import { runInThisContext } from 'vm';
+import { SpeechService } from 'src/app/_service/speech.service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from '../popup/popup.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pecs',
   templateUrl: './pecs.component.html',
   styleUrls: ['./pecs.component.css'],
 })
-export class PecsComponent implements OnInit {
+export class PecsComponent implements OnInit{
+  public dialogRef;
+  textomensaje: string;
   public usuarioSesion = new Usuario();
   public usuarioDatos = new UsuarioPaciente();
   public infoCategorias = new ActividadPECS_Categorias();
   public infoImagenes = new ActividadPECS_Imagenes();
+  public fraseADecir: String;
   principal = true;
   actividadActual = 0;
   imagenTomada;
@@ -82,8 +89,10 @@ export class PecsComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private actividadService: ActividadService,
-    private _sanitizer: DomSanitizer
-  ) {}
+    private _sanitizer: DomSanitizer,
+    public dialog: MatDialog,
+    private router: Router) {
+  }
 
   async ngOnInit(): Promise<void> {
     this.datosSesion();
@@ -148,13 +157,13 @@ export class PecsComponent implements OnInit {
           this.imagenesPECS_texto[i] = infoImagenesE[i].texto_imagen;
         } catch (error) {
           this.imagenesPECS[i] = '../../../assets/image/autismo.jpg';
-          this.imagenesPECS_texto[i] = ' '; 
+          this.imagenesPECS_texto[i] = ' ';
         }
       }
     } else if (Object.entries(infoImagenesE).length == 0) {
       for (var i = 0; i < 6; i++) {
         this.imagenesPECS[i] = '../../../assets/image/autismo.jpg';
-        this.imagenesPECS_texto[i] = ' '; 
+        this.imagenesPECS_texto[i] = ' ';
       }
     }
   }
@@ -286,21 +295,54 @@ export class PecsComponent implements OnInit {
     switch (id_imagen) {
       case 0:
         this.imagenesSeleccionadasPECS[0] = this.imagenTomada;
-        this.textosSeleccionadosPECS[0]= this.texto_imagenTomada;
+        this.textosSeleccionadosPECS[0] = this.texto_imagenTomada;
         break;
       case 1:
         this.imagenesSeleccionadasPECS[1] = this.imagenTomada;
-        this.textosSeleccionadosPECS[1]= this.texto_imagenTomada;
+        this.textosSeleccionadosPECS[1] = this.texto_imagenTomada;
         break;
       case 2:
         this.imagenesSeleccionadasPECS[2] = this.imagenTomada;
-        this.textosSeleccionadosPECS[2]= this.texto_imagenTomada;
+        this.textosSeleccionadosPECS[2] = this.texto_imagenTomada;
         break;
       default:
         break;
     }
   }
 
+  reproducirPalabra(textoPecsPosicion) {
+    //pone en pausa el video para que no exista interferencia de audios
+    //carga libreria para reconocer textos
+    var synth = window.speechSynthesis;
+    this.fraseADecir = this.textosSeleccionadosPECS[textoPecsPosicion];
+    this.fraseADecir = this.fraseADecir.replace(/ /g,"");
+    if (this.fraseADecir !="" && !this.fraseADecir.includes("sinselección")) {
+      //utiliza el texto para reproducirlo en voz
+      this.fraseADecir = this.textosSeleccionadosPECS[textoPecsPosicion];
+      var utterance = new SpeechSynthesisUtterance(this.fraseADecir.toString());
+      synth.speak(utterance);
+    }else{
+      this.textomensaje = "Debes seleccionar la imagen";
+      this.popupDialog(1)
+    }
+  }
+
+  //MENSAJES EMERGENTES
+  popupDialog(tipo) {
+    this.dialogRef = this.dialog.open(PopupComponent, {
+      width: '30%',
+      data: { txtMensaje: this.textomensaje },
+    });
+    //0 problema al iniciar sesion
+    if(tipo == 0){
+
+      this.dialogRef.afterClosed().subscribe((result) => {
+        if ((result = true)) {
+          this.router.navigate(['inicio']);
+        }
+      });
+    }
+  }
   private delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }

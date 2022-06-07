@@ -226,7 +226,7 @@
 .imagenes-superior .izquierda #brightness-on,
 .imagenes-superior .centro #brightness-on,
 .imagenes-superior .derecha #brightness-on {
-  filter: brightness(0.4);
+  filter: brightness(0.8);
 }
 
 .imagenes-superior img {
@@ -286,7 +286,7 @@
   width: 95%;
   height: 95%;
   margin: auto;
-  filter: brightness(0.4);
+  filter: brightness(0.8);
 }
 
 .imagenes-inferior .izquierda .mensajeSeleccion,
@@ -343,4 +343,46 @@
   border-bottom: 1px solid rgba(77, 77, 77, 0.331);
   border-right: 1px solid rgba(77, 77, 77, 0.331);
   border-left: 1px solid rgba(77, 77, 77, 0.331);
+}
+
+/* para los botones de sintesis te voz */
+ 
+
+.imagenes-central .izquierda .group_buttons,
+.imagenes-central .centro .group_buttons,
+.imagenes-central .derecha .group_buttons
+{
+  width: 100%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mat-icon{
+  height:40px !important;
+  width:150% !important;
+  font-size:40px !important;
+  color: white;
+  background-color: #5878ca;
+  border-radius: 100px 100px 100px 100px; 
+}
+.imagenes-central .izquierda .buttons,
+.imagenes-central .centro .buttons,
+.imagenes-central .derecha .buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: baseline;
+}
+.imagenes-central .izquierda .buttons p,
+.imagenes-central .centro .buttons p,
+.imagenes-central .derecha .buttons p{
+  font-family: cursive;
+  font-size: 1vw;
+  font-weight: 00;
+  margin-left: 10%;
+  color: #7177E7;
+  text-align: center;
+  margin-top: 10%;
+  width: 1%;
 }

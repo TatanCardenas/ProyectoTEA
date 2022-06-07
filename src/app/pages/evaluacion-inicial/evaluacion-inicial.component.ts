@@ -10,6 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { Usuario } from 'src/app/_model/Usuario';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsuarioService } from 'src/app/_service/usuario.service';
 
 @Component({
   selector: 'app-evaluacion-inicial',
@@ -23,6 +24,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
 
   //DATOS DEL USUARIO
   public usuario = new Usuario();
+  public nombreDocente;
   //----------------------------------------------------
   //RESULTADOS
   //almacenamiento de los datos de los servicios (dinamico, cambia dependiendo el servicio solicitado)
@@ -106,12 +108,25 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
     //router para redireccion
     private router: Router,
     //mensaje emergente
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private usuarioService: UsuarioService,
   ) {}
 
   ngOnInit(): void {
     //carga datos de usuario por sesion
     this.datosSesion();
+    console.log("nombre ",this.usuario)
+    if(this.usuario.tipo_usuario_id==1){
+      this.usuarioService.datosDocente(this.usuario.numero_documento.toString()).subscribe(datosDocente=>{
+        this.nombreDocente = datosDocente.nombre.toLocaleUpperCase();
+      })
+    }else if(this.usuario.tipo_usuario_id==3){
+      this.usuarioService.datosPaciente(this.usuario.numero_documento.toString()).subscribe(datosDatopaciente=>{
+        this.usuarioService.datosDocente(datosDatopaciente.documento_docente).subscribe(datosDocente=>{
+          this.nombreDocente = datosDocente.nombre.toLocaleUpperCase();
+        })
+      })
+    }
     //inicializa las informacion de la actividad informativa
     this.buildFrom();
     //inicializa el video
@@ -664,7 +679,9 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       const helper = new JwtHelperService();
       let token = sessionStorage.getItem(environment.TOKEN);
       const decodedToken = helper.decodeToken(token);
+      console.log(decodedToken)
       this.usuario.numero_documento = decodedToken.Usuario;
+      this.usuario.tipo_usuario_id = decodedToken.Rol;
     } catch (e) {
       //ajuste botones
       this.primerBoton = false;

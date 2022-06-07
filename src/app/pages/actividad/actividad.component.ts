@@ -52,13 +52,10 @@ export class ActividadComponent implements OnInit {
       this.actividad.Tipo_actividad = 2;
     }
     await this.delay(1500);
-    console.log("actividad ", this.actividad.Tipo_actividad)
   }
 
 
   enviarDatos() {
-    console.log("aca esta", this.speech.text)
-    console.log("aca esta2", typeof(this.speech.text))
     if (this.speech.text != "" && this.speech.text !== undefined &&this.speech.text != "undefined" &&this.speech.text != " ") {
       this.actividadRelizada = new Actividad();
       this.estudianteRealizador = new PacienteScoreJSon();

@@ -8,33 +8,56 @@
                         <h1>Actividad</h1>
                     </div>
                 </div>
-
                 <div class="imagenes-principal" *ngIf="principal==true">
                     <div class="imagenes-central">
                         <div class="izquierda">
-                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[0]" (click)='ColocarImagen(0)' alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[0]"
+                                    (click)='ColocarImagen(0)' alt="">
                                 <div class="texto">
                                     <p>{{textosSeleccionadosPECS[0]}}</p>
+                                </div>
+                                <div class="group_buttons">
+                                    <div class="buttons">
+                                        <button mat-button id="basic" type="submit"(click)="reproducirPalabra(0)">
+                                            <mat-icon color="white">music_note</mat-icon>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="centro">
-                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[1]" (click)='ColocarImagen(1)' alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[1]"
+                                    (click)='ColocarImagen(1)' alt="">
                                 <div class="texto">
                                     <p>{{textosSeleccionadosPECS[1]}}</p>
+                                </div>
+                                <div class="group_buttons">
+                                    <div class="buttons">
+                                        <button mat-button id="basic" type="submit"(click)="reproducirPalabra(1)">
+                                            <mat-icon color="white">music_note</mat-icon>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="derecha">
-                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[2]" (click)='ColocarImagen(2)' alt="">
+                            <div class="img"><img id="brightness-on" [src]="imagenesSeleccionadasPECS[2]"
+                                    (click)='ColocarImagen(2)' alt="">
                                 <div class="texto">
                                     <p>{{textosSeleccionadosPECS[2]}}</p>
+                                </div>
+                                <div class="group_buttons">
+                                    <div class="buttons">
+                                        <button mat-button id="basic" type="submit"(click)="reproducirPalabra(2)">
+                                            <mat-icon color="white">music_note</mat-icon>
+                                        </button>   
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="imagenes-secundaria" *ngIf="principal==false">
                     <div class="imagenes-superior">
                         <div class="izquierda">
