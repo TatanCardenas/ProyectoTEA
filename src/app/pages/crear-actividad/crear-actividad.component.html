@@ -65,12 +65,21 @@
           <mat-form-field appearance="outline" class="tamano">
             <mat-label>TEXTO DE LA ACTIVIDAD DE IMITACIÓN </mat-label>
             <input matInput placeholder="El arbol es verde" formControlName="contenido_actividad" class="formu">
+            <mat-error *ngIf="actividadTexto.get('contenido_actividad').hasError('required')">
+              Ingrese los datos solicitados
+            </mat-error>
+            <mat-error *ngIf="actividadTexto.get('contenido_actividad').hasError('minlength')">
+              El texto ingresado es muy corto
+            </mat-error>
+            <mat-error *ngIf="actividadTexto.get('contenido_actividad').hasError('maxlength')">
+              El texto ingresado es muy grande
+            </mat-error>
           </mat-form-field>
         </div>
       </form>
 
       <div class="campo_texto">
-        <button mat-raised-button [disabled]="frmActividad.invalid" color="primary"
+        <button mat-raised-button [disabled]="frmActividad.invalid || frmTexto.invalid" color="primary"
           (click)="agregarActividad($event)">Agregar
           <mat-icon>bookmark_add</mat-icon>
         </button>
