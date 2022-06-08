@@ -158,8 +158,8 @@ export class RegistrarComponent implements OnInit {
           (err) => {
             if (err.status == 409) {
               this.openSnackBar('Ya existe este usuario');
-            } else {
-              this.openSnackBar(err);
+            } else if(err.status == 400) {
+              this.openSnackBar('Antes de registrarte como docente compra licencia');
             }
           }
         );
