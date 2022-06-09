@@ -17,7 +17,6 @@ import { MatInputModule } from '@angular/material/input';
 import { JwtModule } from '@auth0/angular-jwt';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
-import { EnlazarNinoComponent } from './pages/enlazar-nino/enlazar-nino.component';
 import { EnlaceConElPacienteComponent } from './pages/enlace-con-el-paciente/enlace-con-el-paciente.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { Not404Component } from './pages/not404/not404.component';
@@ -54,7 +53,6 @@ import { NuevaClaveComponent } from './pages/nueva-clave/nueva-clave.component';
     LoginComponent,
     InicioComponent,
     ActividadComponent,
-    EnlazarNinoComponent,
     EnlaceConElPacienteComponent,
     PerfilComponent,
     Not404Component,

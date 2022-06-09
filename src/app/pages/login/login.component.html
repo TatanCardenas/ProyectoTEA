@@ -1,11 +1,11 @@
 <mat-card>
-  <mat-card-title>INGRESA</mat-card-title>
+  <mat-card-title>INGRESAR</mat-card-title>
   <mat-card-content>
     <div class="total">
       <form [formGroup]="formul" class="form-inline">
         <p>
           <mat-form-field>
-            <input type="text" matInput placeholder="Numero de documento" formControlName="documento" />
+            <input type="text" matInput placeholder="Número de documento" formControlName="documento" />
             <mat-hint *ngIf="formul.get('documento').errors && formul.get('documento').touched">
               <p *ngIf="formul.get('documento').hasError('required')">
                 *Se requiere este campo
@@ -43,11 +43,11 @@
           </mat-form-field>
         </p>
         <button type="submit" mat-raised-button color="primary" [disabled]="formul.invalid"
-          (click)="ingresar($event)">Ingresar</button>
+          (click)="ingresar($event)">INGRESAR</button>
 
       </form>
       <div style="text-align: center;">
-        <a href="recuperarClave">¿Olividaste tu contraseña?</a>
+        <a href="recuperarClave">¿Olvidaste tu contraseña?</a>
       </div>
     </div>
   </mat-card-content>

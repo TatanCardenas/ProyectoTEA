@@ -137,7 +137,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
 
   private buildFrom() {
     //carga el modulo actual actividad {0}
-    this.modulo = 'HOLA DOCENTE! Nos da gusto tenerte aquí';
+    this.modulo = '¡HOLA DOCENTE! Nos da gusto tenerte aquí';
     //carga variables de la actividad {0}
     this.cargaDeIdentificadores(this.avanceModulo);
     //carga del video actividad {0}
@@ -181,7 +181,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       if (this.avanceActividad_ModuloBandera == false) {
         this.avanceModulo = this.avanceModulo + 1;
         this.modulo =
-          'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
+          'Módulo ' + this.avanceModulo + '.' + this.avanceActividad;
         switch (this.avanceModulo) {
           case 1: {
             //ciencia
@@ -222,7 +222,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       } else if (this.avanceActividad_ModuloBandera == true) {
         this.avanceActividad = this.avanceActividad + 1;
         this.modulo =
-          'Modulo ' + this.avanceModulo + '.' + this.avanceActividad;
+          'Módulo ' + this.avanceModulo + '.' + this.avanceActividad;
         switch (this.avanceModulo) {
           case 1: {
             //ciencias
@@ -435,7 +435,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       case 0:
         this.dynamicIdMateria = 'inicial';
         this.dynamicIdActividad = 'inicial';
-        this.tituloEvaluacion = 'EVALUACION INICIAL';
+        this.tituloEvaluacion = 'EVALUACIÓN INICIAL';
         break;
       case 1:
         this.dynamicIdActividad = 'ciencia';
@@ -445,7 +445,7 @@ export class EvaluacionInicialComponent implements OnInit, PopupComponent {
       case 2:
         this.dynamicIdActividad = 'matematicas';
         this.dynamicIdMateria = 'matematicas';
-        this.tituloEvaluacion = 'MATEMATICAS';
+        this.tituloEvaluacion = 'MATEMÁTICAS';
         break;
       case 3:
         this.dynamicIdActividad = 'comunicativas';

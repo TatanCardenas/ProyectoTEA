@@ -86,7 +86,7 @@ export class PanelGraficasResultadosComponent {
               new Date(b.Fecha.toString()).getTime()
           );
           data.forEach((element) => {
-            this.moduls.add('modulo ' + element.Modulo);
+            this.moduls.add('módulo ' + element.Modulo);
           });
           this.moduls.forEach((element) => {
             let cantidadRepetModulos = data.filter(
